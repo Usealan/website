@@ -10,3 +10,5 @@ sass:
   style: compressed
 minima:
   date_format: "%b %-d, %Y"
+sass:
+  style: compressed
