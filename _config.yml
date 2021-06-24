@@ -1,0 +1,12 @@
+title: ALAN
+timezone: UTC
+port: 2000
+markdown: kramdown
+theme: minima
+exclude:
+- Gemfile
+- Gemfile.lock
+sass:
+  style: compressed
+minima:
+  date_format: "%b %-d, %Y"
