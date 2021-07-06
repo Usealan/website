@@ -13,7 +13,7 @@ body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-
 .table { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: table; padding: 0; }
 .table-cell { display: table-cell; vertical-align: middle; }
 .container { position: relative; padding: 0 20px; width: 100%; max-width: 1024px; margin: 0 auto; }
-.header { position: relative; line-height: 1; font-weight: bold; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.075); margin: 0 0 30px; font-size: 0; }
+.header { position: relative; line-height: 1; font-weight: bold; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.075); margin: 0 0 40px; font-size: 0; }
 .header .nav { position: absolute; font-size: 15px; right: 20px; top: 50%; transform: translateY(-50%); font-size: 17px; }
 .header .nav a { color: white; text-decoration: none; font-weight: 600; }
 .header .nav a.button {border: 1px solid rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 6px; }
