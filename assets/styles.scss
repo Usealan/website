@@ -62,13 +62,15 @@ body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-
   .logo { font-size: 30px; }
   .hero { padding: 0 20px 20px; }
   .hero h1 { font-size: 32px; text-align: center; margin: 0 auto 30px; max-width: 320px; }
-  .hero p.intro { font-size: 17px; padding-top: 10px; text-align: center; margin: 0 auto 20px; }
+  .hero p.intro { font-size: 17px; padding-top: 10px; text-align: center; margin: 0 auto 20px; max-width: 330px; }
   .hero-cta { text-align: center; padding: 0 0 20px; }
   .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto 20px; }
   .block { padding: 40px 0; }
-  .block h2 { font-size: 24px; max-width: 320px; margin: 0 0 20px; }
+  .block .container { max-width: 360px; }
+  .block h2 { font-size: 24px; line-height: 1.4; max-width: 320px; margin: 0 0 20px; }
   .block p { font-size: 16px; }
   .footer { padding: 40px 0; }
+  .footer .container { max-width: 360px; }
   .footer p { display: block; font-size: 17px; margin: 0 0 10px; }
   .footer p:last-child { float: none; padding-top: 15px; margin: 30px 0 -10px; border-top: 1px solid rgba(255,255,255,0.1); }
 }
