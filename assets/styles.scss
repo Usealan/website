@@ -9,7 +9,7 @@ $blue: #5268F2;
 $black: #222222;
 ::selection { background: $blue; color: #FFFFFF; text-shadow: none; }
 
-body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 18px; line-height: 1.8; }
+body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; }
 .table { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: table; padding: 0; }
 .table-cell { display: table-cell; vertical-align: middle; }
 .container { position: relative; padding: 0 20px; width: 100%; max-width: 1024px; margin: 0 auto; }
@@ -44,10 +44,10 @@ body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-
 .imessage p a { text-decoration: none; color: inherit; pointer-events: none; }
 .clear { clear: both; }
 
-.block { background: white; color: #333333; padding: 50px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.block { background: white; color: #333333; padding: 80px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
 .block .container { max-width: 660px; }
 .block:last-child { border-bottom: 0 none; }
-.block h2 { font-size: 30px; line-height: 1.2; margin: 0 0 30px; }
+.block h2 { font-size: 40px; line-height: 1.3; margin: 0 0 30px; }
 .block p { margin: 0 0 20px; max-width: 600px; }
 .block p:last-child { margin: 0; }
 
@@ -65,9 +65,9 @@ body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-
   .hero p.intro { font-size: 17px; padding-top: 10px; text-align: center; margin: 0 auto 20px; max-width: 330px; }
   .hero-cta { text-align: center; padding: 0 0 20px; }
   .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto 20px; }
-  .block { padding: 40px 0; }
+  .block { padding: 50px 0; }
   .block .container { max-width: 360px; }
-  .block h2 { font-size: 24px; line-height: 1.4; max-width: 320px; margin: 0 0 20px; }
+  .block h2 { font-size: 28px; line-height: 1.3; max-width: 320px; margin: 0 0 20px; }
   .block p { font-size: 16px; }
   .footer { padding: 40px 0; }
   .footer .container { max-width: 360px; }
