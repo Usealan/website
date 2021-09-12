@@ -16,7 +16,7 @@ body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-
 .header { position: relative; line-height: 1; font-weight: bold; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.075); margin: 0 0 40px; font-size: 0; }
 .header .nav { position: absolute; font-size: 15px; right: 20px; top: 50%; transform: translateY(-50%); font-size: 17px; }
 .header .nav a { color: white; text-decoration: none; font-weight: 600; }
-.header .nav a.button {border: 1px solid rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 6px; }
+.header .nav a.button {border: 1px solid rgba(255,255,255,0.4); padding: 7px 15px; border-radius: 6px; }
 .logo { font-size: 40px; display: inline-block; color: inherit; text-decoration: none; }
 .logo img { float: left; width: auto; height: 40px; }
 .hero { padding: 60px 20px 20px; min-height: 645px; }
@@ -57,12 +57,11 @@ body { background: $blue; color: white; font-family: "Inter", system-ui, -apple-
 .footer p:last-child { float: right; margin: 0; font-weight: 500; }
 
 @media screen and (max-width: 979px) {
-  .nav, .hero-cta { display: none; }
-  .header { margin: 0 0 20px; text-align: center; }
+  .header { margin: 0 0 30px; }
   .logo { font-size: 30px; }
   .hero { padding: 0 20px 20px; }
-  .hero h1 { font-size: 32px; text-align: center; margin: 0 auto 30px; max-width: 320px; }
-  .hero p.intro { font-size: 17px; padding-top: 10px; text-align: center; margin: 0 auto 20px; max-width: 330px; }
+  .hero h1 { font-size: 34px; line-height: 1.15; text-align: center; margin: 0 auto 30px; max-width: 280px; }
+  .hero p.intro { font-size: 18px; padding-top: 10px; text-align: center; margin: 0 auto 20px; max-width: 320px; }
   .hero-cta { text-align: center; padding: 0 0 20px; }
   .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto 20px; }
   .block { padding: 50px 0; }
