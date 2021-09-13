@@ -7,11 +7,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { overflow: hidden; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; }
+      body { overflow: hidden; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; }
       .devices-wrapper { position: relative; width: 1336px; height: 856px; top: 50%; left: 50%; z-index: 100; transform: translate(-50%, -50%); transform-origin: center center; }
-      .device { background: linear-gradient(rgb(247, 251, 254) 0%, rgb(221, 226, 232) 100%); box-shadow: rgb(255, 255, 255) 0px 4px 7px 1px inset, rgba(187, 200, 225, 0.34902) 0px -5px 20px inset, rgba(40, 39, 66, 0.137255) 0px 2px 6px, rgba(40, 39, 66, 0.0588235) 0px 10px 20px, rgba(0, 0, 0, 0.14902) 0px 36px 79px -1px; position: absolute; top: 0; left: 0; }
+      .device { background: linear-gradient(rgb(247, 251, 254) 0%, rgb(221, 226, 232) 100%); box-shadow: rgb(255, 255, 255) 0px 4px 7px 1px inset, rgba(187, 200, 225, 0.34902) 0px -5px 20px inset, rgba(40, 39, 66, 0.137255) 0px 2px 6px, rgba(40, 39, 66, 0.0588235) 0px 10px 20px; position: absolute; top: 0; left: 0; }
       .device .mask { position: relative; height: 100%; width: 100%; box-shadow: rgba(107, 124, 147, 0.45098) -1px 1px 4px; overflow: hidden; border-radius: 8px; background: white; }
-      .laptop { width: 1336px; height: 856px; background: linear-gradient(180deg,#f7fbfe 0,#dde2e8); border-radius: 18px; position: relative; box-shadow: inset 0 2px 7px 1px hsla(0,0%,100%,.5), inset 0 -5px 20px rgba(187,200,225,.35), 0 2px 6px rgba(40,39,66,.14), 0 10px 20px rgba(40,39,66,.06), 76px 75px 169px -35px rgba(0,0,0,.4); padding: 28px; margin: 0 auto 90px; }
+      .laptop { width: 1336px; height: 856px; background: linear-gradient(180deg,#f7fbfe 0,#dde2e8); border-radius: 18px; position: relative; box-shadow: inset 0 2px 7px 1px hsla(0,0%,100%,.5), inset 0 -5px 20px rgba(187,200,225,.35), 0 2px 6px rgba(40,39,66,.14), 0 10px 20px rgba(40,39,66,.06); padding: 28px; margin: 0 auto 90px; }
       .laptop:before, .laptop:after { content: ''; position: absolute; border-radius: 3px 3px 0 0; width: calc(100% + 200px); height: 10px; background: linear-gradient(90deg,#f6fafd 0,#dde2e9 6%,#f6fafd 15%,#f6fafd 42%,#e6e6e6 0,#f6fafd 45%,#f6fafd 53%,#e6e6e6 56%,#f6fafd 0,#f6fafd 85%,#dde2e9 94%,#f6fafd); left: -100px; bottom: -5px; }
       .laptop:after { height: 6px; bottom: -11px; border-radius: 0 0 40px 40px; background: #dde2e9; box-shadow: inset 0 -25px 10px -20px rgba(0,0,0,.5); }
       .laptop .mask { height: 100%; width: 100%; overflow: hidden; border-radius: 8px; box-shadow: -1px 1px 4px rgba(107,124,147,.45); background: #fff; }
