@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+    <title>Admin</title>
+    <meta name="theme-color" content="#333333">
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Merriweather:300,400,700,900|Merriweather+Sans:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:300,400,700,900|Bungee+Inline:400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.1.19/css/materialdesignicons.min.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-text-size-adjust: none; }
+      body { background: lightblue; background: rgba(254, 207, 75, 0.4); background: rgba(144, 238, 144, 0.6); background: #CDD9E4; font-family: -apple-system, BlinkMacSystemFont, 'Roboto'; color: #323648; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+      p { margin: 0 0 20px; }
+      a { color: #08c; text-decoration: underline; }
+      .clear { clear: both; }
+      .browser { box-shadow: 0 8px 24px 0 rgba(0,0,0,.1); background: white; border-radius: 6px; position: relative; top: 50%; left: 50%; width: 1180px; height: 700px; transform: translate(-50%, -50%); transform-origin: center center; overflow: hidden; }
+      .browser:before { content: ""; height: 30px; display: block; width: 100%; position: relative; background: #FAFAFA; border-radius: 6px 6px 0 0; }
+      .browser:after { content: ""; width: 12px; height: 12px; position: absolute; border-radius: 50%; top: 10px; left: 8px; background: #FC605C; box-shadow: 18px 0 0 #FDBC40, 36px 0 0 #34C749; }
+      .wrapper { position: absolute; top: 30px; left: 0; width: 100%; height: calc(100% - 30px); overflow: hidden; font-size: 18px; line-height: 1.7; }
+      .container { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; }
+      .header { color: white; background: #5F6EEE; height: 80px; text-align: right; line-height: 80px; }
+      .header img { height: 40px; margin: 20px 0; width: auto; float: left; }
+      .subheader { color: white; background: rgba(95,110,238,0.9); }
+      .subheader .link { display: inline-block; padding: 15px 20px 15px 0; font-size: 17px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
+      .subheader .link.underlined { text-decoration: underline; }
+      h2 { padding: 30px 0; text-transform: uppercase; letter-spacing: 1px; font-size: 23px; position: relative; }
+      select { position: absolute; top: 40px; right: 0; }
+      select.first { right: 200px; }
+      .blocks-container { font-size: 0; width: calc(100% + 30px); }
+      .block { position: relative; font-size: 15px; display: inline-block; box-shadow: 0 0 8px rgba(0,0,0,0.1); border-radius: 7px; padding: 15px; width: calc(25% - 30px); margin: 0 30px 30px 0; }
+      .block .number { position: absolute; top: 18px; right: 20px; text-align: right; font-size: 28px; line-height: 1; font-weight: bold; }
+      .block .label { position: absolute; top: 50px; right: 20px; line-height: 1; padding: 5px 0; font-size: 18px; font-weight: 500; }
+      .block .mdi { line-height: 1; font-size: 40px; padding: 0 0 35px; border-bottom: 1px solid rgba(0,0,0,0.1); margin: 0 0 15px; color: #5F6EEE; }
+      .block .comment { opacity: 0.7; letter-spacing: 0.2px; }
+    </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="browser">
+      <!-- Article -->
+      <div class="wrapper">
+        <div class="header">
+          <div class="container">
+            <img src="/assets/images/logotype-white.svg">
+            <div class="nav">Welcome <strong>ALAN</strong> | Change Password | Logout</div>
+          </div>
+        </div>
+        <div class="subheader">
+          <div class="container">
+            <div class="link underlined">Dashboard</div>
+            <div class="link">My Account</div>
+            <div class="link">Text</div>
+            <div class="link">Integrations</div>
+            <div class="link">My Info</div>
+            <div class="link">Calendar</div>
+          </div>
+        </div>
+        <div class="container">
+          <h2>Dashboard</h2>
+          <select class="first">
+            <option selected>All Funnels</option>
+          </select>
+          <select>
+            <option selected>Aug 1, 2020 - Aug 31, 2021</option>
+          </select>
+          <div class="blocks-container">
+            <div class="block">
+              <div class="mdi mdi-contacts"></div>
+              <div class="number">3,102</div>
+              <div class="label">Leads</div>
+              <div class="comment">Total number of leads</div>
+            </div>
+            <div class="block">
+              <div class="mdi mdi-calendar-blank"></div>
+              <div class="number">2,171</div>
+              <div class="label">Scheduled</div>
+              <div class="comment">69% of leads</div>
+            </div>
+            <div class="block">
+              <div class="mdi mdi-calendar-plus"></div>
+              <div class="number">2,128</div>
+              <div class="label">Past Scheduled</div>
+              <div class="comment">98% of scheduled</div>
+            </div>
+            <div class="block">
+              <div class="mdi mdi-eye"></div>
+              <div class="number">1,303</div>
+              <div class="label">Showed</div>
+              <div class="comment">61% of past scheduled</div>
+            </div>
+            <div class="block">
+              <div class="mdi mdi-check-circle"></div>
+              <div class="number">1,290</div>
+              <div class="label">Confirmed</div>
+              <div class="comment">99% of showed</div>
+            </div>
+            <div class="block">
+              <div class="mdi mdi-shopping"></div>
+              <div class="number">808</div>
+              <div class="label">Sold</div>
+              <div class="comment">62% of showed</div>
+            </div>
+            <div class="block">
+              <div class="mdi mdi-cash"></div>
+              <div class="number">$201,132</div>
+              <div class="label">Amount</div>
+              <div class="comment">Contract Value: $168,951</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function fitPreview() {
+        width = $(window).width();
+        height = $(window).height();
+        if ( width < 1280 || height < 800 ) {
+          scale = Math.min(
+            $(window).width() / 1280,    
+            $(window).height() / 800
+          );
+          $(".browser").css({
+            transform: "translate(-50%, -50%) " + "scale(" + scale + ")"
+          });
+        } else {
+          $(".browser").css({
+            transform: "translate(-50%, -50%) " + "scale(1)"
+          });
+        }
+      };
+      fitPreview();
+      $(window).on('resize', function(){
+        fitPreview();
+      });
+    </script>
+  </body>  
+</html>
