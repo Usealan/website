@@ -1,121 +1,58 @@
 ---
 permalink: /
+layout: default
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
-    <!-- Start Special Meta Tags -->
-    <title>ALAN</title>
-    <meta property="og:title" content="">
-    <meta name="description" content="">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-    <meta property="twitter:card" content="summary_large_image">  
-    <meta name="theme-color" content="#5F6EEE">
-    <!-- End Special Meta Tags -->    
-    <link rel="apple-touch-icon" href="/assets/images/icon.png">
-    <link rel="shortcut icon" href="/assets/images/icon.ico" />
-    <link rel="stylesheet" href="/assets/styles.css">
-  </head>
-  <body>
-    <div class="top-block">
-      <div class="header">
-        <div class="container">
-          <a class="logo" href="/">
-            <img src="/assets/images/logotype-white.svg"></a>
-          </a>
-          <div class="nav">
-            <a class="button" href="https://app.usealan.com/login">Sign In</a>
-          </div>
-        </div>
-      </div>
-      <div class="hero container">
-        <h1>The last mile of lead generation.</h1>
-        <div class="imessage">
-          <p class="from-them">2pm works well for me.</p>
-          <p class="from-me">That's awesome, looking forward to meeting you! Here's our address:</p>
-          <p class="from-me with-attachment">
-            <span class="image"><img src="/assets/images/map.jpg"></span>
-            <span class="label">205 W 9th St, Austin, TX 78701 - Google Maps</span>
-            <span class="url">maps.google.com</span>
-          </p>
-          <p class="from-them">Thanks! That's actually very close to my place.</p>
-          <p class="from-me">See you tomorrow!</p>
-          <div class="clear"></div>
-        </div>
-        <p class="intro">Prospecting leads has never been easier! Automatically nurture leads via text message and turn them into potential customers. Only pay when a lead actually shows up in-person or virtually.</p>
-        <div class="hero-cta">
-          <a class="button primary" href="/sign-up/">Apply Now</a>
-          <a class="button go-to-main-block" href=".">Learn More</a>
-        </div>
-      </div>
+<div class="colored">
+
+  {%- include header.html -%}
+
+  <div class="hero container">
+    <h1>The last mile of lead generation.</h1>
+    <div class="imessage">
+      <p class="from-them">2pm works well for me.</p>
+      <p class="from-me">That's awesome, looking forward to meeting you! Here's our address:</p>
+      <p class="from-me with-attachment">
+        <span class="image"><img src="/assets/images/map.jpg"></span>
+        <span class="label">205 W 9th St, Austin, TX 78701 - Google Maps</span>
+        <span class="url">maps.google.com</span>
+      </p>
+      <p class="from-them">Thanks! That's actually very close to my place.</p>
+      <p class="from-me">See you tomorrow!</p>
+      <div class="clear"></div>
     </div>
-    <div class="block main-block">
-      <div class="container">
-        <div class="copy">
-          <h5>Your leads, delivered</h5>
-          <h2>AI driven, but powered by real people.</h2>
-          <p>You are great at running Facebook and Google Ads to get leads for your customers, but getting them to actually show up is harder than ever. As an agency, half of the leads you generate for your customers are wasted.</p>
-          <p>ALAN uses artificial intelligence plus real humans to make 100x more leads to actually show up in person or virtually.</p>
-          <p>ALAN is last-touch attribution making sure that you get the credit for your clients growing business.</p>
-          <p>Reduce your cost per lead and make more money for your customers than they are spending.</p>
-        </div>
-      </div>
-      <div class="mock">
-        <iframe src="/mocks/admin-preview.html"></iframe>
-      </div>
+    <p class="intro">Delivering leads has never been easier! With ALAN, you can automatically nurture leads via text message and turn them into potential customers. Only pay when a lead actually shows up in-person or virtually.</p>
+    <div class="hero-cta">
+      <a class="button primary" href="/sign-up/">Apply Now</a>
+      <a class="button go-to-main-block" href=".">Learn More</a>
     </div>
-    <div class="block">
-      <div class="container">
-        <h2>What is ALAN?</h2>
-        <ul>
-          <li>An optimized landing page that has successfully converted over 400,000 leads.</li>
-          <li>Communicates with your prospects over SMS, E-mail, WhatsApp and Chat</li>
-          <li>Integrates directly with your customer’s calendar to automatically book appointments</li>
-          <li>Machine-learning based scripts create customized conversation funnels with 120% better accuracy</li>
-          <li>Augmenting the ALAN Artificial Intelligence, we use live operators to ensure your leads show up to booked appointments</li>
-          <li>You only pay when customers actually show up to appointments</li>
-        </ul>
-      </div>
+  </div>
+</div>
+<div class="block main-block">
+  <div class="container">
+    <div class="copy">
+      <h5>Your leads, delivered</h5>
+      <h2>AI driven, but powered by real people.</h2>
+      <p>You are great at running Facebook and Google Ads to get leads for your customers, but getting them to actually show up is harder than ever. As an agency, half of the leads you generate for your customers are wasted.</p>
+      <p>ALAN uses artificial intelligence plus real humans to make 100x more leads to actually show up in person or virtually.</p>
+      <p>ALAN is last-touch attribution making sure that you get the credit for your clients growing business.</p>
+      <p>Reduce your cost per lead and make more money for your customers than they are spending.</p>
     </div>
-<!--
-    <div class="block">
-      <div class="container">
-        <h2>The Problem</h2>
-        <p>Names in a spreadsheet don't pay the bills for your clients, unless they show up to an initial introductory discussion to get to know them and their business. Unfortunately, less than 10% of leads ever make it to this step which represents one of the highest ROI improvements a service business can generate.</p>
-      </div>
-    </div>
-    <div class="block">
-      <div class="container">
-        <h2>The Solution</h2>
-        <p>ALAN automates the process of getting leads to show up for appointments, leveraging cutting edge data science to identify patterns and customize messaging to increase likelihood the prospect will show.</p>
-        <p>It replaces the need to hire, train, coach, manage, and pay someone to fulfill the same function - and it never takes a day off or calls in sick.</p>
-        <p>ALAN offers each user cost savings as a baseline with upside of potential out-performance as evidenced to date (30%+ lead to show rates).</p>
-        <p>Join hundreds of other marketing agencies that have easily implemented ALAN as a new revenue stream, helping them deliver value to their clients and competitive moat for themselves.</p>
-        <p>To put a cherry on the top, included with ALAN is some of the best and time-tested sales training on the market to help you close those leads at a higher average sale ($650+ up front) and turn them into long term customers.</p>
-      </div>
-    </div>
-    <div class="block">
-      <div class="container">
-        <h2>Text > Email</h2>
-        <p>ALAN takes advantage of the ease of SMS (vs. email) to meet your client where he/she/they are at.</p>
-      </div>
-    </div>
--->
-    <div class="footer">
-      <div class="container">
-        <p><a href="/privacy/" target="_blank">Privacy</a></p>
-        <p><a href="https://www.facebook.com/usealanapp/" target="_blank">Facebook</a></p>
-        <p><a href="https://www.linkedin.com/company/usealan" target="_blank">LinkedIn</a></p>
-        <p><a href="mailto:support@usealan.com" target="_blank">Contact Us</a></p>
-        <p>© 2021 ALAN Deep Learning Inc</p>
-      </div>
-    </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/scripts.js"></script>
-  </body>
-</html>
+  </div>
+  <div class="mock">
+    <iframe src="/mocks/admin-preview.html"></iframe>
+  </div>
+</div>
+<div class="block">
+  <div class="container">
+    <h2>What is ALAN?</h2>
+    <ul>
+      <li>An optimized landing page that has successfully converted over 400,000 leads.</li>
+      <li>Communicates with your prospects over SMS, E-mail, WhatsApp and Chat</li>
+      <li>Integrates directly with your customer’s calendar to automatically book appointments</li>
+      <li>Machine-learning based scripts create customized conversation funnels with 120% better accuracy</li>
+      <li>Augmenting the ALAN Artificial Intelligence, we use live operators to ensure your leads show up to booked appointments</li>
+      <li>You only pay when customers actually show up to appointments</li>
+    </ul>
+  </div>
+</div>
