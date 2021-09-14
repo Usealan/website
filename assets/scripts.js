@@ -11,3 +11,5 @@ $(".go-to-main-block").on("click", function() {
     scrollTop: $(".main-block").offset().top
   });
 });
+
+$(".fade-in-alt").fadeIn();
