@@ -126,7 +126,8 @@ ul li { padding: 0 0 10px 5px; }
   .hero .button { margin: 0 10px 20px; font-size: 16px; line-height: 46px; min-width: 156px; }
   .hero .button.primary { margin-bottom: 20px; }
   .hero-cta { text-align: center; padding: 0; margin: 0 -10px 20px; }
-  .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto -10px; animation-name: fade-in-animation; }
+  .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto -10px; animation-name: fade-in-animation; max-width: 350px; }
+  .imessage p { max-width: 85%; }
   .block { padding: 50px 0; }
   .block .container { max-width: 600px; }
   .main-block .copy { width: 100%; }
