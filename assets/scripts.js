@@ -13,3 +13,13 @@ $(".go-to-main-block").on("click", function() {
 });
 
 $(".fade-in-alt").fadeIn();
+
+setTimeout(function(){
+  $(".from-them-one .dots").remove();
+  $(".from-them-one .text").show();
+}, 3000);
+
+setTimeout(function(){
+  $(".from-them-two .dots").remove();
+  $(".from-them-two .text").show();
+}, 9500);
