@@ -40,7 +40,7 @@ body { color: #333333; font-family: "Inter", system-ui, -apple-system, BlinkMacS
 .ctas .button.primary { color: white; background: var(--color-green); }
 .ctas .button:hover { text-decoration: none; transform: translateY(-1px);  box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 .imessage { position: absolute; top: 0; right: 30px; width: 100%; margin: 0 auto; background: white; max-width: 400px; margin: 0 auto; overflow: hidden; padding: 20px 20px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); border-radius: 20px; font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 17px; touch-action: pan-x pan-y; transform: rotate(2deg); user-select: none; animation-name: fade-in-animation-imessage; }
-.imessage { position: absolute; top: 0; right: 30px; width: 100%; margin: 0 auto; background: white; max-width: 400px; margin: 0 auto; overflow: hidden; padding: 20px 20px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); border-radius: 20px; font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 17px; touch-action: pan-x pan-y; transform: rotate(2deg); user-select: none; }
+.imessage { position: absolute; top: 0; right: 30px; width: 100%; margin: 0 auto; background: white; max-width: 400px; margin: 0 auto; overflow: hidden; padding: 20px 20px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); border-radius: 20px; font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 17px; touch-action: pan-x pan-y; user-select: none; }
 .imessage p { max-width: 80%; word-wrap: break-word; margin: 0 0 12px; line-height: 24px; position:relative; padding:10px 20px; border-radius:25px; float: left; clear: both; display: inline-block; }
 .imessage p:before, p:after { content:""; position:absolute; bottom:-2px; height:20px; }
 .imessage .from-me { color:white; background:#5f92ee; float: right; }
@@ -116,7 +116,7 @@ ul li { padding: 0 0 10px 5px; }
   .hero .button { margin: 0 10px 20px; font-size: 16px; line-height: 46px; min-width: 150px; }
   .hero .button.primary { margin-bottom: 20px; }
   .hero-cta { text-align: center; padding: 0; margin: 0 -10px 20px; }
-  .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto -10px; }
+  .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto -10px; animation-name: fade-in-animation; }
   .block { padding: 50px 0; }
   .block .container { max-width: 600px; }
   .main-block .copy { width: 100%; }
