@@ -35,7 +35,7 @@ body { color: #333333; font-family: "Inter", system-ui, -apple-system, BlinkMacS
 .hero { padding: 80px 20px 20px; min-height: 645px; }
 .hero ::selection { background: var(--color-black); }
 .hero h1 { font-size: 60px; line-height: 1.15; margin: 0 0 30px; width: 100%; max-width: 500px; }
-.hero p.intro { font-size: 19px; line-height: 1.7; width: 100%; max-width: 490px; margin: 0 0 40px ; }
+.hero p.intro { font-size: 19px; line-height: 1.7; width: 100%; max-width: 475px; margin: 0 0 40px ; }
 .ctas { font-size: 0; }
 .ctas .button { background: white; color: var(--color-blue); padding: 0 20px; border-radius: 6px; line-height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.2); font-weight: bold; margin: 0 25px 0 0; font-size: 19px; text-decoration: none; display: inline-block; min-width: 180px; text-align: center; letter-spacing: 0.5px; transition: all 0.3s ease; }
 .ctas .button.primary { color: white; background: var(--color-green); }
