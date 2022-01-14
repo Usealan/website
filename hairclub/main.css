@@ -39,10 +39,11 @@ a { color: var(--color-link); }
 .facebook .time { color: #65676B; font-size: 13px; line-height: 16px;}
 .facebook .text { font-size: 15px; line-height: 20px; padding: 0 16px 12px; }
 .facebook .image { position: relative; width: 100%; height: 0; padding: 0 0 52%; display: block; background-size: cover; }
-.facebook .gray { background: #F0F2F5; border-bottom: 1px solid #CED0D4; padding: 12px 45px 12px 16px; }
+.facebook .gray { background: #F0F2F5; border-bottom: 1px solid #CED0D4; padding: 12px 112px 12px 16px; position: relative; }
 .facebook .url { color: #65676B; font-size: 13px; text-transform: uppercase; line-height: 16px; margin: 0 0 5px; }
 .facebook .title { font-size: 17px; line-height: 1.2; font-weight: 600; margin: 0 0 5px; }
 .facebook .description { color: #65676B; font-size: 15px; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.facebook .cta { background: #e4e6eb; position: absolute; right: 0; line-height: 36px; font-weight: 500; border-radius: 6px; padding: 0 12px; font-size: 15px; margin: 0 15px; bottom: 50%; transform: translateY(50%); }
 .facebook .footer { padding: 12px 16px; position: relative; font-size: 15px; line-height: 20px; color: #65676B; margin-bottom: -1px; }
 .facebook .circle { position: relative; display: inline-block; margin-right: -6px; border: 2px solid white; background: white; border-radius: 100%; float: left; height: 18px; transform: translateY(-1px); }
 .facebook .count { float: left; line-height: 20px; margin-left: 10px; }
@@ -64,5 +65,5 @@ a { color: var(--color-link); }
   body { padding: 10px; }
   /* Scene 1 */
   .facebook { max-width: calc(100vw - 20px); }
-  .facebook .gray { padding: 12px 16px; }
+  .facebook .description { font-size: 14px; line-height: 1.3; }
 }
