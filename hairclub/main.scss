@@ -18,8 +18,15 @@ html, body { padding: 0; margin: 0; }
 
 * { user-select: none; box-sizing: border-box; }
 
-body { font-family: "Inter", sans-serif; background: var(--color-background); color: var(--color-text); opacity: 0; transition: 2s opacity ease; }
+body { font-family: "Inter", sans-serif; background: var(--color-background); color: var(--color-text); opacity: 0; transition: 2s all ease; }
 body.loaded { opacity: 1; }
+body .step { display: none; }
+body[data-step="1"] .step[data-step="1"] { display: block; }
+body[data-step="2"] .step[data-step="2"] { display: block; }
+body[data-step="3"] .step[data-step="3"] { display: block; }
+body[data-step="4"] .step[data-step="4"] { display: block; }
+body[data-step="5"] .step[data-step="5"] { display: block; }
+
 a { color: var(--color-link); }
 .center { text-align: center; }
 .relative { position: relative; }
@@ -66,6 +73,8 @@ a { color: var(--color-link); }
 
 /* Step 3 */
 
+// body[data-step="3"] { background: #5F92EE; }
+ 
 .imessage { text-align: left; position: relative; width: 100%; margin: 0 auto; background: white; max-width: 400px; margin: 0 auto; overflow: hidden; padding: 20px 20px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); border-radius: 20px; font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 17px; touch-action: pan-x pan-y; transform: rotate(2deg); user-select: none; height: calc(100% - 20px); max-height: 520px; animation-name: fade-in-animation; overflow-y: auto; }
 .imessage p { max-width: 80%; word-wrap: break-word; margin: 0 0 10px; line-height: 24px; position:relative; padding:10px 20px; border-radius:25px; float: left; clear: both; display: inline-block; }
 .imessage p:before, p:after { content:""; position:absolute; bottom:-2px; height:20px; }

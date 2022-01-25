@@ -31,15 +31,14 @@ $("body").addClass("loaded");
 
 // Step Functions
 
-function stepOne() {  
-  $(".step").hide();
-  $(".step[data-step=1]").show();
+function stepOne() {
   step = "1";
+  $("body").attr("data-step",step);
 }
 
 function stepTwo() {
-  $(".step").hide();
-  $(".step[data-step=2]").show();
+  step = "2";
+  $("body").attr("data-step",step);
   $(".step[data-step=2]").html("\
     <div class='table'>\
       <div class='middle'>\
@@ -60,14 +59,12 @@ function stepTwo() {
       </div>\
     </div>\
   ");
-  step = "2";
 }
 
 function stepThree() {  
-  $(".step").hide();
-  $(".step[data-step=3]").show();
-  
-  
+  step = "3";
+  $("body").attr("data-step",step);
+    
   if ($("#first-name").val()) {
     firstName = $("#first-name").val();
   } else {
@@ -114,9 +111,7 @@ function stepThree() {
       </div>\
     </div>\
   ");
-  
-  step = "3";
-  
+    
   function scrollDown() {
     $(".imessage").animate({scrollTop: $(".imessage")[0].scrollHeight}, 1500);
   }
@@ -157,15 +152,13 @@ function stepThree() {
 }
  
 function stepFour() {   
-  $(".step").hide();
-  $(".step[data-step=4]").show();
   step = "4";
+  $("body").attr("data-step",step);
 }
   
 function stepFive() {  
-  $(".step").hide();
-  $(".step[data-step=5]").show();
   step = "5";
+  $("body").attr("data-step",step);
 }
 
 // Step Triggers
@@ -179,6 +172,7 @@ $(document).on("submit",".step[data-step=2] form",function(e){
   e.preventDefault();
 });
 
+/*
 $(".step[data-step=3]").click(function() {
   stepFour();
 });
@@ -190,3 +184,4 @@ $(".step[data-step=4]").click(function() {
 $(".step[data-step=5]").click(function() {
   stepOne();
 });
+*/
