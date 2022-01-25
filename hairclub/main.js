@@ -48,10 +48,13 @@ function stepTwo() {
             <div class='line-1'>Sign up for a free hair health consultation at Hair Club Austin</div>\
             <div class='line-2'>***LIMITED to the first 15 people! (usually fills in less than 5 days)***</div>\
             <div class='line-3'>Claim your free spot now!</div>\
-            <input type='text' placeholder='Full Name' />\
-            <input type='email' placeholder='Email' />\
-            <input type='phone' placeholder='Phone Number' />\
-            <input type='submit' value='Sign Up'>\
+            <form>\
+              <input type='text' id='first-name' placeholder='First Name' required />\
+              <input type='text' id='last-name' placeholder='Last Name' required />\
+              <input type='email' id='email' placeholder='Email' required />\
+              <input type='phone' id='phone' placeholder='Phone Number' required />\
+              <input type='submit' value='Sign Up'>\
+            </form>\
           </div>\
         </div>\
       </div>\
@@ -63,40 +66,94 @@ function stepTwo() {
 function stepThree() {  
   $(".step").hide();
   $(".step[data-step=3]").show();
+  
+  
+  if ($("#first-name").val()) {
+    firstName = $("#first-name").val();
+  } else {
+    firstName = "John";
+  }
+  
   $(".step[data-step=3]").html("\
     <div class='table'>\
       <div class='middle'>\
         <div class='imessage fade-in' style='animation-delay: 0.8s;'>\
-          <p class='from-them from-them-one typing-indicator fade-in' style='animation-delay: 1s;'>\
+          <p class='from-them timeout-01 typing-indicator fade-in' style='animation-delay: 1s;'>\
             <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>2pm works well for me.</span>\
+            <span class='text'>Hi " + firstName + " 👋<br><br>My name is Stacy from HairClub. I'm seeing you just signed up for a free hair health consultation.</span>\
           </p>\
-          <p class='from-me fade-in' style='animation-delay: 4s;'>That's awesome, looking forward to meeting you! Here's our address:</p>\
-          <p class='from-me with-attachment fade-in' style='animation-delay: 5.5s;'>\
+          <p class='from-them timeout-02 typing-indicator fade-in' style='animation-delay: 3s;'>\
+            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+            <span class='text'>Reply Stop to unsubscribe</span>\
+          </p>\
+          <p class='from-them timeout-03 typing-indicator fade-in' style='animation-delay: 5s;'>\
+            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+            <span class='text'>I don't see you on my schedule. Would you be able to come in soon to see if our services would be a good fit?</span>\
+          </p>\
+          <p class='from-me fade-in' style='animation-delay: 10.5s;'>Sure! Thanks for reaching out.</p>\
+          <p class='from-them timeout-04 typing-indicator fade-in' style='animation-delay: 13s;'>\
+            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+            <span class='text'>Amazing! Are you free on Tuesday, March 10 at 10am?</span>\
+          </p>\
+          <p class='from-them timeout-05 typing-indicator fade-in' style='animation-delay: 17s;'>\
+            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+            <span class='text'>Here's our address:</span>\
+          </p>\
+          <p class='from-them with-attachment fade-in' style='animation-delay: 19s;'>\
             <span class='image'><img src='/assets/images/map.jpg'></span>\
-            <span class='label'>205 W 9th St, Austin, TX 78701 - Google Maps</span>\
+            <span class='label'>8240 N Mopac Expy, Austin, TX 78759 - Google Maps</span>\
             <span class='url'>maps.google.com</span>\
           </p>\
-          <p class='from-them from-them-two typing-indicator fade-in' style='animation-delay: 7s;'>\
+          <p class='from-me fade-in' style='animation-delay: 21s;'>Yes that works great for me.</p>\
+          <p class='from-them timeout-06 typing-indicator fade-in' style='animation-delay: 24s;'>\
             <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>Thanks! That's actually very close to my place 🙌</span>\
+            <span class='text'>" + firstName + ", you are all set for our free hair health consultation! I can’t wait to meet with you on Tuesday, March 10 at 10am. 😀</span>\
           </p>\
-          <p class='from-me fade-in' style='animation-delay: 10.5s;'>Great! See you tomorrow 😀</p>\
           <div class='clear'></div>\
         </div>\
       </div>\
     </div>\
   ");
-  setTimeout(function(){
-    $(".from-them-one .dots").remove();
-    $(".from-them-one .text").show();
-  }, 3000);
+  
+  step = "3";
+  
+  function scrollDown() {
+    $(".imessage").animate({scrollTop: $(".imessage")[0].scrollHeight}, 1500);
+  }
   
   setTimeout(function(){
-    $(".from-them-two .dots").remove();
-    $(".from-them-two .text").show();
-  }, 9500);
-  step = "3";
+    $(".timeout-01 .dots").remove();
+    $(".timeout-01 .text").show();
+  }, 3000);
+  setTimeout(function(){
+    $(".timeout-02 .dots").remove();
+    $(".timeout-02 .text").show();
+  }, 5000);
+  setTimeout(function(){
+    $(".timeout-03 .dots").remove();
+    $(".timeout-03 .text").show();
+  }, 9000);
+  setTimeout(function(){
+    $(".timeout-04 .dots").remove();
+    $(".timeout-04 .text").show();
+  }, 16000);
+  setTimeout(function(){
+    scrollDown();
+  }, 17000);
+  setTimeout(function(){
+    $(".timeout-05 .dots").remove();
+    $(".timeout-05 .text").show();
+  }, 18000);
+  setTimeout(function(){
+    scrollDown();
+  }, 21500);
+  setTimeout(function(){
+    $(".timeout-06 .dots").remove();
+    $(".timeout-06 .text").show();
+  }, 27000);
+  setTimeout(function(){
+    scrollDown();
+  }, 27000);
 }
  
 function stepFour() {   
@@ -117,8 +174,9 @@ $(".step[data-step=1] .facebook").click(function() {
   stepTwo();
 });
 
-$(".step[data-step=2]").click(function() {
+$(document).on("submit",".step[data-step=2] form",function(e){
   stepThree();
+  e.preventDefault();
 });
 
 $(".step[data-step=3]").click(function() {
