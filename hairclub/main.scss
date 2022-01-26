@@ -2,7 +2,7 @@
 ---
 
 @import url("https://rsms.me/inter/inter.css");
-@import url("https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css");
+@import url("https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css");
 
 html, body { padding: 0; margin: 0; }
 
@@ -16,7 +16,7 @@ html, body { padding: 0; margin: 0; }
   --color-border: rgba(0,0,0,0.1);
 }
 
-* { user-select: none; box-sizing: border-box; }
+* { user-select: none; box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
 
 body { font-family: "Inter", sans-serif; background: var(--color-background); color: var(--color-text); opacity: 0; transition: 2s all ease; }
 body.loaded { opacity: 1; }
@@ -26,8 +26,10 @@ body[data-step="2"] .step[data-step="2"] { display: block; }
 body[data-step="3"] .step[data-step="3"] { display: block; }
 body[data-step="4"] .step[data-step="4"] { display: block; }
 body[data-step="5"] .step[data-step="5"] { display: block; }
+h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
 a { color: var(--color-link); }
+.clear { clear: both; }
 .center { text-align: center; }
 .relative { position: relative; }
 .absolute { position: absolute; }
@@ -44,9 +46,14 @@ a { color: var(--color-link); }
 .step h2 { font-size: 30px; }
 .step h2:before { content: attr(data-step) ". ";}
 
-/* Step 1 */
 
-.facebook { text-align: left; cursor: pointer; color: #050505; position: relative; background: white; width: 100%; margin: 0 auto; position: relative; background: white; max-width: 500px; margin: 0 auto; overflow: hidden; padding: 0; border-radius: 20px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); transition: box-shadow 0.3s ease; }
+.options { position: absolute; left: 0; width: 100%; padding: 30px 0 0; margin: -30px 0 0; }
+button { -webkit-appearance: none; appearance: none; outline: 0 none; font-family: inherit; background: white; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 6px; padding: 8px 20px; font-size: 15px; margin: 0 5px 0; min-width: 120px; line-height: 20px; font-weight: 500; cursor: pointer; color: #4b5966; }
+button span.mdi { margin-right: 10px; }
+
+// Step 1
+
+.facebook { text-align: left; cursor: pointer; color: #050505; position: relative; background: white; width: 100%; margin: 0 auto; position: relative; background: white; max-width: 680px; margin: 0 auto; overflow: hidden; padding: 0; border-radius: 20px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); transition: box-shadow 0.3s ease; }
 .facebook:hover { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0,0,0,0.1); }
 .facebook .header { position: relative; padding: 12px 16px 12px 66px; }
 .facebook .photo { position: absolute; top: 12px; left: 16px; width: 40px; height: 40px; border-radius: 100%; background-size: cover; }
@@ -71,11 +78,29 @@ a { color: var(--color-link); }
 .facebook .second-footer .button { position: relative; display: inline-block; width: calc(100% / 3); color: #65676B; font-size: 15px; font-weight: 500; }
 .facebook .second-footer .button span.mdi { margin-right: 7px; }
 
-/* Step 3 */
+// Step 2
 
-// body[data-step="3"] { background: #5F92EE; }
+.lp { position: absolute; top: 0; left: 0; width: 100%; height: 100%; color: #323648; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;  }
+.lp .container { width: calc(100% - 30px); max-width: 950px; margin: 0 auto; position: relative; }
+.lp .hero { position: relative; background: white; text-align: left; padding: 60px 0; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+.lp .hero .logo { width: 100%; max-width: 200px; margin: 0 0 50px; }
+.lp .hero-text { position: relative; padding: 0 50px 0 0; }
+.lp .hero h1 { font-size: 42px; max-width: 400px; margin: 0 0 20px; }
+.lp .hero p { font-size: 18px; line-height: 1.8; margin: 0 0 20px; opacity: 0.8; max-width: 400px; }
+.lp .hero p.terms-text { font-size: 12px; opacity: 0.6; padding: 0 5px; width: 100%; max-width: 400px; margin: -10px 0 0; text-align: center; }
+.lp .hero .image { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background-image: url("https://ucarecdn.com/e19537a1-eaef-4a34-9be5-aa066881db40/-/quality/lighter/-/progressive/yes/-/max_icc_size/10/"); background-size: cover; background-position: center center; }
+.lp .form { width: 100%; max-width: 400px; font-size: 0; padding-top: 10px; }
+.lp input { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; font-weight: inherit; background: transparent; color: inherit; border-radius: 5px; font-size: 16px; padding: 12px; width: 100%; margin: 0 0 15px; }
+.lp input[type=text], .lp input[type=email], .lp input[type=phone] { border: 1px solid #DDDDDD; }
+.lp input[type=text]:focus, .lp input[type=email]:focus, .lp input[type=phone]:focus { border: 1px solid #227EF7; }
+.lp input[type=submit] { font-size: 17px; background: #227EF7; color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; font-weight: 600; padding: 12px 20px; margin-top: 10px; border: 2px solid #227EF7; }
+.lp input[type=submit]:focus { border: 2px solid white; outline: 1px solid #227EF7; box-shadow: 0 0 0 transparent; }
+
+// Step 3
  
-.imessage { text-align: left; position: relative; width: 100%; margin: 0 auto; background: white; max-width: 400px; margin: 0 auto; overflow: hidden; padding: 20px 20px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); border-radius: 20px; font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 17px; touch-action: pan-x pan-y; transform: rotate(2deg); user-select: none; height: calc(100% - 20px); max-height: 520px; animation-name: fade-in-animation; overflow-y: auto; }
+.imessage { text-align: left; position: relative; width: 100%; margin: 0 auto 30px; background: white; max-width: 400px; overflow: hidden; padding: 20px 20px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); border-radius: 20px; font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 17px; touch-action: pan-x pan-y; transform: rotate(2deg); user-select: none; height: 520px; animation-name: fade-in-animation; overflow-y: auto; }
+.imessage .date { text-align: center; font-size: 12px; color: #aaa; margin: 0 0 10px; letter-spacing: 0.2px; float: left; width: 100%; }
+.imessage .date strong { font-weight: 500; }
 .imessage p { max-width: 80%; word-wrap: break-word; margin: 0 0 10px; line-height: 24px; position:relative; padding:10px 20px; border-radius:25px; float: left; clear: both; display: inline-block; }
 .imessage p:before, p:after { content:""; position:absolute; bottom:-2px; height:20px; }
 .imessage .typing-indicator .dots { display: inline-block; }
@@ -101,9 +126,10 @@ a { color: var(--color-link); }
 .imessage p span.url { opacity: 0.5; font-size: 14px; letter-spacing: 0.2px; display: block; }
 .imessage p a { text-decoration: none; color: inherit; pointer-events: none; }
 
-/* Media Queries */
+// Media Queries
 
 @media screen and (max-width: 1023px) {
+  .lp .container { width: 50%; margin: 0; padding: 0 30px; }
   .imessage { position: relative; top: auto; right: auto; transform: none; animation-name: fade-in-animation; max-width: 350px; }
   .imessage p { max-width: 90%; }
 }
@@ -111,12 +137,19 @@ a { color: var(--color-link); }
 @media screen and (max-width: 700px) {
   body { padding: 10px; }
   .middle { padding: 15px; }
-  /* step 1 */
   .facebook { max-width: calc(100vw - 30px); }
   .facebook .description { font-size: 14px; line-height: 1.3; }
+  .lp .container { width: 100%; }
+  .lp .hero { padding: 0 0 30px; }
+  .lp .hero .logo { max-width: 150px; margin: 0 auto; padding: 20px 0 240px; }
+  .lp .hero .image { top: 70px; left: 0; width: 100%; height: 200px; }
+  .lp .hero-text { padding: 0; text-align: center; }
+  .lp .hero h1 { font-size: 28px; max-width: 300px; margin: 0 auto 20px; }
+  .lp .hero p { font-size: 16px; margin: 0 auto 20px; max-width: 300px; }
+  .lp .hero p.terms-text { font-size: 12px; margin: -5px -5px 0; padding: 0; width: auto; }
 }
 
-/* Animations */
+// Animations
 
 @keyframes fade-in-animation {
   0%   { opacity: 0; transform: translateY(10px); }

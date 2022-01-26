@@ -39,26 +39,7 @@ function stepOne() {
 function stepTwo() {
   step = "2";
   $("body").attr("data-step",step);
-  $(".step[data-step=2]").html("\
-    <div class='table'>\
-      <div class='middle'>\
-        <div class='lp'>\
-          <div class='container'>\
-            <div class='line-1'>Sign up for a free hair health consultation at Hair Club Austin</div>\
-            <div class='line-2'>***LIMITED to the first 15 people! (usually fills in less than 5 days)***</div>\
-            <div class='line-3'>Claim your free spot now!</div>\
-            <form>\
-              <input type='text' id='first-name' placeholder='First Name' required />\
-              <input type='text' id='last-name' placeholder='Last Name' required />\
-              <input type='email' id='email' placeholder='Email' required />\
-              <input type='phone' id='phone' placeholder='Phone Number' required />\
-              <input type='submit' value='Sign Up'>\
-            </form>\
-          </div>\
-        </div>\
-      </div>\
-    </div>\
-  ");
+  // $("#first-name").focus();
 }
 
 function stepThree() {  
@@ -71,51 +52,43 @@ function stepThree() {
     firstName = "John";
   }
   
+  function scrollDown() {
+    $(".imessage").animate({scrollTop: $(".imessage")[0].scrollHeight}, 1500);
+  }
+  
+  // Beginning of conversation
+ 
   $(".step[data-step=3]").html("\
     <div class='table'>\
       <div class='middle'>\
         <div class='imessage fade-in' style='animation-delay: 0.8s;'>\
+          <div class='date fade-in' style='animation-delay: 0.3s;'><strong>Mon, Jan 24</strong>, 10:05 AM</div>\
           <p class='from-them timeout-01 typing-indicator fade-in' style='animation-delay: 1s;'>\
             <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>Hi " + firstName + " 👋<br><br>My name is Stacy from HairClub. I'm seeing you just signed up for a free hair health consultation.</span>\
+            <span class='text'>Hi " + firstName + " 👋<br><br>My name is Jennifer from HairClub. I'm seeing you just signed up for a free hair health consultation!</span>\
           </p>\
           <p class='from-them timeout-02 typing-indicator fade-in' style='animation-delay: 3s;'>\
             <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>Reply Stop to unsubscribe</span>\
+            <span class='text'>Reply STOP to unsubscribe</span>\
           </p>\
           <p class='from-them timeout-03 typing-indicator fade-in' style='animation-delay: 5s;'>\
             <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
             <span class='text'>I don't see you on my schedule. Would you be able to come in soon to see if our services would be a good fit?</span>\
           </p>\
-          <p class='from-me fade-in' style='animation-delay: 10.5s;'>Sure! Thanks for reaching out.</p>\
-          <p class='from-them timeout-04 typing-indicator fade-in' style='animation-delay: 13s;'>\
-            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>Amazing! Are you free on Tuesday, March 10 at 10am?</span>\
-          </p>\
-          <p class='from-them timeout-05 typing-indicator fade-in' style='animation-delay: 17s;'>\
-            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>Here's our address:</span>\
-          </p>\
-          <p class='from-them with-attachment fade-in' style='animation-delay: 19s;'>\
-            <span class='image'><img src='/assets/images/map.jpg'></span>\
-            <span class='label'>8240 N Mopac Expy, Austin, TX 78759 - Google Maps</span>\
-            <span class='url'>maps.google.com</span>\
-          </p>\
-          <p class='from-me fade-in' style='animation-delay: 21s;'>Yes that works great for me.</p>\
-          <p class='from-them timeout-06 typing-indicator fade-in' style='animation-delay: 24s;'>\
-            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>" + firstName + ", you are all set for our free hair health consultation! I can’t wait to meet with you on Tuesday, March 10 at 10am. 😀</span>\
-          </p>\
+          <div class='action-01-option-01'></div>\
+          <div class='action-01-option-02'></div>\
           <div class='clear'></div>\
+        </div>\
+        <div class='options fade-in' style='animation-delay: 9s;'>\
+          <div class='set-01'>\
+            <button class='option-01' style='color: #009688'><span class='mdi mdi-message-reply-text-outline'></span>Respond</button>\
+            <button class='option-02' style='color: #F44336'><span class='mdi mdi-close-thick'></span>Ignore</button>\
+          </div>\
         </div>\
       </div>\
     </div>\
   ");
-    
-  function scrollDown() {
-    $(".imessage").animate({scrollTop: $(".imessage")[0].scrollHeight}, 1500);
-  }
-  
+
   setTimeout(function(){
     $(".timeout-01 .dots").remove();
     $(".timeout-01 .text").show();
@@ -128,37 +101,66 @@ function stepThree() {
     $(".timeout-03 .dots").remove();
     $(".timeout-03 .text").show();
   }, 9000);
-  setTimeout(function(){
-    $(".timeout-04 .dots").remove();
-    $(".timeout-04 .text").show();
-  }, 16000);
-  setTimeout(function(){
-    scrollDown();
-  }, 17000);
-  setTimeout(function(){
-    $(".timeout-05 .dots").remove();
-    $(".timeout-05 .text").show();
-  }, 18000);
-  setTimeout(function(){
-    scrollDown();
-  }, 21500);
-  setTimeout(function(){
-    $(".timeout-06 .dots").remove();
-    $(".timeout-06 .text").show();
-  }, 27000);
-  setTimeout(function(){
-    scrollDown();
-  }, 27000);
-}
- 
-function stepFour() {   
-  step = "4";
-  $("body").attr("data-step",step);
-}
   
-function stepFive() {  
-  step = "5";
-  $("body").attr("data-step",step);
+  // Respond
+  
+  $(".step[data-step=3] .set-01 .option-01").click(function() {
+    $(".step[data-step=3] .action-01-option-01").html("\
+      <p class='from-me fade-in' style='animation-delay: 1s;'>Sure! Thanks for reaching out.</p>\
+      <p class='from-them timeout-04 typing-indicator fade-in' style='animation-delay: 4s;'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>Amazing! Are you free on Friday, January 28 at 4pm?</span>\
+      </p>\
+      <p class='from-them timeout-05 typing-indicator fade-in' style='animation-delay: 7s;'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>Here's our address:</span>\
+      </p>\
+      <p class='from-them with-attachment fade-in' style='animation-delay: 8.5s;'>\
+        <span class='image'><img src='/assets/images/map.jpg'></span>\
+        <span class='label'>8240 N Mopac Expy, Austin, TX 78759 - Google Maps</span>\
+        <span class='url'>maps.google.com</span>\
+      </p>\
+      <p class='from-me fade-in' style='animation-delay: 11s;'>Yes that works great for me.</p>\
+      <p class='from-them timeout-06 typing-indicator fade-in' style='animation-delay: 14s;'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>" + firstName + ", you are all set for our free hair health consultation! I can’t wait to meet with you on Friday, January 28 at 4pm 😀</span>\
+      </p>\
+      <div class='clear'></div>\
+    ");
+    setTimeout(function(){
+      $(".timeout-04 .dots").remove();
+      $(".timeout-04 .text").show();
+    }, 7000);
+    setTimeout(function(){
+      scrollDown();
+    }, 7000);
+    setTimeout(function(){
+      $(".timeout-05 .dots").remove();
+      $(".timeout-05 .text").show();
+    }, 8000);
+    setTimeout(function(){
+      scrollDown();
+    }, 8500);
+    setTimeout(function(){
+      $(".timeout-06 .dots").remove();
+      $(".timeout-06 .text").show();
+    }, 17000);
+    setTimeout(function(){
+      scrollDown();
+    }, 17000);
+    $(".step[data-step=3] .set-01").hide();
+  });
+  
+  // Ignore
+  
+  $(".step[data-step=3] .set-01 .option-02").click(function() {
+    $(".step[data-step=3] .action-01-option-01").html("\
+      <div class='date fade-in' style='animation-delay: 0.3s;'><strong>Tue, Jan 25</strong>, 9:47 AM</div>\
+      <div class='clear'></div>\
+    ");
+  });  
+  
+
 }
 
 // Step Triggers
