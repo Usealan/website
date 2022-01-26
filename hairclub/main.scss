@@ -43,9 +43,6 @@ a { color: var(--color-link); }
 .fade-out { animation-name: fade-in-fade-out-animation; }
 
 .step { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; }
-.step h2 { font-size: 30px; }
-.step h2:before { content: attr(data-step) ". ";}
-
 
 .options { position: absolute; left: 0; width: 100%; padding: 30px 0 0; margin: -30px 0 0; }
 button { -webkit-appearance: none; appearance: none; outline: 0 none; font-family: inherit; background: white; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 6px; padding: 8px 20px; font-size: 15px; margin: 0 5px 0; min-width: 120px; line-height: 20px; font-weight: 500; cursor: pointer; color: #4b5966; }
@@ -80,9 +77,9 @@ button span.mdi { margin-right: 10px; }
 
 // Step 2
 
-.lp { position: absolute; top: 0; left: 0; width: 100%; height: 100%; color: #323648; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;  }
-.lp .container { width: calc(100% - 30px); max-width: 950px; margin: 0 auto; position: relative; top: 50%; transform: translateY(-50%); }
-.lp .hero { position: relative; background: white; text-align: left; padding: 60px 0; box-shadow: 0 1px 1px rgba(0,0,0,0.1); height: 100%; }
+.lp { position: absolute; top: 0; left: 0; width: 100%; height: 100%; color: #323648; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; }
+.lp .container { width: calc(100% - 30px); max-width: 950px; margin: 0 auto; position: relative; }
+.lp .hero { position: relative; background: white; text-align: left; padding: 60px 0; box-shadow: 0 1px 1px rgba(0,0,0,0.1); z-index: 1; }
 .lp .hero .logo { width: 100%; max-width: 200px; margin: 0 0 50px; }
 .lp .hero-text { position: relative; padding: 0 50px 0 0; }
 .lp .hero h1 { font-size: 42px; max-width: 400px; margin: 0 0 20px; }
@@ -91,10 +88,19 @@ button span.mdi { margin-right: 10px; }
 .lp .hero .image { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background-image: url("https://ucarecdn.com/e19537a1-eaef-4a34-9be5-aa066881db40/-/quality/lighter/-/progressive/yes/-/max_icc_size/10/"); background-size: cover; background-position: center center; }
 .lp .form { width: 100%; max-width: 400px; font-size: 0; padding-top: 10px; }
 .lp input { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; font-weight: inherit; background: transparent; color: inherit; border-radius: 5px; font-size: 16px; padding: 12px; width: 100%; margin: 0 0 15px; }
-.lp input[type=text], .lp input[type=email], .lp input[type=phone] { border: 1px solid #DDDDDD; }
-.lp input[type=text]:focus, .lp input[type=email]:focus, .lp input[type=phone]:focus { border: 1px solid #227EF7; }
+.lp input[type=text], .lp input[type=email], .lp input[type=tel] { border: 1px solid #DDDDDD; }
+.lp input[type=text]:focus, .lp input[type=email]:focus, .lp input[type=tel]:focus { border: 1px solid #227EF7; }
 .lp input[type=submit] { font-size: 17px; background: #227EF7; color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; font-weight: 600; padding: 12px 20px; margin-top: 10px; border: 2px solid #227EF7; }
 .lp input[type=submit]:focus { border: 2px solid white; outline: 1px solid #227EF7; box-shadow: 0 0 0 transparent; }
+.lp .features { position: relative; background: #FAFAFA; color: #333333; padding: 80px 0; overflow: hidden; text-align: center; font-size: 17px; line-height: 1.8; }
+.lp .features h2 { font-size: 40px; line-height: 1.3; margin: 0 0 30px; margin-left: auto; margin-right: auto; }
+.lp .features p { max-width: 660px; margin: -10px auto 50px; font-size: 18px; }
+.lp .features ul { padding-left: 20px; margin: 0 0 -10px; list-style: none; width: calc(100% + 70px); font-size: 0; padding: 0; }
+.lp .features ul li { padding: 0 0 10px 5px; width: calc((100% / 3) - 70px); margin: 0 70px 50px 0; display: inline-block; font-size: 15px; vertical-align: top; padding: 0; }
+.lp .features ul li .icon { background: #621E31; display: inline-block; margin: 0 0 25px; border-radius: 100%; }
+.lp .features ul li .icon span.mdi { color: white; padding: 15px; display: block; line-height: 1; font-size: 40px;}
+.lp .features ul li h3 { font-weight: 600; font-size: 20px; line-height: 1.2; margin: 0 0 15px; }
+.lp .features ul li p { font-size: 17px; margin: 0 auto; }
 
 // Step 3
  
@@ -129,9 +135,19 @@ button span.mdi { margin-right: 10px; }
 // Media Queries
 
 @media screen and (max-width: 1023px) {
-  .lp .container { width: 50%; margin: 0; padding: 0 30px; }
+  .lp .container { margin: 0 auto; }
+  .lp .hero .container { width: 50%; padding: 0 30px; margin: 0; }
   .imessage { position: relative; top: auto; right: auto; transform: none; animation-name: fade-in-animation; max-width: 350px; }
   .imessage p { max-width: 90%; }
+  .lp .features .container { max-width: 400px; padding: 0 15px; }
+  .lp .features h2 { font-size: 28px; max-width: 300px; }
+  .lp .features p { font-size: 16px !important; max-width: 300px; }
+  .lp .features ul { width: auto; margin: 0 -10px; }
+  .lp .features ul li { width: 100%; padding: 0 15px; margin: 0 0 30px; }
+/*
+  .lp .features ul li h3 { font-size: 17px; }
+  .lp .features ul li p { font-size: 15px; }
+*/
 }
 
 @media screen and (max-width: 700px) {
@@ -140,21 +156,18 @@ button span.mdi { margin-right: 10px; }
   .facebook { max-width: calc(100vw - 30px); }
   .facebook .description { font-size: 14px; line-height: 1.3; }
   .lp .container { width: 100%; top: auto; transform: none; }
+  .lp .hero .container  { width: 100%; margin: 0 auto; }
   .lp .hero { padding: 0 0 30px; }
   .lp .hero .logo { max-width: 150px; margin: 0 auto; padding: 20px 0 240px; }
   .lp .hero .image { top: 70px; left: 0; width: 100%; height: 200px; }
   .lp .hero-text { padding: 0; text-align: center; }
-  .lp .hero h1 { font-size: 28px; max-width: 300px; margin: 0 auto 20px; }
+  .lp .hero h1 { font-size: 28px; max-width: 270px; margin: 0 auto 20px; }
   .lp .hero p { font-size: 16px; margin: 0 auto 20px; max-width: 300px; }
   .lp .hero p.terms-text { font-size: 12px; margin: 0 auto; padding: 0; line-height: 1.4; max-width: 200px; }
-  .lp .form { margin: 0 auto; }
+  .lp .form { margin: 0 auto; max-width: 300px; }
+  .lp .features { padding: 40px 0 10px; }
+  .lp .features p { margin-bottom: 40px; }
 }
-
-@media screen and (max-height: 750px) {
-  .lp .hero { height: auto; }
-  .lp .container { top: auto; transform: none; }
-}
-
 
 // Animations
 
