@@ -139,7 +139,7 @@ button span.mdi { margin-right: 10px; }
   .middle { padding: 15px; }
   .facebook { max-width: calc(100vw - 30px); }
   .facebook .description { font-size: 14px; line-height: 1.3; }
-  .lp .container { width: 100%; }
+  .lp .container { width: 100%; top: auto; transform: none; }
   .lp .hero { padding: 0 0 30px; }
   .lp .hero .logo { max-width: 150px; margin: 0 auto; padding: 20px 0 240px; }
   .lp .hero .image { top: 70px; left: 0; width: 100%; height: 200px; }
@@ -147,6 +147,7 @@ button span.mdi { margin-right: 10px; }
   .lp .hero h1 { font-size: 28px; max-width: 300px; margin: 0 auto 20px; }
   .lp .hero p { font-size: 16px; margin: 0 auto 20px; max-width: 300px; }
   .lp .hero p.terms-text { font-size: 12px; margin: -5px -5px 0; padding: 0; width: auto; }
+  .lp .form { margin: 0 auto; }
 }
 
 @media screen and (max-height: 750px) {
