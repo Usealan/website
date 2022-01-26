@@ -53,7 +53,7 @@ button span.mdi { margin-right: 10px; }
 
 // Step 1
 
-.facebook { text-align: left; cursor: pointer; color: #050505; position: relative; background: white; width: 100%; margin: 0 auto; position: relative; background: white; max-width: 680px; margin: 0 auto; overflow: hidden; padding: 0; border-radius: 20px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); transition: box-shadow 0.3s ease; }
+.facebook { text-align: left; cursor: pointer; color: #050505; position: relative; background: white; width: 100%; margin: 0 auto; position: relative; background: white; max-width: 680px; max-width: 600px; margin: 0 auto; overflow: hidden; padding: 0; border-radius: 20px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); transition: box-shadow 0.3s ease; }
 .facebook:hover { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0,0,0,0.1); }
 .facebook .header { position: relative; padding: 12px 16px 12px 66px; }
 .facebook .photo { position: absolute; top: 12px; left: 16px; width: 40px; height: 40px; border-radius: 100%; background-size: cover; }
@@ -87,7 +87,7 @@ button span.mdi { margin-right: 10px; }
 .lp .hero-text { position: relative; padding: 0 50px 0 0; }
 .lp .hero h1 { font-size: 42px; max-width: 400px; margin: 0 0 20px; }
 .lp .hero p { font-size: 18px; line-height: 1.8; margin: 0 0 20px; opacity: 0.8; max-width: 400px; }
-.lp .hero p.terms-text { font-size: 12px; opacity: 0.6; padding: 0 5px; width: 100%; max-width: 400px; margin: -10px 0 0; text-align: center; }
+.lp .hero p.terms-text { font-size: 12px; opacity: 0.6; padding: 0 5px; width: 100%; max-width: 400px; margin: 0; text-align: center; }
 .lp .hero .image { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background-image: url("https://ucarecdn.com/e19537a1-eaef-4a34-9be5-aa066881db40/-/quality/lighter/-/progressive/yes/-/max_icc_size/10/"); background-size: cover; background-position: center center; }
 .lp .form { width: 100%; max-width: 400px; font-size: 0; padding-top: 10px; }
 .lp input { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; font-weight: inherit; background: transparent; color: inherit; border-radius: 5px; font-size: 16px; padding: 12px; width: 100%; margin: 0 0 15px; }
@@ -146,7 +146,7 @@ button span.mdi { margin-right: 10px; }
   .lp .hero-text { padding: 0; text-align: center; }
   .lp .hero h1 { font-size: 28px; max-width: 300px; margin: 0 auto 20px; }
   .lp .hero p { font-size: 16px; margin: 0 auto 20px; max-width: 300px; }
-  .lp .hero p.terms-text { font-size: 12px; margin: -5px -5px 0; padding: 0; width: auto; }
+  .lp .hero p.terms-text { font-size: 12px; margin: 0 auto; padding: 0; line-height: 1.4; max-width: 200px; }
   .lp .form { margin: 0 auto; }
 }
 
