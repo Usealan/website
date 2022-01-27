@@ -213,14 +213,14 @@ function stepThree() {
     $(".timeout-07 .dots").remove();
     $(".timeout-07 .text").show();
     scrollDown();
-  }, 36000);
+  }, 37000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <p class='from-me fade-in'>Thanks for the reminder. I'm looking forward to it!</p>\
     ");
     scrollDown();
-  }, 38000);
+  }, 40000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
@@ -230,27 +230,27 @@ function stepThree() {
       </p>\
     ");
     scrollDown();
-  }, 40000);
+  }, 42000);
 
   setTimeout(function(){
     $(".timeout-08 .dots").remove();
     $(".timeout-08 .text").show();
     scrollDown();
-  }, 42000);
+  }, 44000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <div class='date fade-in'><strong>Fri, Jan 28</strong>, 10:48 AM</div>\
     ");
     scrollDown();
-  }, 44000);
+  }, 47000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <p class='from-me fade-in'>Hey Jennifer, I'm sorry but I won't be able to make our appointment. My kid is sick and I need to take him to the doctor this afternoon.</p>\
     ");
     scrollDown();
-  }, 46000);
+  }, 48000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
@@ -260,20 +260,20 @@ function stepThree() {
       </p>\
     ");
     scrollDown();
-  }, 48000);
+  }, 51000);
 
   setTimeout(function(){
     $(".timeout-09 .dots").remove();
     $(".timeout-09 .text").show();
     scrollDown();
-  }, 50000);
+  }, 56000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <p class='from-me fade-in'>Thanks! Yes, that works fine for me.</p>\
     ");
     scrollDown();
-  }, 52000);
+  }, 60000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
@@ -283,20 +283,20 @@ function stepThree() {
       </p>\
     ");
     scrollDown();
-  }, 54000);
+  }, 62000);
 
   setTimeout(function(){
     $(".timeout-10 .dots").remove();
     $(".timeout-10 .text").show();
     scrollDown();
-  }, 56000);
+  }, 66000);
   
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <div class='date fade-in'><strong>Mon, Jan 31</strong>, 3:00 PM</div>\
     ");
     scrollDown();
-  }, 58000);
+  }, 68000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
@@ -306,27 +306,27 @@ function stepThree() {
       </p>\
     ");
     scrollDown();
-  }, 60000);
+  }, 69000);
 
   setTimeout(function(){
     $(".timeout-11 .dots").remove();
     $(".timeout-11 .text").show();
     scrollDown();
-  }, 62000);
+  }, 74000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <p class='from-me fade-in'>👍</p>\
     ");
     scrollDown();
-  }, 64000);
+  }, 80000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <div class='date fade-in'><strong>Mon, Jan 31</strong>, 3:30 PM</div>\
     ");
     scrollDown();
-  }, 66000);
+  }, 83000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
@@ -336,20 +336,27 @@ function stepThree() {
       </p>\
     ");
     scrollDown();
-  }, 68000);
+  }, 84000);
 
   setTimeout(function(){
     $(".timeout-10 .dots").remove();
     $(".timeout-10 .text").show();
     scrollDown();
-  }, 70000);
+  }, 87000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <div class='date fade-in'><strong>Mon, Jan 31</strong>, 3:58 PM</div>\
+    ");
+    scrollDown();
+  }, 91000);
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
       <p class='from-me fade-in'>Here</p>\
     ");
     scrollDown();
-  }, 72000);
+  }, 92000);
 
 }
 
