@@ -330,7 +330,7 @@ function stepThree() {
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
-      <p class='from-them timeout-10 typing-indicator fade-in'>\
+      <p class='from-them timeout-12 typing-indicator fade-in'>\
         <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
         <span class='text'>Also - text me &quot;here&quot; when you are walking inside so I can make sure to not keep you waiting. Can't wait to chat in about 30 mins!</span>\
       </p>\
@@ -339,8 +339,8 @@ function stepThree() {
   }, 84000);
 
   setTimeout(function(){
-    $(".timeout-10 .dots").remove();
-    $(".timeout-10 .text").show();
+    $(".timeout-12 .dots").remove();
+    $(".timeout-12 .text").show();
     scrollDown();
   }, 87000);
 
