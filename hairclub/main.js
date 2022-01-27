@@ -61,105 +61,159 @@ function stepThree() {
   $(".step[data-step=3]").html("\
     <div class='table'>\
       <div class='middle'>\
-        <div class='imessage fade-in' style='animation-delay: 0.8s;'>\
-          <div class='date fade-in' style='animation-delay: 0.3s;'><strong>Mon, Jan 24</strong>, 10:05 AM</div>\
-          <p class='from-them timeout-01 typing-indicator fade-in' style='animation-delay: 1s;'>\
-            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>Hi " + firstName + " 👋<br><br>My name is Jennifer from HairClub. I'm seeing you just signed up for a free hair health consultation!</span>\
-          </p>\
-          <p class='from-them timeout-02 typing-indicator fade-in' style='animation-delay: 3s;'>\
-            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>Reply STOP to unsubscribe</span>\
-          </p>\
-          <p class='from-them timeout-03 typing-indicator fade-in' style='animation-delay: 5s;'>\
-            <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-            <span class='text'>I don't see you on my schedule. Would you be able to come in soon to see if our services would be a good fit?</span>\
-          </p>\
-          <div class='action-01-option-01'></div>\
-          <div class='action-01-option-02'></div>\
+        <div class='imessage fade-in'>\
+          <div class='paths' style='clear: both'></div>\
           <div class='clear'></div>\
-        </div>\
-        <div class='options fade-in' style='animation-delay: 9s;'>\
-          <div class='set-01'>\
-            <button class='option-01' style='color: #009688'><span class='mdi mdi-message-reply-text-outline'></span>Respond</button>\
-            <button class='option-02' style='color: #F44336'><span class='mdi mdi-close-thick'></span>Ignore</button>\
-          </div>\
         </div>\
       </div>\
     </div>\
   ");
 
   setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <div class='date fade-in' style='animation-delay: 0.3s;'><strong>Mon, Jan 24</strong>, 10:05 AM</div>\
+    ");
+  }, 200);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-01 typing-indicator fade-in' style='animation-delay: 1s;'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>Hi " + firstName + " 👋<br><br>My name is Jennifer from HairClub. I'm seeing you just signed up for a free hair health consultation!</span>\
+      </p>\
+    ");
+  }, 500);
+
+  setTimeout(function(){
     $(".timeout-01 .dots").remove();
     $(".timeout-01 .text").show();
-  }, 3000);
+    scrollDown();
+  }, 4000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-02 typing-indicator fade-in'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>Reply STOP to unsubscribe</span>\
+      </p>\
+    ");
+  }, 6000);
+
   setTimeout(function(){
     $(".timeout-02 .dots").remove();
     $(".timeout-02 .text").show();
-  }, 5000);
+    scrollDown();
+  }, 8000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-03 typing-indicator fade-in'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>I don't see you on my schedule. Would you be able to come in soon to see if our services would be a good fit?</span>\
+      </p>\
+    ");
+  }, 10000);
+
   setTimeout(function(){
     $(".timeout-03 .dots").remove();
     $(".timeout-03 .text").show();
-  }, 9000);
+    scrollDown();
+  }, 12000);
   
-  // Respond
-  
-  $(".step[data-step=3] .set-01 .option-01").click(function() {
-    $(".step[data-step=3] .action-01-option-01").html("\
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
       <p class='from-me fade-in' style='animation-delay: 1s;'>Sure! Thanks for reaching out.</p>\
-      <p class='from-them timeout-04 typing-indicator fade-in' style='animation-delay: 4s;'>\
+    ");
+  }, 14000);
+  
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-04 typing-indicator fade-in'>\
         <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
         <span class='text'>Amazing! Are you free on Friday, January 28 at 4pm?</span>\
       </p>\
-      <p class='from-them timeout-05 typing-indicator fade-in' style='animation-delay: 7s;'>\
+    ");
+    scrollDown();
+  }, 16000);
+  
+  setTimeout(function(){
+    $(".timeout-04 .dots").remove();
+    $(".timeout-04 .text").show();
+    scrollDown();
+  }, 18000);
+  
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-05 typing-indicator fade-in'>\
         <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
         <span class='text'>Here's our address:</span>\
       </p>\
-      <p class='from-them with-attachment fade-in' style='animation-delay: 8.5s;'>\
+    ");
+    scrollDown();
+  }, 20000);
+  
+  setTimeout(function(){
+    $(".timeout-05 .dots").remove();
+    $(".timeout-05 .text").show();
+    scrollDown();
+  }, 22000);
+  
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them with-attachment fade-in'>\
         <span class='image'><img src='/assets/images/map.jpg'></span>\
         <span class='label'>8240 N Mopac Expy, Austin, TX 78759 - Google Maps</span>\
         <span class='url'>maps.google.com</span>\
       </p>\
-      <p class='from-me fade-in' style='animation-delay: 11s;'>Yes that works great for me.</p>\
-      <p class='from-them timeout-06 typing-indicator fade-in' style='animation-delay: 14s;'>\
+    ");
+    scrollDown();
+  }, 24000);
+  
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-me fade-in'>Yes that works great for me.</p>\
+    ");
+    scrollDown();
+  }, 26000);
+  
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-06 typing-indicator fade-in'>\
         <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-        <span class='text'>" + firstName + ", you are all set for our free hair health consultation! I can’t wait to meet with you on Friday, January 28 at 4pm 😀</span>\
+        <span class='text'>Perfect! You are booked! Can't wait to meet with you on the 28th at 4pm.</span>\
       </p>\
-      <div class='clear'></div>\
     ");
-    setTimeout(function(){
-      $(".timeout-04 .dots").remove();
-      $(".timeout-04 .text").show();
-    }, 7000);
-    setTimeout(function(){
-      scrollDown();
-    }, 7000);
-    setTimeout(function(){
-      $(".timeout-05 .dots").remove();
-      $(".timeout-05 .text").show();
-    }, 8000);
-    setTimeout(function(){
-      scrollDown();
-    }, 8500);
-    setTimeout(function(){
-      $(".timeout-06 .dots").remove();
-      $(".timeout-06 .text").show();
-    }, 17000);
-    setTimeout(function(){
-      scrollDown();
-    }, 17000);
-    $(".step[data-step=3] .set-01").hide();
-  });
+    scrollDown();
+  }, 28000);
+
+  setTimeout(function(){
+    $(".timeout-06 .dots").remove();
+    $(".timeout-06 .text").show();
+    scrollDown();
+  }, 30000);
   
-  // Ignore
-  
-  $(".step[data-step=3] .set-01 .option-02").click(function() {
-    $(".step[data-step=3] .action-01-option-01").html("\
-      <div class='date fade-in' style='animation-delay: 0.3s;'><strong>Tue, Jan 25</strong>, 9:47 AM</div>\
-      <div class='clear'></div>\
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <div class='date fade-in'><strong>Wed, Jan 27</strong>, 3:28 PM</div>\
     ");
-  });  
+    scrollDown();
+  }, 32000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-07 typing-indicator fade-in'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>" + firstName + "! It's Jennifer, I'm looking forward to meeting you. Quick reminder so you can add it to your calendar, I've got you down for Friday, January 28 @ 4pm. See you soon!</span>\
+      </p>\
+    ");
+    scrollDown();
+  }, 34000);
   
+  setTimeout(function(){
+    $(".timeout-07 .dots").remove();
+    $(".timeout-07 .text").show();
+    scrollDown();
+  }, 36000);
 
 }
 
