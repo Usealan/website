@@ -194,7 +194,7 @@ function stepThree() {
   
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
-      <div class='date fade-in'><strong>Wed, Jan 27</strong>, 3:28 PM</div>\
+      <div class='date fade-in'><strong>Wed, Jan 26</strong>, 3:28 PM</div>\
     ");
     scrollDown();
   }, 32000);
@@ -240,7 +240,7 @@ function stepThree() {
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
-      <div class='date fade-in'><strong>Fri, Jan 29</strong>, 3:00 PM</div>\
+      <div class='date fade-in'><strong>Fri, Jan 28</strong>, 3:00 PM</div>\
     ");
     scrollDown();
   }, 44000);
@@ -270,7 +270,7 @@ function stepThree() {
 
   setTimeout(function(){
     $(".step[data-step=3] .paths").append("\
-      <div class='date fade-in'><strong>Fri, Jan 29</strong>, 3:30 PM</div>\
+      <div class='date fade-in'><strong>Fri, Jan 28</strong>, 3:30 PM</div>\
     ");
     scrollDown();
   }, 52000);
