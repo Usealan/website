@@ -215,6 +215,89 @@ function stepThree() {
     scrollDown();
   }, 36000);
 
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-me fade-in'>Thanks for the reminder. I'm looking forward to it!</p>\
+    ");
+    scrollDown();
+  }, 38000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-08 typing-indicator fade-in'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>Me too 😀</span>\
+      </p>\
+    ");
+    scrollDown();
+  }, 40000);
+
+  setTimeout(function(){
+    $(".timeout-08 .dots").remove();
+    $(".timeout-08 .text").show();
+    scrollDown();
+  }, 42000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <div class='date fade-in'><strong>Fri, Jan 29</strong>, 3:00 PM</div>\
+    ");
+    scrollDown();
+  }, 44000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-09 typing-indicator fade-in'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>Friendly reminder for our appointment in about an hour. For making the time to meet with me I will be providing a complimentary gift card. Talk soon!</span>\
+      </p>\
+    ");
+    scrollDown();
+  }, 46000);
+
+  setTimeout(function(){
+    $(".timeout-09 .dots").remove();
+    $(".timeout-09 .text").show();
+    scrollDown();
+  }, 48000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-me fade-in'>👍</p>\
+    ");
+    scrollDown();
+  }, 50000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <div class='date fade-in'><strong>Fri, Jan 29</strong>, 3:30 PM</div>\
+    ");
+    scrollDown();
+  }, 52000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-them timeout-10 typing-indicator fade-in'>\
+        <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
+        <span class='text'>Also - text me &quot;here&quot; when you are walking inside so I can make sure to not keep you waiting. Can't wait to chat in about 30 mins!</span>\
+      </p>\
+    ");
+    scrollDown();
+  }, 54000);
+
+  setTimeout(function(){
+    $(".timeout-10 .dots").remove();
+    $(".timeout-10 .text").show();
+    scrollDown();
+  }, 56000);
+
+  setTimeout(function(){
+    $(".step[data-step=3] .paths").append("\
+      <p class='from-me fade-in'>Here</p>\
+    ");
+    scrollDown();
+  }, 58000);
+
 }
 
 // Step Triggers
