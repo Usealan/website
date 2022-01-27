@@ -302,7 +302,7 @@ function stepThree() {
     $(".step[data-step=3] .paths").append("\
       <p class='from-them timeout-11 typing-indicator fade-in'>\
         <span class='dots'><dot></dot><dot></dot><dot></dot></span>\
-        <span class='text'>Good afternoon " + firstName +"! I hope your son is feeling better. Just wanted to give you a friendly reminder for our appointment in about an hour. For making the time to meet with me I will be providing a complimentary gift card. Talk soon!</span>\
+        <span class='text'>Good afternoon " + firstName +"! I hope your son is feeling better. Just wanted to give you a friendly reminder for our appointment in about an hour. For making the time to meet with me, I will be providing a complimentary gift card. Talk soon!</span>\
       </p>\
     ");
     scrollDown();
