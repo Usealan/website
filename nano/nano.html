@@ -99,7 +99,7 @@ permalink: /nano/
       <form>
         <p class="filter-count-field">
           My home needs 
-          <input name="filtersCount" id="filtersCount" pattern="[0-9]*" inputmode="numeric" placeholder="0" type="number" autocomplete="off" style="width: 80px;" /> 
+          <input name="filtersCount" id="filtersCount" pattern="[0-9]*" inputmode="numeric" placeholder="0" type="number" autocomplete="off" style="width: 80px;" autofocus="on" /> 
           air filters
         </p>
         <p class="zip-code-field">
@@ -114,6 +114,7 @@ permalink: /nano/
           I tend to change my air filters 
             <span class="select-container">
               <select>
+                <option disabled selected>select...</option>
                 <option class="option">every month</option>
                 <option class="option">every 3 months</option>
                 <option class="option">every 6 months</option>
@@ -178,7 +179,7 @@ permalink: /nano/
       });
       
       $("p.continue-button button").click(function() {
-        alert("Coming soon!");
+        alert("🙌 Coming soon!");
         return false;
       });
 
