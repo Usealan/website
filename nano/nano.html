@@ -24,7 +24,7 @@ permalink: /nano/
         --color-link: blue;
         --color-text: #153A33;
         --color-green: #03A87C;
-        --color-red: #BE2B2E;
+        --color-red: #D6383C;
         --color-red-alt: #F5502F;
         --color-border: rgba(0,0,0,0.1);
       }
@@ -42,13 +42,24 @@ permalink: /nano/
       .container { position: relative; margin: 0 auto; width: calc(100% - 40px); max-width: 1280px; }
       .container.inner { max-width: 600px; }
       
-      .header { position: relative; z-index: 1; padding: 20px; font-size: 0; background: white; text-align: center; box-shadow: 0 0 3px rgba(0,0,0,0.2); margin: 0 0 50px; }
+      .header { position: relative; z-index: 1; padding: 20px 0; font-size: 0; background: white; box-shadow: 0 0 3px rgba(0,0,0,0.2); margin: 0 0 50px; }
+      .header .container { width: calc(100% - 50px); max-width: none; }
       .header .logo { width: 170px; height: 30px; display: inline-block; position: relative; }
-      .header .logo img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: center center; }
+      .header .logo img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+      .header a { font-size: 14px; line-height: 30px; float: right; color: inherit; text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2px; position: relative; }
+      .header a:hover { color: var(--color-red); }
+      .header a span.mdi { margin-right: 7px; font-size: 18px; position: absolute; right: 100%; }
       
       h1 { font-size: 34px; line-height: 1.33; letter-spacing: normal; font-weight: bold; text-align: center; margin: 0 auto 20px; }
       h3 { font-size: 20px; line-height: 1.6; font-weight: normal; text-align: center; margin: 0 auto 50px; max-width: 480px; }
       
+      .progress { list-style: none; position: absolute; margin: 0; padding: 0; top: 0; z-index: 10; line-height: 70px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+      .progress li { display: inline-block; margin: 0 20px; }
+      .progress li span.number { color: #BFBFBF; border: 1px solid #BFBFBF; border-radius: 100%; height: 30px; line-height: 28px; width: 30px; display: inline-block; text-align: center; margin-right: 10px; font-size: 14px; font-weight: bold; }
+      .progress li span.label { line-height: 30px; display: inline-block; text-transform: uppercase; font-weight: 600; font-size: 14px; letter-spacing: 0.2px; color: #BFBFBF; }
+      .progress li.active span.number  { background: var(--color-red); color: white; border: 1px solid var(--color-red); }
+      .progress li.active span.label { color: var(--color-red); } 
+   
       p { display: none; font-size: 28px; line-height: 1.8; text-align: center; }
       p.filter-count-field { display: block; }
       p.filter-count-field.plural:after { content: "s" }
@@ -63,11 +74,16 @@ permalink: /nano/
       
       @media screen and (max-width: 1023px) {
         .container.inner { max-width: 400px; }
-        .header { margin: 0 0 30px; }
+        .header { margin: 0 0 30px; padding-bottom: 80px; box-shadow: 0 0 0 transparent; }
+        .header .logo { height: 26px; }
+        .header a { line-height: 26px; }
         h1 { font-size: 30px; line-height: 1.1; max-width: 300px; margin: 0 auto 30px; }
         h3 { font-size: 18px; max-width: 300px; margin: 0 auto 40px; }
         p { font-size: 20px; }
         p input { max-width: 280px !important; }
+        .progress { line-height: 60px; top: 65px; left: 0; transform: none; width: 100%; text-align: center; box-shadow: 0 2px 2px rgba(0,0,0,0.05); border-top: 1px solid rgba(0,0,0,0.05); }
+        .progress li span.number { margin: 0; }
+        .progress li span.label { display: none; }
       }
       
 
@@ -89,13 +105,21 @@ permalink: /nano/
     <div class="header">
       <div class="container">
         <div class="logo"><img src="./logo.png"></div>
+        <a href="."><span class="mdi mdi-login-variant"></span>Login</a>
       </div>
     </div>
+    
+    <ul class="progress">
+      <li class="active"><span class="number">1</span><span class="label">My Info</span></li>
+      <li><span class="number">2</span><span class="label">Filters</span></li>
+      <li><span class="number">3</span><span class="label">Frequency</span></li>
+      <li><span class="number">4</span><span class="label">Checkout</span></li>
+    </ul>
         
     <div class="container inner">
       
       <h1>Better filtration starts here.</h1>
-      <h3>Let’s determine the filters that are better suited for your home, along with a friendly monthly price!</h2>
+      <h3>Let’s determine which filters are better suited for your home, along with a friendly monthly price!</h2>
       
       <form>
         <p class="filter-count-field plural">
