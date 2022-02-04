@@ -1,0 +1,187 @@
+---
+permalink: /nano/
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nano</title>
+    <meta name="description" content="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+    <link rel="apple-touch-icon" href="">
+    <link rel="shortcut icon" href="./icon.png" />
+    <style>
+
+      @import url("https://rsms.me/inter/inter.css");
+      @import url("https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css");
+      
+      html, body { padding: 0; margin: 0; }
+      
+      :root {
+        --color-background: #F0F2F5;
+        --color-primary: blue;
+        --color-link: blue;
+        --color-text: #153A33;
+        --color-green: #03A87C;
+        --color-red: #BE2B2E;
+        --color-red-alt: #F5502F;
+        --color-border: rgba(0,0,0,0.1);
+      }
+      
+      * { user-select: none; box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
+      
+      body { font-family: "Inter", sans-serif; background: var(--color-background); color: var(--color-text); opacity: 0; transition: 2s all ease; }
+      body { background: white; }
+      body.loaded { opacity: 1; }
+      .table { display: table; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+      .table-cell { display: table-cell; vertical-align: middle; }
+      button { -webkit-appearance: none; -moz-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-size: inherit; font-family: inherit; font-weight: inherit; color: inherit; }
+      .button { font-size: 16px; line-height: 1.33; padding: 12px 24px; background: var(--color-red-alt); color: white; margin-top: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+      
+      .container { position: relative; margin: 0 auto; width: calc(100% - 40px); max-width: 1280px; }
+      .container.inner { max-width: 600px; }
+      
+      .header { position: relative; z-index: 1; padding: 20px; font-size: 0; background: white; text-align: center; box-shadow: 0 0 3px rgba(0,0,0,0.2); margin: 0 0 50px; }
+      .header .logo { width: 170px; height: 30px; display: inline-block; position: relative; }
+      .header .logo img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: center center; }
+      
+      h1 { font-size: 38px; line-height: 1.33; letter-spacing: normal; font-weight: 800; text-align: center; margin: 0 0 20px; }
+      h3 { font-size: 21px; line-height: 1.6; font-weight: normal; text-align: center; margin: 0 0 50px; }
+      
+      p { display: none; font-size: 28px; line-height: 1.8; text-align: center; }
+      p.filter-count-field { display: block; }
+      p input, p select { -webkit-appearance: none; -moz-appearance: none; appearance: none; border: 0 none; outline: 0 none; display: inline-block; color: var(--color-red-alt); border-bottom: 2px dotted #969799; background: transparent; font-family: inherit; font-size: inherit; font-weight: inherit; text-align: center; font-weight: 500; border-radius: 0; }
+      p select { padding-right: 30px; }
+      p input:hover, p select:hover { border-bottom: 2px dotted var(--color-red-alt); }
+      p input:focus, p select:focus { border-bottom: 2px solid var(--color-red-alt); }
+      input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {  -webkit-appearance: none; -moz-appearance: none; appearance: none; margin: 0; }
+      .select-container { position: relative; }
+      .select-container:after { content: "\F0140"; font-family: "Material Design Icons"; position: absolute; right: 0; opacity: 0.4; font-weight: normal; }
+      
+      
+      @media screen and (max-width: 1023px) {
+        .container.inner { max-width: 400px; }
+        .header { margin: 0 0 30px; }
+        h1 { font-size: 30px; line-height: 1.1; max-width: 300px; margin: 0 auto 30px; }
+        h3 { font-size: 18px; max-width: 300px; margin: 0 auto 40px; }
+        p { font-size: 20px; }
+        p input { max-width: 280px !important; }
+      }
+      
+
+      @keyframes fade-in-animation {
+        0%   { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: none; }
+      }
+      
+      @keyframes blink {
+        50% {
+          opacity: 1;
+        }
+      }
+      
+    </style>
+  </head>
+  <body>
+    
+    <div class="header">
+      <div class="container">
+        <div class="logo"><img src="./logo.png"></div>
+      </div>
+    </div>
+        
+    <div class="container inner">
+      
+      <h1>Better filtration starts here.</h1>
+      <h3>Let’s determine the filters that are better suited for your home, along with a friendly monthly price!</h2>
+      
+      <form>
+        <p class="filter-count-field">
+          My home needs 
+          <input name="filtersCount" id="filtersCount" pattern="[0-9]*" inputmode="numeric" placeholder="0" type="number" autocomplete="off" style="width: 80px;" /> 
+          air filters
+        </p>
+        <p class="zip-code-field">
+          I live in zip code 
+          <input name="zipCode" id="zipCode" pattern="[0-9]*" inputmode="numeric" placeholder="" type="number" autocomplete="off" style="width: 100px;" />
+        </p>
+        <p class="first-name-field">
+          My first name is 
+          <input name="firstName" id="firstName" placeholder="" type="text" autocomplete="off" style="width: 180px;" />
+        </p>
+        <p class="frequency-dropdown">
+          I tend to change my air filters 
+            <span class="select-container">
+              <select>
+                <option class="option">every month</option>
+                <option class="option">every 3 months</option>
+                <option class="option">every 6 months</option>
+                <option class="option">every 12 months</option>
+                <option class="option">very rarely, if ever</option>
+              </select>
+            </span>
+        </p>
+        <p class="email-field">
+          And my email is 
+          <input name="email" id="email" placeholder="" type="email" inputmode="email" autocomplete="off" style="width: 100%; max-width: 340px;" />
+        </p>
+        <p class="phone-field">
+          And my phone is 
+          <input name="phone" id="phone" placeholder="Optional" type="tel" autocomplete="off" pattern="[0-9]*" style="width: 100%; max-width: 200px;" />
+        </p>
+        <p class="continue-button">
+          <button class="button">Continue</button>
+        </p>
+      </form>
+    </div>
+        
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script>
+      
+      // Placeholders      
+    
+      setTimeout(function(){
+      }, 4000);
+      
+      $(".random-buton").click(function() {
+      });
+      
+      // Make URL parameters readable
+      
+      var getUrlParameter=function(r){var t,e,n=decodeURIComponent(window.location.search.substring(1)).split("&");for(e=0;e<n.length;e++)if((t=n[e].split("="))[0]===r)return void 0===t[1]||t[1]};
+
+      // On Load Actions
+      
+      $("body").addClass("loaded");
+      
+      // JS
+      
+      $("input").keyup(function(){
+        if ($("#filtersCount").val() != "") {
+          $("p.zip-code-field").show();
+        }
+        if ($("#zipCode").val() != "") {
+          $("p.first-name-field").show();
+        }
+        if ($("#firstName").val() != "") {
+          $("p.frequency-dropdown").show();
+        }
+        if ($("#email").val() != "") {
+          $("p.phone-field").show();
+          $("p.continue-button").show();
+        }
+      });
+      
+      $(".frequency-dropdown select").on("change", function() {
+        $("p.email-field").show();
+      });
+      
+      $("p.continue-button button").click(function() {
+        alert("Coming soon!");
+        return false;
+      });
+
+    </script>
+  </body>
+</html>
