@@ -14,6 +14,7 @@ permalink: /nano/
     <style>
 
       @import url("https://rsms.me/inter/inter.css");
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap");
       @import url("https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css");
       
       html, body { padding: 0; margin: 0; }
@@ -31,7 +32,7 @@ permalink: /nano/
       
       * { user-select: none; box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
       
-      body { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; background: var(--color-background); color: var(--color-text); opacity: 0; transition: 2s all ease; }
+      body { font-family: "Poppins","Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; background: var(--color-background); color: var(--color-text); opacity: 0; transition: 2s all ease; }
       body { background: white; }
       body.loaded { opacity: 1; }
       .table { display: table; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
@@ -42,7 +43,7 @@ permalink: /nano/
       .container { position: relative; margin: 0 auto; width: calc(100% - 40px); max-width: 1280px; }
       .container.inner { max-width: 600px; }
       
-      .header { position: relative; z-index: 1; padding: 20px 0; font-size: 0; background: white; box-shadow: 0 0 3px rgba(0,0,0,0.2); margin: 0 0 50px; }
+      .header { position: relative; z-index: 1; padding: 20px 0; font-size: 0; background: white; box-shadow: 0 1px 10px rgba(0,0,0,0.1); margin: 0 0 50px; }
       .header .container { width: calc(100% - 50px); max-width: none; }
       .header .logo { width: 170px; height: 30px; display: inline-block; position: relative; }
       .header .logo img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
@@ -50,17 +51,17 @@ permalink: /nano/
       .header a:hover { color: var(--color-red); }
       .header a span.mdi { margin-right: 7px; font-size: 18px; position: absolute; right: 100%; }
       
-      h1 { font-size: 34px; line-height: 1.33; letter-spacing: normal; font-weight: bold; text-align: center; margin: 0 auto 20px; }
-      h3 { font-size: 20px; line-height: 1.6; font-weight: normal; text-align: center; margin: 0 auto 50px; max-width: 480px; }
+      h1 { font-size: 34px; line-height: 1.33; letter-spacing: normal; font-weight: 600; margin: 0 0 20px; }
+      h3 { font-size: 20px; line-height: 1.6; font-weight: normal; margin: 0 0 30px; max-width: 480px; }
       
       .progress { list-style: none; position: absolute; margin: 0; padding: 0; top: 0; z-index: 10; line-height: 70px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
-      .progress li { display: inline-block; margin: 0 20px; }
+      .progress li { display: inline-block; margin: 0 40px 0 0; }
       .progress li span.number { color: #BFBFBF; border: 1px solid #BFBFBF; border-radius: 100%; height: 30px; line-height: 28px; width: 30px; display: inline-block; text-align: center; margin-right: 10px; font-size: 14px; font-weight: bold; }
       .progress li span.label { line-height: 30px; display: inline-block; text-transform: uppercase; font-weight: 600; font-size: 14px; letter-spacing: 0.2px; color: #BFBFBF; }
       .progress li.active span.number  { background: var(--color-red); color: white; border: 1px solid var(--color-red); }
       .progress li.active span.label { color: var(--color-red); } 
    
-      p { display: none; font-size: 28px; line-height: 1.8; text-align: center; }
+      p { display: none; font-size: 24px; line-height: 1.8; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 30px; }
       p.filter-count-field { display: block; }
       p.filter-count-field.plural:after { content: "s" }
       p input, p select { -webkit-appearance: none; -moz-appearance: none; appearance: none; border: 0 none; outline: 0 none; display: inline-block; color: var(--color-red-alt); border-bottom: 2px dotted #969799; background: transparent; font-family: inherit; font-size: inherit; font-weight: inherit; text-align: center; font-weight: 500; border-radius: 0; }
@@ -74,14 +75,14 @@ permalink: /nano/
       
       @media screen and (max-width: 1023px) {
         .container.inner { max-width: 400px; }
-        .header { margin: 0 0 30px; padding-bottom: 80px; box-shadow: 0 0 0 transparent; }
+        .header { margin: 0 0 30px; }
         .header .logo { height: 26px; }
         .header a { line-height: 26px; }
-        h1 { font-size: 30px; line-height: 1.1; max-width: 300px; margin: 0 auto 30px; }
-        h3 { font-size: 18px; max-width: 300px; margin: 0 auto 40px; }
+        h1 { font-size: 30px; line-height: 1.1; max-width: 320px; margin: 0 0 20px; }
+        h3 { font-size: 18px; max-width: 320px; }
         p { font-size: 20px; }
         p input { max-width: 280px !important; }
-        .progress { line-height: 60px; top: 65px; left: 0; transform: none; width: 100%; text-align: center; box-shadow: 0 2px 2px rgba(0,0,0,0.05); border-top: 1px solid rgba(0,0,0,0.05); }
+        .progress { line-height: 60px; top: 65px; left: 0; transform: none; width: 100%; text-align: center; box-shadow: 0 2px 2px rgba(0,0,0,0.05); border-top: 1px solid rgba(0,0,0,0.05); display: none; }
         .progress li span.number { margin: 0; }
         .progress li span.label { display: none; }
       }
