@@ -15,28 +15,29 @@ title: Calendar UI
       @import url("https://rsms.me/inter/inter.css");
       @import url("https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css");
       * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
-      :root { --blue: #5F6EEE; --yellow: #EEDF5F; --green: #22BAA0; --orange: #EE935F; --red: #EE775F; }
-      .ac { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background: #F2F2F2; }
-      .ac .wrapper { position: relative; margin: 0 auto; width: 100%; height: 100%; max-width: 1000px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); background: white; overflow: hidden; }
+      :root { --blue: #5F6EEE; --yellow: #EEDF5F; --green: #33B679; --orange: #EE935F; --red: #F4511E; }
+      .ac { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+      .ac .wrapper { position: relative; margin: 0 auto; width: 100%; height: 100%; max-width: 1000px; box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05); background: white; overflow: hidden; }
       .ac .head { font-size: 0; height: 65px; background: #F9FAFB; }
       .ac .block { display: inline-block; width: calc(100% / 4); padding: 15px; line-height: 1; white-space: nowrap; }
       .ac .block label { display: block; text-transform: uppercase; font-size: 12px; font-weight: 600; margin: 0 0 5px; letter-spacing: 0.5px; }
-      .ac .block span { font-size: 15px; display: block; text-overflow: ellipsis; overflow: hidden; line-height: 1.5; }
-      .ac .status span { color: var(--green); font-weight: 500; }
-      .ac .status.red span { color: var(--red); }
+      .ac .block .value { font-size: 15px; display: block; text-overflow: ellipsis; overflow: hidden; line-height: 1.5; }
+      .ac .status .value { color: var(--green); font-weight: 500; }
+      .ac .block span.mdi { margin-right: 5px; }
+      .ac .status.red .value { color: var(--red); }
       .ac .cal-grid { position: absolute; top: 65px; left: 0; width: 100%; height: calc(100% - 65px); border-top: 1px solid rgba(0,0,0,0.1); user-select: none; }
-      .ac .cal-grid-head { position: absolute; top: 0; left: 0; width: 100%; height: 45px; box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
+      .ac .cal-grid-head { position: absolute; top: 0; left: 0; width: 100%; height: 45px; box-shadow: 0 2px 2px rgba(0,0,0,0.1); z-index: 1; }
       .ac .days { font-size: 0; }
       .ac .days .item { font-size: 15px; display: inline-block; width: calc(100% / 7); text-align: center; line-height: 45px; border-left: 1px solid rgba(0,0,0,0.1); }
       .ac .days .item:first-child { border-left: 0 none; }
-      .ac .days .item span:first-child { font-weight: 500; }
+      .ac .days .item span:first-child { font-weight: 600; }
       .ac .cal-grid-body { position: absolute; top: 45px; left: 0; width: 100%; height: calc(100% - 45px); font-size: 0; overflow: auto; }
-      .ac .day-column { display: inline-block; width: calc(100% / 7); padding: 5px 0; border-left: 1px solid rgba(0,0,0,0.05); font-size: 17px; vertical-align: top; }
+      .ac .day-column { display: inline-block; width: calc(100% / 7); padding: 5px 0; border-left: 1px solid rgba(0,0,0,0.05); font-size: 17px; vertical-align: top; background: #F9FAFB; }
       .ac .day-column:first-child { border-left: 0 none; }
-      .ac .slot { border: 1px solid rgba(0,0,0,0.1); color: #111827; text-align: center; width: calc(100% - 20px); margin: 10px auto; border-radius: 4px; font-size: 15px; cursor: pointer; }
+      .ac .slot { box-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); background: white; color: #111827; text-align: center; width: calc(100% - 20px); margin: 10px auto; border-radius: 4px; font-size: 15px; line-height: 2; cursor: pointer; }
       .ac .slot.disabled { background: rgba(156,163,175,0.1); color: #9CA3AF; pointer-events: none; cursor: not-allowed; opacity: 0.5; }
-      .ac .slot.booked { background: var(--red); pointer-events: none; color: white; font-weight: 500; }
-      .ac .slot.selected { background: var(--green); color: white; font-weight: 500; }
+      .ac .slot.booked { color: var(--red); box-shadow: 0 0 0 1px rgba(244,81,30,0.2); background: rgba(244,81,30,0.1); pointer-events: none; font-weight: 500; }
+      .ac .slot.selected { background: var(--green); box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05) inset; color: white; font-weight: 500; }
       @media screen and (max-width: 767px) {
         .ac .head { padding: 10px 0 0; height: 55px; }
         .ac .cal-grid { top: 55px; height: calc(100% - 55px); }
@@ -44,7 +45,7 @@ title: Calendar UI
         .ac .block { width: 50%; padding: 0 10px 10px; overflow: hidden; }
         .ac .block label { display: inline-block; margin: 0; font-size: 12px; vertical-align: top; text-transform: none; letter-spacing: normal; }
         .ac .block label:after { content: ":"; margin-right: 5px; }
-        .ac .block span { display: inline-block; font-size: 12px; line-height: 1; vertical-align: top; }
+        .ac .block .value { display: inline-block; font-size: 12px; line-height: 1; vertical-align: top; }
         .ac .cal-grid-head { height: 40px; }
         .ac .cal-grid-body { top: 40px; height: calc(100% - 40px); }
         .ac .days .item { font-size: 12px; width: calc(100% / 5); line-height: 40px; }
@@ -76,7 +77,7 @@ title: Calendar UI
         
       }
       @media screen and (min-height: 700px) and (min-width: 600px) { 
-        .ac .wrapper { max-height: 600px; width: calc(100% - 20px); top: 50%; transform: translateY(-50%); border-radius: 6px; }
+        .ac .wrapper { max-height: 605px; width: calc(100% - 20px); top: 50%; transform: translateY(-50%); border-radius: 6px; }
       }
     </style>
   </head>
@@ -85,20 +86,20 @@ title: Calendar UI
       <div class="wrapper">
         <div class="head">
           <div class="block lead-name">
-            <label>Lead Name</label>
-            <span>Nathaniel McDermott</span>
+            <label><span class="mdi mdi-account"></span>Lead Name</label>
+            <span class="value">Nathaniel McDermott</span>
           </div>
           <div class="block status red">
-            <label>Status</label>
-            <span>Not Scheduled</span>
+            <label><span class="mdi mdi-calendar"></span>Status</label>
+            <span class="value">Not Scheduled</span>
           </div>
           <div class="block time">
-            <label>Time</label>
-            <span>Wed, May 11 9:18 AM</span>
+            <label><span class="mdi mdi-clock-outline"></span>Time</label>
+            <span class="value">Wed, May 11 9:18 AM</span>
           </div>
           <div class="block time-zone">
-            <label>Timezone</label>
-            <span>America/Chicago</span>
+            <label><span class="mdi mdi-earth"></span>Timezone</label>
+            <span class="value">America/Chicago</span>
           </div>
         </div>
         <div class="cal-grid">
@@ -166,10 +167,6 @@ title: Calendar UI
               <div class="slot"><span>8:30 PM</span></div>
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
-              <div class="slot disabled"><span>10:00 PM</span></div>
-              <div class="slot disabled"><span>10:30 PM</span></div>
-              <div class="slot disabled"><span>11:00 PM</span></div>
-              <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
               <div class="slot disabled"><span>7:00 AM</span></div>
@@ -202,10 +199,6 @@ title: Calendar UI
               <div class="slot booked"><span>8:30 PM</span></div>
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
-              <div class="slot disabled"><span>10:00 PM</span></div>
-              <div class="slot disabled"><span>10:30 PM</span></div>
-              <div class="slot disabled"><span>11:00 PM</span></div>
-              <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
               <div class="slot disabled"><span>7:00 AM</span></div>
@@ -238,10 +231,6 @@ title: Calendar UI
               <div class="slot disabled"><span>8:30 PM</span></div>
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
-              <div class="slot disabled"><span>10:00 PM</span></div>
-              <div class="slot disabled"><span>10:30 PM</span></div>
-              <div class="slot disabled"><span>11:00 PM</span></div>
-              <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
               <div class="slot disabled"><span>7:00 AM</span></div>
@@ -274,10 +263,6 @@ title: Calendar UI
               <div class="slot disabled"><span>8:30 PM</span></div>
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
-              <div class="slot disabled"><span>10:00 PM</span></div>
-              <div class="slot disabled"><span>10:30 PM</span></div>
-              <div class="slot disabled"><span>11:00 PM</span></div>
-              <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
               <div class="slot disabled"><span>7:00 AM</span></div>
@@ -310,10 +295,6 @@ title: Calendar UI
               <div class="slot disabled"><span>8:30 PM</span></div>
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
-              <div class="slot disabled"><span>10:00 PM</span></div>
-              <div class="slot disabled"><span>10:30 PM</span></div>
-              <div class="slot disabled"><span>11:00 PM</span></div>
-              <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
               <div class="slot disabled"><span>7:00 AM</span></div>
@@ -346,10 +327,6 @@ title: Calendar UI
               <div class="slot"><span>8:30 PM</span></div>
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
-              <div class="slot disabled"><span>10:00 PM</span></div>
-              <div class="slot disabled"><span>10:30 PM</span></div>
-              <div class="slot disabled"><span>11:00 PM</span></div>
-              <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
               <div class="slot disabled"><span>7:00 AM</span></div>
@@ -382,10 +359,6 @@ title: Calendar UI
               <div class="slot"><span>8:30 PM</span></div>
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
-              <div class="slot disabled"><span>10:00 PM</span></div>
-              <div class="slot disabled"><span>10:30 PM</span></div>
-              <div class="slot disabled"><span>11:00 PM</span></div>
-              <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
           </div>
         </div>
