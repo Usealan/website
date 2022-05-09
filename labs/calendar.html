@@ -16,12 +16,12 @@ title: Calendar UI
       @import url("https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css");
       * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
       :root { --blue: #5F6EEE; --yellow: #EEDF5F; --green: #22BAA0; --orange: #EE935F; --red: #EE775F; }
-      .ac { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background: #FAFAFA; }
-      .ac .wrapper { position: relative; margin: 0 auto; width: 100%; max-width: 1000px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); background: white; min-height: 100%; overflow: hidden; }
-      .ac .head { font-size: 0; height: 65px; background: #FAFAFA; }
+      .ac { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background: #F2F2F2; }
+      .ac .wrapper { position: relative; margin: 0 auto; width: 100%; height: 100%; max-width: 1000px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); background: white; overflow: hidden; }
+      .ac .head { font-size: 0; height: 65px; background: #F9FAFB; }
       .ac .block { display: inline-block; width: calc(100% / 4); padding: 15px; line-height: 1; white-space: nowrap; }
-      .ac .block label { display: block; text-transform: uppercase; font-size: 12px; font-weight: 600; margin: 0 0 8px; letter-spacing: 0.5px; }
-      .ac .block span { font-size: 15px; display: block; text-overflow: ellipsis; overflow: hidden; }
+      .ac .block label { display: block; text-transform: uppercase; font-size: 12px; font-weight: 600; margin: 0 0 5px; letter-spacing: 0.5px; }
+      .ac .block span { font-size: 15px; display: block; text-overflow: ellipsis; overflow: hidden; line-height: 1.5; }
       .ac .status span { color: var(--green); font-weight: 500; }
       .ac .status.red span { color: var(--red); }
       .ac .cal-grid { position: absolute; top: 65px; left: 0; width: 100%; height: calc(100% - 65px); border-top: 1px solid rgba(0,0,0,0.1); user-select: none; }
@@ -44,7 +44,7 @@ title: Calendar UI
         .ac .block { width: 50%; padding: 0 10px 10px; overflow: hidden; }
         .ac .block label { display: inline-block; margin: 0; font-size: 12px; vertical-align: top; text-transform: none; letter-spacing: normal; }
         .ac .block label:after { content: ":"; margin-right: 5px; }
-        .ac .block span { display: inline-block; font-size: 12px; vertical-align: top; }
+        .ac .block span { display: inline-block; font-size: 12px; line-height: 1; vertical-align: top; }
         .ac .cal-grid-head { height: 40px; }
         .ac .cal-grid-body { top: 40px; height: calc(100% - 40px); }
         .ac .days .item { font-size: 12px; width: calc(100% / 5); line-height: 40px; }
@@ -66,6 +66,9 @@ title: Calendar UI
         .ac .day-column { width: calc(100% / 3); } 
         .ac .days .item:nth-of-type(1n+4) { display: none; }
         .ac .day-column:nth-of-type(1n+4) { display: none; }
+      }
+      @media screen and (min-height: 700px) { 
+        .ac .wrapper { max-height: 600px; width: calc(100% - 20px); top: 50%; transform: translateY(-50%); border-radius: 6px; }
       }
     </style>
   </head>
