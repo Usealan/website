@@ -67,7 +67,15 @@ title: Calendar UI
         .ac .days .item:nth-of-type(1n+4) { display: none; }
         .ac .day-column:nth-of-type(1n+4) { display: none; }
       }
-      @media screen and (min-height: 700px) { 
+      @media screen and (max-width: 319px) {
+        .ac .cal-grid-head { height: 30px; }
+        .ac .cal-grid-body { top: 30px; height: calc(100% - 30px); }
+        .ac .days .item { font-size: 11px; line-height: 30px; }
+        .ac .day-column { padding: 0; }
+        .ac .slot { font-size: 11px; margin: 5px auto; width: calc(100% - 10px); }
+        
+      }
+      @media screen and (min-height: 700px) and (min-width: 600px) { 
         .ac .wrapper { max-height: 600px; width: calc(100% - 20px); top: 50%; transform: translateY(-50%); border-radius: 6px; }
       }
     </style>
@@ -128,12 +136,10 @@ title: Calendar UI
           </div>
           <div class="cal-grid-body">
             <div class="day-column">
-              <div class="slot disabled"><span>6:00 AM</span></div>
-              <div class="slot disabled"><span>6:30 AM</span></div>
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
-              <div class="slot"><span>8:00 AM</span></div>
-              <div class="slot"><span>8:30 AM</span></div>
+              <div class="slot disabled"><span>8:00 AM</span></div>
+              <div class="slot disabled"><span>8:30 AM</span></div>
               <div class="slot booked"><span>9:00 AM</span></div>
               <div class="slot booked"><span>9:30 AM</span></div>
               <div class="slot"><span>10:00 AM</span></div>
@@ -166,8 +172,6 @@ title: Calendar UI
               <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
-              <div class="slot disabled"><span>6:00 AM</span></div>
-              <div class="slot disabled"><span>6:30 AM</span></div>
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot"><span>8:00 AM</span></div>
@@ -204,8 +208,6 @@ title: Calendar UI
               <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
-              <div class="slot disabled"><span>6:00 AM</span></div>
-              <div class="slot disabled"><span>6:30 AM</span></div>
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot booked"><span>8:00 AM</span></div>
@@ -242,8 +244,6 @@ title: Calendar UI
               <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
-              <div class="slot disabled"><span>6:00 AM</span></div>
-              <div class="slot disabled"><span>6:30 AM</span></div>
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot disabled"><span>8:00 AM</span></div>
@@ -280,8 +280,6 @@ title: Calendar UI
               <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
-              <div class="slot disabled"><span>6:00 AM</span></div>
-              <div class="slot disabled"><span>6:30 AM</span></div>
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot disabled"><span>8:00 AM</span></div>
@@ -318,8 +316,6 @@ title: Calendar UI
               <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
-              <div class="slot disabled"><span>6:00 AM</span></div>
-              <div class="slot disabled"><span>6:30 AM</span></div>
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot"><span>8:00 AM</span></div>
@@ -356,8 +352,6 @@ title: Calendar UI
               <div class="slot disabled"><span>11:30 PM</span></div>
             </div>
             <div class="day-column">
-              <div class="slot disabled"><span>6:00 AM</span></div>
-              <div class="slot disabled"><span>6:30 AM</span></div>
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot"><span>8:00 AM</span></div>
