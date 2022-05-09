@@ -1,0 +1,377 @@
+---
+permalink: /labs/calendar/
+title: Calendar UI
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+    <title>New ALAN Calendar UI</title>
+    <link rel="apple-touch-icon" href="/assets/images/icon.png">
+    <link rel="shortcut icon" href="/assets/images/icon.ico" />
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+      @import url("https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css");
+      * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
+      :root { --blue: #5F6EEE; --yellow: #EEDF5F; --green: #22BAA0; --orange: #EE935F; --red: #EE775F; }
+      .ac { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background: #FAFAFA; }
+      .ac .wrapper { position: relative; margin: 0 auto; width: 100%; max-width: 1000px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); background: white; min-height: 100%; overflow: hidden; }
+      .ac .head { font-size: 0; height: 70px; }
+      .ac .block { display: inline-block; width: calc(100% / 4); padding: 15px; }
+      .ac .block label { display: block; text-transform: uppercase; font-size: 12px; line-height: 1; font-weight: 600; }
+      .ac .block span { font-size: 17px; }
+      .ac .status.red span { color: var(--red); }
+      .ac .cal-grid { position: absolute; top: 70px; left: 0; width: 100%; height: calc(100% - 70px); border-top: 1px solid rgba(0,0,0,0.1); user-select: none; }
+      .ac .cal-grid-head { position: absolute; top: 0; left: 0; width: 100%; height: 45px; box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
+      .ac .days { font-size: 0; }
+      .ac .days .item { font-size: 15px; display: inline-block; width: calc(100% / 7); text-align: center; line-height: 45px; border-left: 1px solid rgba(0,0,0,0.1); }
+      .ac .days .item:first-child { border-left: 0 none; }
+      .ac .days .item span:first-child { font-weight: 500; }
+      .ac .cal-grid-body { position: absolute; top: 45px; left: 0; width: 100%; height: calc(100% - 45px); font-size: 0; overflow: auto; }
+      .ac .day-column { display: inline-block; width: calc(100% / 7); padding: 5px 0; border-left: 1px solid rgba(0,0,0,0.05); font-size: 17px; vertical-align: top; }
+      .ac .day-column:first-child { border-left: 0 none; }
+      .ac .slot { border: 1px solid rgba(0,0,0,0.1); color: #111827; text-align: center; width: calc(100% - 20px); margin: 10px auto; border-radius: 4px; font-size: 15px; cursor: pointer; }
+      .ac .slot.disabled { background: rgba(156,163,175,0.1); color: #9CA3AF; pointer-events: none; cursor: not-allowed; opacity: 0.5; }
+      .ac .slot.booked { background: var(--red); pointer-events: none; color: white; font-weight: 500; }
+      .ac .slot.selected { background: var(--green); color: white; font-weight: 500; }
+      @media screen and (max-width: 979px) {
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ac">
+      <div class="wrapper">
+        <div class="head">
+          <div class="block lead-name">
+            <label>Lead Name</label>
+            <span>Nathaniel McDermott</span>
+          </div>
+          <div class="block time-zone">
+            <label>Timezone</label>
+            <span>America/Chicago</span>
+          </div>
+          <div class="block time">
+            <label>Time</label>
+            <span>Wed, May 11 9:18 AM</span>
+          </div>
+          <div class="block status red">
+            <label>Status</label>
+            <span>Not Scheduled</span>
+          </div>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-grid-head">
+            <div class="days">
+              <div class="item">
+                <span>Wed</span>
+                <span>May 11</span>
+              </div>
+              <div class="item">
+                <span>Thu</span>
+                <span>May 12</span>
+              </div>
+              <div class="item">
+                <span>Fri</span>
+                <span>May 13</span>
+              </div>
+              <div class="item">
+                <span>Sat</span>
+                <span>May 14</span>
+              </div>
+              <div class="item">
+                <span>Sun</span>
+                <span>May 15</span>
+              </div>
+              <div class="item">
+                <span>Mon</span>
+                <span>May 16</span>
+              </div>
+              <div class="item">
+                <span>Tue</span>
+                <span>May 17</span>
+              </div>
+            </div>
+          </div>
+          <div class="cal-grid-body">
+            <div class="day-column">
+              <div class="slot disabled"><span>6:00 AM</span></div>
+              <div class="slot disabled"><span>6:30 AM</span></div>
+              <div class="slot disabled"><span>7:00 AM</span></div>
+              <div class="slot disabled"><span>7:30 AM</span></div>
+              <div class="slot"><span>8:00 AM</span></div>
+              <div class="slot"><span>8:30 AM</span></div>
+              <div class="slot booked"><span>9:00 AM</span></div>
+              <div class="slot booked"><span>9:30 AM</span></div>
+              <div class="slot"><span>10:00 AM</span></div>
+              <div class="slot"><span>10:30 AM</span></div>
+              <div class="slot"><span>11:00 AM</span></div>
+              <div class="slot"><span>11:30 AM</span></div>
+              <div class="slot"><span>12:00 PM</span></div>
+              <div class="slot"><span>12:30 PM</span></div>
+              <div class="slot booked"><span>1:00 PM</span></div>
+              <div class="slot"><span>1:30 PM</span></div>
+              <div class="slot booked"><span>2:00 PM</span></div>
+              <div class="slot booked"><span>2:30 PM</span></div>
+              <div class="slot"><span>3:00 PM</span></div>
+              <div class="slot"><span>3:30 PM</span></div>
+              <div class="slot"><span>4:00 PM</span></div>
+              <div class="slot"><span>4:30 PM</span></div>
+              <div class="slot"><span>5:00 PM</span></div>
+              <div class="slot"><span>5:30 PM</span></div>
+              <div class="slot"><span>6:00 PM</span></div>
+              <div class="slot"><span>6:30 PM</span></div>
+              <div class="slot"><span>7:00 PM</span></div>
+              <div class="slot"><span>7:30 PM</span></div>
+              <div class="slot"><span>8:00 PM</span></div>
+              <div class="slot"><span>8:30 PM</span></div>
+              <div class="slot disabled"><span>9:00 PM</span></div>
+              <div class="slot disabled"><span>9:30 PM</span></div>
+              <div class="slot disabled"><span>10:00 PM</span></div>
+              <div class="slot disabled"><span>10:30 PM</span></div>
+              <div class="slot disabled"><span>11:00 PM</span></div>
+              <div class="slot disabled"><span>11:30 PM</span></div>
+            </div>
+            <div class="day-column">
+              <div class="slot disabled"><span>6:00 AM</span></div>
+              <div class="slot disabled"><span>6:30 AM</span></div>
+              <div class="slot disabled"><span>7:00 AM</span></div>
+              <div class="slot disabled"><span>7:30 AM</span></div>
+              <div class="slot"><span>8:00 AM</span></div>
+              <div class="slot"><span>8:30 AM</span></div>
+              <div class="slot"><span>9:00 AM</span></div>
+              <div class="slot"><span>9:30 AM</span></div>
+              <div class="slot booked"><span>10:00 AM</span></div>
+              <div class="slot booked"><span>10:30 AM</span></div>
+              <div class="slot booked"><span>11:00 AM</span></div>
+              <div class="slot booked"><span>11:30 AM</span></div>
+              <div class="slot"><span>12:00 PM</span></div>
+              <div class="slot"><span>12:30 PM</span></div>
+              <div class="slot"><span>1:00 PM</span></div>
+              <div class="slot booked"><span>1:30 PM</span></div>
+              <div class="slot booked"><span>2:00 PM</span></div>
+              <div class="slot"><span>2:30 PM</span></div>
+              <div class="slot"><span>3:00 PM</span></div>
+              <div class="slot"><span>3:30 PM</span></div>
+              <div class="slot"><span>4:00 PM</span></div>
+              <div class="slot booked"><span>4:30 PM</span></div>
+              <div class="slot"><span>5:00 PM</span></div>
+              <div class="slot booked"><span>5:30 PM</span></div>
+              <div class="slot"><span>6:00 PM</span></div>
+              <div class="slot"><span>6:30 PM</span></div>
+              <div class="slot"><span>7:00 PM</span></div>
+              <div class="slot"><span>7:30 PM</span></div>
+              <div class="slot booked"><span>8:00 PM</span></div>
+              <div class="slot booked"><span>8:30 PM</span></div>
+              <div class="slot disabled"><span>9:00 PM</span></div>
+              <div class="slot disabled"><span>9:30 PM</span></div>
+              <div class="slot disabled"><span>10:00 PM</span></div>
+              <div class="slot disabled"><span>10:30 PM</span></div>
+              <div class="slot disabled"><span>11:00 PM</span></div>
+              <div class="slot disabled"><span>11:30 PM</span></div>
+            </div>
+            <div class="day-column">
+              <div class="slot disabled"><span>6:00 AM</span></div>
+              <div class="slot disabled"><span>6:30 AM</span></div>
+              <div class="slot disabled"><span>7:00 AM</span></div>
+              <div class="slot disabled"><span>7:30 AM</span></div>
+              <div class="slot booked"><span>8:00 AM</span></div>
+              <div class="slot booked"><span>8:30 AM</span></div>
+              <div class="slot"><span>9:00 AM</span></div>
+              <div class="slot"><span>9:30 AM</span></div>
+              <div class="slot booked"><span>10:00 AM</span></div>
+              <div class="slot booked"><span>10:30 AM</span></div>
+              <div class="slot"><span>11:00 AM</span></div>
+              <div class="slot"><span>11:30 AM</span></div>
+              <div class="slot"><span>12:00 PM</span></div>
+              <div class="slot"><span>12:30 PM</span></div>
+              <div class="slot booked"><span>1:00 PM</span></div>
+              <div class="slot booked"><span>1:30 PM</span></div>
+              <div class="slot booked"><span>2:00 PM</span></div>
+              <div class="slot"><span>2:30 PM</span></div>
+              <div class="slot"><span>3:00 PM</span></div>
+              <div class="slot"><span>3:30 PM</span></div>
+              <div class="slot"><span>4:00 PM</span></div>
+              <div class="slot"><span>4:30 PM</span></div>
+              <div class="slot"><span>5:00 PM</span></div>
+              <div class="slot"><span>5:30 PM</span></div>
+              <div class="slot disabled"><span>6:00 PM</span></div>
+              <div class="slot disabled"><span>6:30 PM</span></div>
+              <div class="slot disabled"><span>7:00 PM</span></div>
+              <div class="slot disabled"><span>7:30 PM</span></div>
+              <div class="slot disabled"><span>8:00 PM</span></div>
+              <div class="slot disabled"><span>8:30 PM</span></div>
+              <div class="slot disabled"><span>9:00 PM</span></div>
+              <div class="slot disabled"><span>9:30 PM</span></div>
+              <div class="slot disabled"><span>10:00 PM</span></div>
+              <div class="slot disabled"><span>10:30 PM</span></div>
+              <div class="slot disabled"><span>11:00 PM</span></div>
+              <div class="slot disabled"><span>11:30 PM</span></div>
+            </div>
+            <div class="day-column">
+              <div class="slot disabled"><span>6:00 AM</span></div>
+              <div class="slot disabled"><span>6:30 AM</span></div>
+              <div class="slot disabled"><span>7:00 AM</span></div>
+              <div class="slot disabled"><span>7:30 AM</span></div>
+              <div class="slot disabled"><span>8:00 AM</span></div>
+              <div class="slot disabled"><span>8:30 AM</span></div>
+              <div class="slot"><span>9:00 AM</span></div>
+              <div class="slot booked"><span>9:30 AM</span></div>
+              <div class="slot"><span>10:00 AM</span></div>
+              <div class="slot"><span>10:30 AM</span></div>
+              <div class="slot"><span>11:00 AM</span></div>
+              <div class="slot"><span>11:30 AM</span></div>
+              <div class="slot"><span>12:00 PM</span></div>
+              <div class="slot booked"><span>12:30 PM</span></div>
+              <div class="slot disabled"><span>1:00 PM</span></div>
+              <div class="slot disabled"><span>1:30 PM</span></div>
+              <div class="slot disabled"><span>2:00 PM</span></div>
+              <div class="slot disabled"><span>2:30 PM</span></div>
+              <div class="slot disabled"><span>3:00 PM</span></div>
+              <div class="slot disabled"><span>3:30 PM</span></div>
+              <div class="slot disabled"><span>4:00 PM</span></div>
+              <div class="slot disabled"><span>4:30 PM</span></div>
+              <div class="slot disabled"><span>5:00 PM</span></div>
+              <div class="slot disabled"><span>5:30 PM</span></div>
+              <div class="slot disabled"><span>6:00 PM</span></div>
+              <div class="slot disabled"><span>6:30 PM</span></div>
+              <div class="slot disabled"><span>7:00 PM</span></div>
+              <div class="slot disabled"><span>7:30 PM</span></div>
+              <div class="slot disabled"><span>8:00 PM</span></div>
+              <div class="slot disabled"><span>8:30 PM</span></div>
+              <div class="slot disabled"><span>9:00 PM</span></div>
+              <div class="slot disabled"><span>9:30 PM</span></div>
+              <div class="slot disabled"><span>10:00 PM</span></div>
+              <div class="slot disabled"><span>10:30 PM</span></div>
+              <div class="slot disabled"><span>11:00 PM</span></div>
+              <div class="slot disabled"><span>11:30 PM</span></div>
+            </div>
+            <div class="day-column">
+              <div class="slot disabled"><span>6:00 AM</span></div>
+              <div class="slot disabled"><span>6:30 AM</span></div>
+              <div class="slot disabled"><span>7:00 AM</span></div>
+              <div class="slot disabled"><span>7:30 AM</span></div>
+              <div class="slot disabled"><span>8:00 AM</span></div>
+              <div class="slot disabled"><span>8:30 AM</span></div>
+              <div class="slot disabled"><span>9:00 AM</span></div>
+              <div class="slot disabled"><span>9:30 AM</span></div>
+              <div class="slot"><span>10:00 AM</span></div>
+              <div class="slot booked "><span>10:30 AM</span></div>
+              <div class="slot"><span>11:00 AM</span></div>
+              <div class="slot"><span>11:30 AM</span></div>
+              <div class="slot"><span>12:00 PM</span></div>
+              <div class="slot"><span>12:30 PM</span></div>
+              <div class="slot disabled"><span>1:00 PM</span></div>
+              <div class="slot disabled"><span>1:30 PM</span></div>
+              <div class="slot disabled"><span>2:00 PM</span></div>
+              <div class="slot disabled"><span>2:30 PM</span></div>
+              <div class="slot disabled"><span>3:00 PM</span></div>
+              <div class="slot disabled"><span>3:30 PM</span></div>
+              <div class="slot disabled"><span>4:00 PM</span></div>
+              <div class="slot disabled"><span>4:30 PM</span></div>
+              <div class="slot disabled"><span>5:00 PM</span></div>
+              <div class="slot disabled"><span>5:30 PM</span></div>
+              <div class="slot disabled"><span>6:00 PM</span></div>
+              <div class="slot disabled"><span>6:30 PM</span></div>
+              <div class="slot disabled"><span>7:00 PM</span></div>
+              <div class="slot disabled"><span>7:30 PM</span></div>
+              <div class="slot disabled"><span>8:00 PM</span></div>
+              <div class="slot disabled"><span>8:30 PM</span></div>
+              <div class="slot disabled"><span>9:00 PM</span></div>
+              <div class="slot disabled"><span>9:30 PM</span></div>
+              <div class="slot disabled"><span>10:00 PM</span></div>
+              <div class="slot disabled"><span>10:30 PM</span></div>
+              <div class="slot disabled"><span>11:00 PM</span></div>
+              <div class="slot disabled"><span>11:30 PM</span></div>
+            </div>
+            <div class="day-column">
+              <div class="slot disabled"><span>6:00 AM</span></div>
+              <div class="slot disabled"><span>6:30 AM</span></div>
+              <div class="slot disabled"><span>7:00 AM</span></div>
+              <div class="slot disabled"><span>7:30 AM</span></div>
+              <div class="slot"><span>8:00 AM</span></div>
+              <div class="slot"><span>8:30 AM</span></div>
+              <div class="slot"><span>9:00 AM</span></div>
+              <div class="slot"><span>9:30 AM</span></div>
+              <div class="slot"><span>10:00 AM</span></div>
+              <div class="slot"><span>10:30 AM</span></div>
+              <div class="slot"><span>11:00 AM</span></div>
+              <div class="slot"><span>11:30 AM</span></div>
+              <div class="slot booked"><span>12:00 PM</span></div>
+              <div class="slot"><span>12:30 PM</span></div>
+              <div class="slot"><span>1:00 PM</span></div>
+              <div class="slot"><span>1:30 PM</span></div>
+              <div class="slot"><span>2:00 PM</span></div>
+              <div class="slot booked"><span>2:30 PM</span></div>
+              <div class="slot"><span>3:00 PM</span></div>
+              <div class="slot"><span>3:30 PM</span></div>
+              <div class="slot"><span>4:00 PM</span></div>
+              <div class="slot"><span>4:30 PM</span></div>
+              <div class="slot"><span>5:00 PM</span></div>
+              <div class="slot"><span>5:30 PM</span></div>
+              <div class="slot"><span>6:00 PM</span></div>
+              <div class="slot"><span>6:30 PM</span></div>
+              <div class="slot"><span>7:00 PM</span></div>
+              <div class="slot"><span>7:30 PM</span></div>
+              <div class="slot"><span>8:00 PM</span></div>
+              <div class="slot"><span>8:30 PM</span></div>
+              <div class="slot disabled"><span>9:00 PM</span></div>
+              <div class="slot disabled"><span>9:30 PM</span></div>
+              <div class="slot disabled"><span>10:00 PM</span></div>
+              <div class="slot disabled"><span>10:30 PM</span></div>
+              <div class="slot disabled"><span>11:00 PM</span></div>
+              <div class="slot disabled"><span>11:30 PM</span></div>
+            </div>
+            <div class="day-column">
+              <div class="slot disabled"><span>6:00 AM</span></div>
+              <div class="slot disabled"><span>6:30 AM</span></div>
+              <div class="slot disabled"><span>7:00 AM</span></div>
+              <div class="slot disabled"><span>7:30 AM</span></div>
+              <div class="slot"><span>8:00 AM</span></div>
+              <div class="slot"><span>8:30 AM</span></div>
+              <div class="slot"><span>9:00 AM</span></div>
+              <div class="slot"><span>9:30 AM</span></div>
+              <div class="slot booked"><span>10:00 AM</span></div>
+              <div class="slot"><span>10:30 AM</span></div>
+              <div class="slot"><span>11:00 AM</span></div>
+              <div class="slot booked"><span>11:30 AM</span></div>
+              <div class="slot"><span>12:00 PM</span></div>
+              <div class="slot"><span>12:30 PM</span></div>
+              <div class="slot"><span>1:00 PM</span></div>
+              <div class="slot booked"><span>1:30 PM</span></div>
+              <div class="slot"><span>2:00 PM</span></div>
+              <div class="slot"><span>2:30 PM</span></div>
+              <div class="slot"><span>3:00 PM</span></div>
+              <div class="slot"><span>3:30 PM</span></div>
+              <div class="slot"><span>4:00 PM</span></div>
+              <div class="slot"><span>4:30 PM</span></div>
+              <div class="slot"><span>5:00 PM</span></div>
+              <div class="slot"><span>5:30 PM</span></div>
+              <div class="slot"><span>6:00 PM</span></div>
+              <div class="slot booked"><span>6:30 PM</span></div>
+              <div class="slot"><span>7:00 PM</span></div>
+              <div class="slot"><span>7:30 PM</span></div>
+              <div class="slot"><span>8:00 PM</span></div>
+              <div class="slot"><span>8:30 PM</span></div>
+              <div class="slot disabled"><span>9:00 PM</span></div>
+              <div class="slot disabled"><span>9:30 PM</span></div>
+              <div class="slot disabled"><span>10:00 PM</span></div>
+              <div class="slot disabled"><span>10:30 PM</span></div>
+              <div class="slot disabled"><span>11:00 PM</span></div>
+              <div class="slot disabled"><span>11:30 PM</span></div>
+            </div>
+          </div>
+        </div>
+      </div>     
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script>
+      $(".slot").click(function() {
+        $(".slot").not(this).removeClass("selected");
+        $(this).toggleClass("selected");
+      });
+    </script>
+  </body>
+</html>
