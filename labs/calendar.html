@@ -22,7 +22,7 @@ title: Calendar UI
       .ac .block { display: inline-block; width: calc(100% / 4); padding: 15px; line-height: 1; white-space: nowrap; }
       .ac .block label { display: block; text-transform: uppercase; font-size: 12px; font-weight: 600; margin: 0 0 5px; letter-spacing: 0.5px; }
       .ac .block .value { font-size: 15px; display: block; text-overflow: ellipsis; overflow: hidden; line-height: 1.5; }
-      .ac .status .value { color: var(--green); font-weight: 600; }
+      .ac .status .value { color: var(--green); font-weight: 500; }
       .ac .block span.mdi { margin-right: 5px; }
       .ac .status.red .value { color: var(--red); }
       .ac .cal-grid { position: absolute; top: 65px; left: 0; width: 100%; height: calc(100% - 65px); border-top: 1px solid rgba(0,0,0,0.1); user-select: none; }
@@ -38,6 +38,10 @@ title: Calendar UI
       .ac .slot.disabled { background: rgba(156,163,175,0.1); color: #9CA3AF; pointer-events: none; cursor: not-allowed; opacity: 0.5; }
       .ac .slot.booked { color: var(--red); box-shadow: 0 0 0 1px rgba(244,81,30,0.2); background: rgba(244,81,30,0.1); pointer-events: none; font-weight: 500; }
       .ac .slot.selected { background: var(--green); box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05) inset; color: white; font-weight: 500; }
+      .ac .message { position: absolute; bottom: -200px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 20px;  min-width: 480px; line-height: 1.5; box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 0 0 1px var(--green); border-radius: 3px; font-size: 14px; text-align: center; background: #EDF7F1; color: #111111; font-weight: 400; cursor: default; transition: bottom 0.5s ease; }
+      .ac .message.show { bottom: 15px; }
+      .ac .message.error { color: var(--red); }
+      .ac .message .strong { font-weight: 600; }
       @media screen and (max-width: 767px) {
         .ac .head { padding: 10px 0 0; height: 55px; }
         .ac .cal-grid { top: 55px; height: calc(100% - 55px); }
@@ -52,6 +56,7 @@ title: Calendar UI
         .ac .day-column { width: calc(100% / 5); }
         .ac .days .item:nth-of-type(1n+6) { display: none; }
         .ac .day-column:nth-of-type(1n+6) { display: none; }
+        .ac .message { min-width: initial; width: 310px; }
       }
       @media screen and (max-width: 567px) {
         .ac .days .item { width: calc(100% / 4);}
@@ -68,13 +73,17 @@ title: Calendar UI
         .ac .days .item:nth-of-type(1n+4) { display: none; }
         .ac .day-column:nth-of-type(1n+4) { display: none; }
       }
-      @media screen and (max-width: 319px) {
+      @media screen and (max-width: 339px) {
         .ac .cal-grid-head { height: 30px; }
         .ac .cal-grid-body { top: 30px; height: calc(100% - 30px); }
         .ac .days .item { font-size: 11px; line-height: 30px; }
         .ac .day-column { padding: 0; }
-        .ac .slot { font-size: 11px; margin: 5px auto; width: calc(100% - 10px); }
-        
+        .ac .slot { font-size: 11px; margin: 5px auto; width: calc(100% - 10px); } 
+        .ac .block label { font-size: 0; }
+        .ac .block label span.mdi { font-size: 11px; }
+      }
+      @media screen and (max-width: 299px) {
+        .ac .message { width: 230px; font-size: 11px; }
       }
       @media screen and (min-height: 700px) and (min-width: 600px) { 
         .ac .wrapper { max-height: 605px; width: calc(100% - 20px); top: 50%; transform: translateY(-50%); border-radius: 3px; }
@@ -87,7 +96,7 @@ title: Calendar UI
         <div class="head">
           <div class="block lead-name">
             <label><span class="mdi mdi-account"></span>Lead Name</label>
-            <span class="value">Nathaniel McDermott</span>
+            <span class="value">Christopher Stephenson</span>
           </div>
           <div class="block status red">
             <label><span class="mdi mdi-calendar"></span>Status</label>
@@ -136,7 +145,7 @@ title: Calendar UI
             </div>
           </div>
           <div class="cal-grid-body">
-            <div class="day-column">
+            <div class="day-column" data-date="Wed, May 11">
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot disabled"><span>8:00 AM</span></div>
@@ -168,7 +177,7 @@ title: Calendar UI
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
             </div>
-            <div class="day-column">
+            <div class="day-column" data-date="Thu, May 12">
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot"><span>8:00 AM</span></div>
@@ -200,7 +209,7 @@ title: Calendar UI
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
             </div>
-            <div class="day-column">
+            <div class="day-column" data-date="Fri, May 13">
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot booked"><span>8:00 AM</span></div>
@@ -232,7 +241,7 @@ title: Calendar UI
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
             </div>
-            <div class="day-column">
+            <div class="day-column" data-date="Sat, May 14">
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot disabled"><span>8:00 AM</span></div>
@@ -264,7 +273,7 @@ title: Calendar UI
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
             </div>
-            <div class="day-column">
+            <div class="day-column" data-date="Sun, May 15">
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot disabled"><span>8:00 AM</span></div>
@@ -296,7 +305,7 @@ title: Calendar UI
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
             </div>
-            <div class="day-column">
+            <div class="day-column" data-date="Mon, May 16">
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot"><span>8:00 AM</span></div>
@@ -328,7 +337,7 @@ title: Calendar UI
               <div class="slot disabled"><span>9:00 PM</span></div>
               <div class="slot disabled"><span>9:30 PM</span></div>
             </div>
-            <div class="day-column">
+            <div class="day-column" data-date="Tue, May 17">
               <div class="slot disabled"><span>7:00 AM</span></div>
               <div class="slot disabled"><span>7:30 AM</span></div>
               <div class="slot"><span>8:00 AM</span></div>
@@ -362,13 +371,22 @@ title: Calendar UI
             </div>
           </div>
         </div>
-      </div>     
+        <div class="message"></div>
+      </div>  
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script>
       $(".slot").click(function() {
         $(".slot").not(this).removeClass("selected");
         $(this).toggleClass("selected");
+        var date = $(this).parent(".day-column").attr("data-date");
+        var time = $(this).text();
+        $(".message").removeClass("show");
+        $(".message").html("Appointment successfully created for <strong>" + date + "</strong> at <strong>" + time + "</strong>.");
+        $(".message").addClass("show");
+        setTimeout(function(){
+          $(".message").removeClass("show");
+        }, 5000);
       });
     </script>
   </body>
