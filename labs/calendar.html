@@ -16,7 +16,7 @@ title: Calendar UI
       @import url("https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css");
       * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
       :root { --blue: #5F6EEE; --yellow: #EEDF5F; --green: #33B679; --orange: #EE935F; --red: #F4511E; }
-      .ac { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+      .ac { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; padding: 10px; }
       .ac .wrapper { position: relative; margin: 0 auto; width: 100%; height: 100%; max-width: 1000px; box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05); background: white; overflow: hidden; }
       .ac .head { font-size: 0; height: 65px; background: #F9FAFB; }
       .ac .block { display: inline-block; width: calc(100% / 4); padding: 15px; line-height: 1; white-space: nowrap; }
@@ -28,7 +28,10 @@ title: Calendar UI
       .ac .cal-grid { position: absolute; top: 65px; left: 0; width: 100%; height: calc(100% - 65px); border-top: 1px solid rgba(0,0,0,0.1); user-select: none; }
       .ac .cal-grid-head { position: absolute; top: 0; left: 0; width: 100%; height: 45px; box-shadow: 0 2px 2px rgba(0,0,0,0.1); z-index: 1; }
       .ac .days { font-size: 0; }
-      .ac .days .item { font-size: 15px; display: inline-block; width: calc(100% / 7); text-align: center; line-height: 45px; border-left: 1px solid rgba(0,0,0,0.1); }
+      .ac .days .item { position: relative; font-size: 15px; display: inline-block; width: calc(100% / 7); text-align: center; line-height: 45px; border-left: 1px solid rgba(0,0,0,0.1); }
+      .ac .days .item.date-switcher { text-decoration: underline; cursor: pointer; }
+      .ac .days .item.date-switcher input[type=date] { opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; }
+      .ac .days .item.date-switcher input[type=date]::-webkit-calendar-picker-indicator { width: 100%; position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; cursor: pointer; }
       .ac .days .item:first-child { border-left: 0 none; }
       .ac .days .item span:first-child { font-weight: 600; }
       .ac .cal-grid-body { position: absolute; top: 45px; left: 0; width: 100%; height: calc(100% - 45px); font-size: 0; overflow: auto; }
@@ -43,16 +46,16 @@ title: Calendar UI
       .ac .message.error { color: var(--red); }
       .ac .message .strong { font-weight: 600; }
       @media screen and (max-width: 767px) {
-        .ac .head { padding: 10px 0 0; height: 55px; }
-        .ac .cal-grid { top: 55px; height: calc(100% - 55px); }
+        .ac .head { padding: 15px 0 0; height: 70px; }
+        .ac .cal-grid { top: 70px; height: calc(100% - 70px); }
         .ac .slot { font-size: 14px; }
-        .ac .block { width: 50%; padding: 0 10px 10px; overflow: hidden; }
-        .ac .block label { display: inline-block; margin: 0; font-size: 12px; vertical-align: top; text-transform: none; letter-spacing: normal; }
+        .ac .block { width: 50%; padding: 0 15px 15px; overflow: hidden; }
+        .ac .block label { display: inline-block; margin: 0; font-size: 14px; vertical-align: top; text-transform: none; letter-spacing: normal; }
         .ac .block label:after { content: ":"; margin-right: 5px; }
-        .ac .block .value { display: inline-block; font-size: 12px; line-height: 1; vertical-align: top; }
+        .ac .block .value { display: inline-block; font-size: 14px; line-height: 1; vertical-align: top; color: #333333; }
         .ac .cal-grid-head { height: 40px; }
         .ac .cal-grid-body { top: 40px; height: calc(100% - 40px); }
-        .ac .days .item { font-size: 12px; width: calc(100% / 5); line-height: 40px; }
+        .ac .days .item { font-size: 14px; width: calc(100% / 5); line-height: 40px; }
         .ac .day-column { width: calc(100% / 5); }
         .ac .days .item:nth-of-type(1n+6) { display: none; }
         .ac .day-column:nth-of-type(1n+6) { display: none; }
@@ -64,23 +67,30 @@ title: Calendar UI
         .ac .days .item:nth-of-type(1n+5) { display: none; }
         .ac .day-column:nth-of-type(1n+5) { display: none; }
       }
-      @media screen and (max-width: 419px) {
-        .ac .head { height: 100px; }
-        .ac .block { width: 100%; }
-        .ac .cal-grid { top: 100px; height: calc(100% - 100px); }
+      @media screen and (max-width: 479px) {
+        .ac .head { height: 130px; padding: 5px 0; }
+        .ac .block { width: 100%; padding: 0 15px; line-height: 30px; font-size: 15px; }
+        .ac .block label:after { margin: 0; }
+        .ac .block .value { line-height: inherit; font-size: 15px; }
+        .ac .cal-grid { top: 130px; height: calc(100% - 130px); }
         .ac .days .item { width: calc(100% / 3);}
         .ac .day-column { width: calc(100% / 3); } 
         .ac .days .item:nth-of-type(1n+4) { display: none; }
         .ac .day-column:nth-of-type(1n+4) { display: none; }
       }
       @media screen and (max-width: 339px) {
+        .ac { padding: 5px; }
+        .ac .head { height: 105px; padding: 5px 0; }
+        .ac .block { line-height: 20px; font-size: 12px; }
+        .ac .block .value { font-size: inherit; }
+        .ac .cal-grid { top: 105px; height: calc(100% - 105px); }
         .ac .cal-grid-head { height: 30px; }
         .ac .cal-grid-body { top: 30px; height: calc(100% - 30px); }
         .ac .days .item { font-size: 11px; line-height: 30px; }
         .ac .day-column { padding: 0; }
         .ac .slot { font-size: 11px; margin: 5px auto; width: calc(100% - 10px); } 
         .ac .block label { font-size: 0; }
-        .ac .block label span.mdi { font-size: 11px; }
+        .ac .block label span.mdi { font-size: 12px; }
       }
       @media screen and (max-width: 299px) {
         .ac .message { width: 230px; font-size: 11px; }
@@ -95,7 +105,7 @@ title: Calendar UI
       <div class="wrapper">
         <div class="head">
           <div class="block lead-name">
-            <label><span class="mdi mdi-account"></span>Lead Name</label>
+            <label><span class="mdi mdi-account"></span>Lead</label>
             <span class="value">Christopher Stephenson</span>
           </div>
           <div class="block status red">
@@ -114,9 +124,10 @@ title: Calendar UI
         <div class="cal-grid">
           <div class="cal-grid-head">
             <div class="days">
-              <div class="item">
+              <div class="item date-switcher">
                 <span>Wed</span>
                 <span>May 11</span>
+                <input type="date" name="date-switcher" value="2022-05-11" min="2022-05-11" max="2022-08-11">
               </div>
               <div class="item">
                 <span>Thu</span>
