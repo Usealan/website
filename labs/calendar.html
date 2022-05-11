@@ -34,8 +34,8 @@ title: Calendar UI
       .ac .days .item.date-switcher input[type=date]::-webkit-calendar-picker-indicator { width: 100%; position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; cursor: pointer; }
       .ac .days .item:first-child { border-left: 0 none; }
       .ac .days .item span:first-child { font-weight: 600; }
-      .ac .cal-grid-body { position: absolute; top: 45px; left: 0; width: 100%; height: calc(100% - 45px); font-size: 0; overflow: auto; }
-      .ac .day-column { display: inline-block; width: calc(100% / 7); padding: 5px 0; border-left: 1px solid rgba(0,0,0,0.05); font-size: 17px; vertical-align: top; background: #F9FAFB; }
+      .ac .cal-grid-body { position: absolute; top: 45px; left: 0; width: 100%; height: calc(100% - 45px); font-size: 0; overflow: auto; background: #F9FAFB;  }
+      .ac .day-column { display: inline-block; width: calc(100% / 7); padding: 5px 0; border-left: 1px solid rgba(0,0,0,0.05); font-size: 17px; vertical-align: top; }
       .ac .day-column:first-child { border-left: 0 none; }
       .ac .slot { box-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); background: white; color: #111827; text-align: center; width: calc(100% - 20px); margin: 10px auto; border-radius: 4px; font-size: 15px; line-height: 2; cursor: pointer; }
       .ac .slot.disabled { background: rgba(156,163,175,0.1); color: #9CA3AF; pointer-events: none; cursor: not-allowed; opacity: 0.5; }
@@ -45,6 +45,9 @@ title: Calendar UI
       .ac .message.show { bottom: 15px; }
       .ac .message.error { color: var(--red); }
       .ac .message .strong { font-weight: 600; }
+      .ac.hide-unavailables .slot.disabled,
+      .ac.hide-unavailables .slot.booked { display: none; }
+      .ac.hide-unavailables .day-column { border: 0 none; }
       @media screen and (max-width: 767px) {
         .ac .head { padding: 15px 0 0; height: 70px; }
         .ac .cal-grid { top: 70px; height: calc(100% - 70px); }
@@ -387,6 +390,30 @@ title: Calendar UI
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script>
+      // Make URL parameters readable
+      
+      var getUrlParameter=function(r){var t,e,n=decodeURIComponent(window.location.search.substring(1)).split("&");for(e=0;e<n.length;e++)if((t=n[e].split("="))[0]===r)return void 0===t[1]||t[1]};
+
+      // Varialbes
+      
+      if (getUrlParameter("showUnavailables") == "0") {
+        var showUnavailables = "0";
+      } else {
+        var showUnavailables = "1";
+      }
+      
+      if (showUnavailables == "0") {
+        $(".ac").addClass("hide-unavailables");
+      }
+      
+      // Replace URL parameter
+      
+      window.history.replaceState(null, null, "?showUnavailables=" + showUnavailables );
+      
+      console.log(showUnavailables);
+      
+      // Slot actions
+
       $(".slot").click(function() {
         $(".slot").not(this).removeClass("selected");
         $(this).toggleClass("selected");
