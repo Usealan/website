@@ -389,12 +389,13 @@ title: Calendar UI
       </div>  
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script>
       // Make URL parameters readable
       
       var getUrlParameter=function(r){var t,e,n=decodeURIComponent(window.location.search.substring(1)).split("&");for(e=0;e<n.length;e++)if((t=n[e].split("="))[0]===r)return void 0===t[1]||t[1]};
 
-      // Varialbes
+      // Variables
       
       if (getUrlParameter("onlyAvailables") == "1") {
         var onlyAvailables = "1";
@@ -409,7 +410,28 @@ title: Calendar UI
       // Replace URL parameter
       
       window.history.replaceState(null, null, "?onlyAvailables=" + onlyAvailables );
-            
+      
+      // Dates
+      
+      var today = moment();
+      var dayOne = moment().add(1, 'days');
+      var dayTwo = moment().add(2, 'days');
+      var dayThree = moment().add(3, 'days');
+      var dayFour = moment().add(4, 'days');
+      var dayFive = moment().add(5, 'days');
+      var daySix = moment().add(6, 'days');
+      var daySeven = moment().add(7, 'days');
+      var threeMonths = moment().add(3, 'months');
+      
+      $(".time .value").html(today.format('ddd, MMM D h:mm A'));
+      $(".days .item:nth-child(1)").html("<span>" + dayOne.format('ddd') + "</span> <span>" + dayOne.format('MMM D') + "</span><input type='date' name='date-switcher' value='" + dayOne.format('YYYY-MM-DD') + "' min='" + dayOne.format('YYYY-MM-DD') + "' max='" + threeMonths.format('YYYY-MM-DD') + "'>");
+      $(".days .item:nth-child(2)").html("<span>" + dayTwo.format('ddd') + "</span> <span>" + dayTwo.format('MMM D') + "</span>");
+      $(".days .item:nth-child(3)").html("<span>" + dayThree.format('ddd') + "</span> <span>" + dayThree.format('MMM D') + "</span>");
+      $(".days .item:nth-child(4)").html("<span>" + dayFour.format('ddd') + "</span> <span>" + dayFour.format('MMM D') + "</span>");
+      $(".days .item:nth-child(5)").html("<span>" + dayFive.format('ddd') + "</span> <span>" + dayFive.format('MMM D') + "</span>");
+      $(".days .item:nth-child(6)").html("<span>" + daySix.format('ddd') + "</span> <span>" + daySix.format('MMM D') + "</span>");
+      $(".days .item:nth-child(7)").html("<span>" + daySeven.format('ddd') + "</span> <span>" + daySeven.format('MMM D') + "</span>");
+
       // Slot actions
 
       $(".slot").click(function() {
@@ -424,6 +446,7 @@ title: Calendar UI
           $(".message").removeClass("show");
         }, 5000);
       });
+      
     </script>
   </body>
 </html>
