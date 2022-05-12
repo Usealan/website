@@ -121,7 +121,7 @@ title: Calendar UI
           </div>
           <div class="block time-zone">
             <label><span class="mdi mdi-earth"></span>Timezone</label>
-            <span class="value">America/Chicago</span>
+            <span class="value">America/New York</span>
           </div>
         </div>
         <div class="cal-grid">
@@ -422,8 +422,10 @@ title: Calendar UI
       var daySix = moment().add(6, 'days');
       var daySeven = moment().add(7, 'days');
       var threeMonths = moment().add(3, 'months');
+      var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       
       $(".time .value").html(today.format('ddd, MMM D h:mm A'));
+      $(".time-zone .value").html(timeZone);
       $(".days .item:nth-child(1)").html("<span>" + dayOne.format('ddd') + "</span> <span>" + dayOne.format('MMM D') + "</span><input type='date' name='date-switcher' value='" + dayOne.format('YYYY-MM-DD') + "' min='" + dayOne.format('YYYY-MM-DD') + "' max='" + threeMonths.format('YYYY-MM-DD') + "'>");
       $(".days .item:nth-child(2)").html("<span>" + dayTwo.format('ddd') + "</span> <span>" + dayTwo.format('MMM D') + "</span>");
       $(".days .item:nth-child(3)").html("<span>" + dayThree.format('ddd') + "</span> <span>" + dayThree.format('MMM D') + "</span>");
