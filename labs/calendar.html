@@ -45,9 +45,9 @@ title: Calendar UI
       .ac .message.show { bottom: 15px; }
       .ac .message.error { color: var(--red); }
       .ac .message .strong { font-weight: 600; }
-      .ac.hide-unavailables .slot.disabled,
-      .ac.hide-unavailables .slot.booked { display: none; }
-      .ac.hide-unavailables .day-column { border: 0 none; }
+      .ac.only-availables .slot.disabled,
+      .ac.only-availables .slot.booked { display: none; }
+      .ac.only-availables .day-column { border: 0 none; }
       @media screen and (max-width: 767px) {
         .ac .head { padding: 15px 0 0; height: 70px; }
         .ac .cal-grid { top: 70px; height: calc(100% - 70px); }
@@ -396,19 +396,19 @@ title: Calendar UI
 
       // Varialbes
       
-      if (getUrlParameter("showUnavailables") == "0") {
-        var showUnavailables = "0";
+      if (getUrlParameter("onlyAvailables") == "1") {
+        var onlyAvailables = "1";
       } else {
-        var showUnavailables = "1";
+        var onlyAvailables = "0";
       }
       
-      if (showUnavailables == "0") {
-        $(".ac").addClass("hide-unavailables");
+      if (onlyAvailables == "1") {
+        $(".ac").addClass("only-availables");
       }
       
       // Replace URL parameter
       
-      window.history.replaceState(null, null, "?showUnavailables=" + showUnavailables );
+      window.history.replaceState(null, null, "?onlyAvailables=" + onlyAvailables );
       
       console.log(showUnavailables);
       
