@@ -1,0 +1,135 @@
+---
+permalink: /labs/form/
+title: Form UI
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+    <title>Lead Import Form</title>
+    <link rel="apple-touch-icon" href="/assets/images/icon.png">
+    <link rel="shortcut icon" href="/assets/images/icon.ico" />
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+      @import url("https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css");
+      * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
+      :root { --blue: #5F6EEE; --yellow: #EEDF5F; --green: #33B679; --orange: #EE935F; --red: #F4511E; }
+      .af { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; font-size: 17px; line-height: 1.8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; padding: 15px;  background: #FCFCFC; }
+      .af .wrapper { position: relative; margin: 0 auto; width: 100%; height: 100%; max-width: 1000px; }
+      .af .form { position: relative; width: 100%; max-width: 400px; font-size: 0; margin: 0 auto; }
+      .af input { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; font-weight: inherit; background: transparent; color: inherit; border-radius: 5px; font-size: 16px; padding: 12px; width: 100%; margin: 0 0 15px; background: white; }
+      .af input[type=text],
+      .af input[type=email],
+      .af input[type=tel] { border: 1px solid #DDDDDD; }
+      .af input[type=text]:focus,
+      .af input[type=email]:focus,
+      .af input[type=tel]:focus { border: 1px solid #227EF7; }
+      .af input[type=submit] { font-size: 17px; background: #227EF7; color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; font-weight: 600; padding: 12px 20px; margin-top: 10px; border: 2px solid #227EF7; margin-bottom: 0; }
+      .af input[type=submit]:focus { border: 2px solid white; outline: 1px solid #227EF7; box-shadow: 0 0 0 transparent; }
+      .af iframe { position: relative; width: 100%; border: 0 none; height: 100%; }
+      @media screen and (max-width: 767px) {
+      }
+
+      @media screen and (min-height: 320px) {
+        .af .form { top: 50%; transform: translateY(-50%); }
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="af">
+      <div class="wrapper">
+        <div class="form">
+          <form id="form" method="POST">
+            <input type="text" id="first-name" name="First Name" placeholder="First Name" required="" autocomplete="off" autofocus="">
+            <input type="text" id="last-name" name="Last Name" placeholder="Last Name" required=""  autocomplete="off">
+            <input type="email" id="email" name="Email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" required=""  autocomplete="off">
+            <input type="tel" id="phone" name="Phone" placeholder="Phone Number" pattern="^(\d{7}|\d{10})$" title="Ten digit number, no dashes or special characters." required=""  autocomplete="off">
+            <input type="text" id="campaign" name="Campaign" placeholder="free-hair-health-consultation" value="free-hair-health-consultation" style="display: none;">
+            <div>
+              <input type="submit" value="Sign Up">
+            </div>
+            <p class="terms-text">By selecting "Sign Up" you agree to our Terms &amp; Conditions.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script>
+
+      // Make URL parameters readable
+
+      var getUrlParameter=function(r){var t,e,n=decodeURIComponent(window.location.search.substring(1)).split("&");for(e=0;e<n.length;e++)if((t=n[e].split("="))[0]===r)return void 0===t[1]||t[1]};
+
+      // Variables
+
+      if (getUrlParameter("user_code")) {
+        var userCode = getUrlParameter("user_code");
+      } else {
+        var userCode = "3494600b07ff12cdb";
+      }
+
+      if (getUrlParameter("user_id")) {
+        var userId = getUrlParameter("user_id");
+      } else {
+        var userId = "3494";
+      }
+      
+      // Replace URL parameters
+     
+      window.history.replaceState(null, null, "?user_id=" + userId + "&user_code=" + userCode );
+      
+      // Inject user ID and user code as data attributes
+
+      $(".af").attr("data-user-id", userId);      
+      $(".af").attr("data-user-code",userCode);
+      
+      console.log(userId + " - " + userCode);
+      
+      // Create lead in ALAN on form submission
+            
+      $("#form").submit(function(e) {
+        e.preventDefault();
+        
+        var firstName = $("#first-name").val();
+        var lastName  = $("#last-name").val();
+        var email     = $("#email").val();
+        var phone     = $("#phone").val();
+        var campaign  = $("#campaign").val();
+                
+        var createLeadSettings = {
+          "url": "https://prepro2-smsportal.protibimbo.com/webhooks/create_lead/" + userCode,
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "data": JSON.stringify({
+            "first_name": firstName,
+            "last_name": lastName,
+            "phone": phone,
+            "email": email
+          }),
+        };
+        
+        // Inject calendar iframe for step 2
+        
+        $.ajax(createLeadSettings)
+          .done(function (response) {
+            console.log(response);
+            console.log("SUCCESS");            
+          })
+          .fail(function (response) {
+            console.log(response);
+            console.log("ERROR");
+          })
+          .always(function (response) {
+            leadId = "lead_id_goes_here";
+            $(".af .wrapper").html("<iframe src='https://calendar-dev.usealan.com/calendar/" + userId + "/" + leadId + "?onlyAvailables=0'></iframe>");
+          });
+        
+      });
+    </script>
+  </body>
+</html>
