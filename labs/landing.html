@@ -9,15 +9,15 @@ campaign_subtext: "Promotion is limited to the first 15 people. Usually fills in
 hero_image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80"
 features_title: "Something different is happening here."
 features_subtext: "Getting fit doesn’t work if you only focus on fitness. And going it alone should never be a sign of strength. Our coaches support you in a way no one else can with the best fitness and holistic help inside the gym – and out. And our community of members are waiting to meet you."
-feature_one_title: ""
-feature_one_subtext: ""
-feature_one_icon: ""
-feature_two_title: ""
-feature_two_subtext: ""
-feature_two_icon: ""
-feature_three_title: ""
-feature_three_subtext: ""
-feature_three_icon: ""
+feature_one_title: "Support"
+feature_one_subtext: "Every member gets a free, personalized plan when they join. Our friendly, professional staff is trained to help you along your fitness journey, no matter how much support you need."
+feature_one_icon: "mdi-dumbbell"
+feature_two_title: "Training & Tools"
+feature_two_subtext: "Together – we can make healthy happen. That’s why we offer personal training and classes when you’re here, and the right tools to keep you on track when you’re not."
+feature_two_icon: "mdi-weight-lifter"
+feature_three_title: "Community"
+feature_three_subtext: "You’re not just joining a gym. You’re joining a supportive community of like-minded people who are here to give you the encouragement you need."
+feature_three_icon: "mdi-account-group-outline"
 footer_text: "Results may vary. New customers only. Limited to local residents only. Valid ID required. At participating locations only. Terms and conditions may vary. Each location is independently owned and operated."
 ---
 
@@ -154,7 +154,7 @@ footer_text: "Results may vary. New customers only. Limited to local residents o
             <div>
               <input type="submit" value="Sign Up">
             </div>
-            <p class="terms-text">By selecting "Sign Up" you agree to our Terms & Conditions.</p>
+            <p class="terms-text">By clicking "Sign Up" you agree to our <a href="https://usealan.com/terms/">Terms & Conditions</a>.</p>
           </form>              
         </div>
       </div>
@@ -167,21 +167,27 @@ footer_text: "Results may vary. New customers only. Limited to local residents o
         <p>{{ page.features_subtext }}</p>
         {% endif %}
         <ul>
+          {% if page.feature_one_title %}
           <li>
-            <div class="icon" {% if page.business_primary_color %}style="background: {{ page.business_primary_color }}"{% endif %}><span class="mdi mdi-dumbbell"></span></div>
-            <h3>Support</h3>
-            <p>Every member gets a free, personalized plan when they join. Our friendly, professional staff is trained to help you along your fitness journey, no matter how much support you need.</p>
+            <div class="icon" {% if page.business_primary_color %}style="background: {{ page.business_primary_color }}"{% endif %}><span class="mdi {{ page.feature_one_icon }}"></span></div>
+            <h3>{{ page.feature_one_title }}</h3>
+            <p>{{ page.feature_one_subtext }}</p>
           </li>
+          {% endif %}
+          {% if page.feature_two_title %}
           <li>
-            <div class="icon" {% if page.business_primary_color %}style="background: {{ page.business_primary_color }}"{% endif %}><span class="mdi mdi-weight-lifter"></span></div>
-            <h3>Training & Tools</h3>
-            <p>Together – we can make healthy happen. That’s why we offer personal training and classes when you’re here, and the right tools to keep you on track when you’re not.</p>
+            <div class="icon" {% if page.business_primary_color %}style="background: {{ page.business_primary_color }}"{% endif %}><span class="mdi {{ page.feature_two_icon }}"></span></div>
+            <h3>{{ page.feature_two_title }}</h3>
+            <p>{{ page.feature_two_subtext }}</p>
           </li>
+          {% endif %}
+          {% if page.feature_three_title %}
           <li>
-            <div class="icon" {% if page.business_primary_color %}style="background: {{ page.business_primary_color }}"{% endif %}><span class="mdi mdi-account-group-outline"></span></div>
-            <h3>Community</h3>
-            <p>You’re not just joining a gym. You’re joining a supportive community of like-minded people who are here to give you the encouragement you need.</p>
+            <div class="icon" {% if page.business_primary_color %}style="background: {{ page.business_primary_color }}"{% endif %}><span class="mdi {{ page.feature_three_icon }}"></span></div>
+            <h3>{{ page.feature_three_title }}</h3>
+            <p>{{ page.feature_three_subtext }}</p>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>
