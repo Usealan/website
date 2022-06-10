@@ -7,6 +7,17 @@ campaign_title: "Try Us For Free"
 campaign_headline: "Claim Your Free<br>7-Day Pass!"
 campaign_subtext: "Promotion is limited to the first 15 people. Usually fills in less than 5 days. Claim your free spot now!"
 hero_image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80"
+features_title: "Something different is happening here."
+features_subtext: "Getting fit doesn’t work if you only focus on fitness. And going it alone should never be a sign of strength. Our coaches support you in a way no one else can with the best fitness and holistic help inside the gym – and out. And our community of members are waiting to meet you."
+feature_one_title: ""
+feature_one_subtext: ""
+feature_one_icon: ""
+feature_two_title: ""
+feature_two_subtext: ""
+feature_two_icon: ""
+feature_three_title: ""
+feature_three_subtext: ""
+feature_three_icon: ""
 footer_text: "Results may vary. New customers only. Limited to local residents only. Valid ID required. At participating locations only. Terms and conditions may vary. Each location is independently owned and operated."
 ---
 
@@ -151,8 +162,10 @@ footer_text: "Results may vary. New customers only. Limited to local residents o
     
     <div class="features">
       <div class="container">
-        <h2>Something different is happening here.</h2>
-        <p>Getting fit doesn’t work if you only focus on fitness. And going it alone should never be a sign of strength. Our coaches support you in a way no one else can with the best fitness and holistic help inside the gym – and out. And our community of members are waiting to meet you.</p>
+        <h2>{{ page.features_title }}</h2>
+        {% if page.features_subtext %}
+        <p>{{ page.features_subtext }}</p>
+        {% endif %}
         <ul>
           <li>
             <div class="icon" {% if page.business_primary_color %}style="background: {{ page.business_primary_color }}"{% endif %}><span class="mdi mdi-dumbbell"></span></div>
