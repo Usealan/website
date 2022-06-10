@@ -54,7 +54,7 @@ title: Form UI
           <form id="form" method="POST">
             <input type="text" id="first-name" name="First Name" placeholder="First Name" required="" autocomplete="off" autofocus="">
             <input type="text" id="last-name" name="Last Name" placeholder="Last Name" required=""  autocomplete="off">
-            <input type="email" id="email" name="Email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" required=""  autocomplete="off">
+            <input type="email" id="email" name="Email" placeholder="Email" pattern="^\S+@\S+$" required=""  autocomplete="off">
             <input type="tel" id="phone" name="Phone" placeholder="Phone Number" pattern="^(\d{7}|\d{10})$" title="Ten digit number, no dashes or special characters." required=""  autocomplete="off">
             <input type="text" id="campaign" name="Campaign" placeholder="free-hair-health-consultation" value="free-hair-health-consultation" style="display: none;">
             <div>
@@ -124,20 +124,16 @@ title: Form UI
         
         // Inject calendar iframe for step 2
         
-        $.ajax(createLeadSettings)
-          .done(function (response) {
-            console.log(response);
-            console.log("SUCCESS");            
-          })
-          .fail(function (response) {
-            console.log(response);
-            console.log("ERROR");
-          })
-          .always(function (response) {
-            leadId = "lead_id_goes_here";
-            $(".af .wrapper").html("<iframe src='https://calendar-dev.usealan.com/calendar/" + userId + "/" + leadId + "?onlyAvailables=0'></iframe>");
-          });
-        
+        $.ajax(createLeadSettings).always(function (response) {
+          if (response.responseJSON.status == "success") {
+            var leadId = response.responseJSON.data.contact_id;
+            alert(leadId);
+            $(".af .wrapper").html("<iframe src='https://calendar-dev.usealan.com/calendar/" + userId + "/" + leadId + "?onlyAvailables=1'></iframe>");
+          } else {
+            console.log(response.responseJSON.status);              
+          }
+        });
+      
       });
     </script>
   </body>
