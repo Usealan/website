@@ -74,29 +74,27 @@ title: Form UI
 
       // Variables
 
-      if (getUrlParameter("user_code")) {
-        var userCode = getUrlParameter("user_code");
+      if (getUrlParameter("public_id")) {
+        var public_id = getUrlParameter("public_id");
       } else {
-        var userCode = "3494600b07ff12cdb";
+        var public_id = "3494600b07ff12cdb";
       }
 
-      if (getUrlParameter("user_id")) {
-        var userId = getUrlParameter("user_id");
+      if (getUrlParameter("internal_id")) {
+        var internal_id = getUrlParameter("internal_id");
       } else {
-        var userId = "3494";
+        var internal_id = "3494";
       }
       
       // Replace URL parameters
      
-      window.history.replaceState(null, null, "?user_id=" + userId + "&user_code=" + userCode );
+      window.history.replaceState(null, null, "?id=" + internal_id + "&public_id=" + public_id );
       
       // Inject user ID and user code as data attributes
 
-      $(".af").attr("data-user-id", userId);      
-      $(".af").attr("data-user-code",userCode);
-      
-      console.log(userId + " - " + userCode);
-      
+      $(".af").attr("data-internal-id", internal_id);      
+      $(".af").attr("data-public-id",public_id);
+            
       // Create lead in ALAN on form submission
             
       $("#form").submit(function(e) {
@@ -109,7 +107,7 @@ title: Form UI
         var campaign  = $("#campaign").val();
                 
         var createLeadSettings = {
-          "url": "https://prepro2-smsportal.protibimbo.com/webhooks/create_lead/" + userCode,
+          "url": "https://prepro2-smsportal.protibimbo.com/webhooks/create_lead/" + public_id,
           "method": "POST",
           "headers": {
             "Content-Type": "application/json"
@@ -126,11 +124,10 @@ title: Form UI
         
         $.ajax(createLeadSettings).always(function (response) {
           if (response.responseJSON.status == "success") {
-            var leadId = response.responseJSON.data.contact_id;
-            alert(leadId);
-            $(".af .wrapper").html("<iframe src='https://calendar-dev.usealan.com/calendar/" + userId + "/" + leadId + "?onlyAvailables=1'></iframe>");
+            var lead_id = response.responseJSON.data.contact_id;
+            $(".af .wrapper").html("<iframe src='https://calendar-dev.usealan.com/calendar/" + internal_id + "/" + lead_id + "?onlyAvailables=1'></iframe>");
           } else {
-            console.log(response.responseJSON.status);              
+            console.log(response.responseJSON.status);
           }
         });
       
