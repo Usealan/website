@@ -462,6 +462,13 @@ title: Calendar UI
       
       $(".time .value").html(today.format('ddd, MMM D h:mm A'));
       $(".time-zone .value").html(timeZone);
+      $(".day-column:nth-child(1)").attr("data-date", dayOne.format('ddd, MMM D'));
+      $(".day-column:nth-child(2)").attr("data-date", dayTwo.format('ddd, MMM D'));
+      $(".day-column:nth-child(3)").attr("data-date", dayThree.format('ddd, MMM D'));
+      $(".day-column:nth-child(4)").attr("data-date", dayFour.format('ddd, MMM D'));
+      $(".day-column:nth-child(5)").attr("data-date", dayFive.format('ddd, MMM D'));
+      $(".day-column:nth-child(6)").attr("data-date", daySix.format('ddd, MMM D'));
+      $(".day-column:nth-child(7)").attr("data-date", daySeven.format('ddd, MMM D'));
       $(".days .item:nth-child(1)").html("<span>" + dayOne.format('ddd') + "</span> <span>" + dayOne.format('MMM D') + "</span><input type='date' name='date-switcher' value='" + dayOne.format('YYYY-MM-DD') + "' min='" + dayOne.format('YYYY-MM-DD') + "' max='" + threeMonths.format('YYYY-MM-DD') + "'>");
       $(".days .item:nth-child(2)").html("<span>" + dayTwo.format('ddd') + "</span> <span>" + dayTwo.format('MMM D') + "</span>");
       $(".days .item:nth-child(3)").html("<span>" + dayThree.format('ddd') + "</span> <span>" + dayThree.format('MMM D') + "</span>");
