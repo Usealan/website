@@ -48,6 +48,16 @@ title: Calendar UI
       .ac.only-availables .slot.disabled,
       .ac.only-availables .slot.booked { display: none; }
       .ac.only-availables .day-column { border: 0 none; }
+      .ac .modal { position: absolute; font-size: 15px; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+      .ac.show-modal .modal { opacity: 1; pointer-events: all; }
+      .ac .modal .close { position: absolute; top: 12px; right: 8px; padding: 10px; font-size: 24px; line-height: 1; opacity: 0.5; transition: opacity 0.3s ease; cursor: pointer; }
+      .ac .modal .close:hover { opacity: 0.8; }
+      .ac .inner-modal { position: absolute; top: 50%; left: 50%; width: calc(100% - 30px); max-width: 500px; background: white; padding: 22px 30px; border-radius: 4px; box-shadow: 0 0 8px rgba(0,0,0,0.1); text-align: center; transform: translateX(-50%) translateY(-50%); }
+      .ac .inner-modal h2 { font-size: 20px; line-height: 1.2; font-weight: 600; margin: 0 0 20px; }
+      .ac .inner-modal .summary { background: #F9F9F9; margin: 0 0 15px; padding: 10px; }
+      .ac .inner-modal .summary .label { opacity: 1; }
+      .ac .inner-modal .summary .value { font-weight: 600; }
+      .ac .inner-modal button { -webkit-appearance: none; appearance: none; background: #227EF7; color: white; font-size: inherit; font-family: inherit; border: 0 none; padding: 12px 15px; line-height: 1; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; outline: 0 none; font-weight: 500; cursor: pointer; margin: 5px 0 0; }
       @media screen and (max-width: 767px) {
         .ac .head { padding: 15px 0 0; height: 70px; }
         .ac .cal-grid { top: 70px; height: calc(100% - 70px); }
@@ -80,6 +90,8 @@ title: Calendar UI
         .ac .day-column { width: calc(100% / 3); } 
         .ac .days .item:nth-of-type(1n+4) { display: none; }
         .ac .day-column:nth-of-type(1n+4) { display: none; }
+        .ac .inner-modal h2 { font-size: 16px; }
+        .ac .modal .close { top: 10px; right: 0; }
       }
       @media screen and (max-width: 339px) {
         .ac { padding: 5px; }
@@ -94,6 +106,12 @@ title: Calendar UI
         .ac .slot { font-size: 11px; margin: 5px auto; width: calc(100% - 10px); } 
         .ac .block label { font-size: 0; }
         .ac .block label span.mdi { font-size: 12px; }
+        .ac .modal { font-size: 14px; }
+        .ac .inner-modal { padding: 15px 10px; }
+        .ac .inner-modal h2 { font-size: 15px; }
+        .ac .inner-modal .summary { margin: 0 0 10px; }
+        .ac .modal .close { font-size: 18px; top: 6px; }
+        .ac .inner-modal button { padding: 10px 20px; }
       }
       @media screen and (max-width: 299px) {
         .ac .message { width: 230px; font-size: 11px; }
@@ -387,10 +405,28 @@ title: Calendar UI
         </div>
         <div class="message"></div>
       </div>  
+      <div class="modal">
+        <div class="inner-modal">
+          <h2>Confirm your appointment</h2>
+          <div class="summary">
+            <div class="label">Name</div>
+            <div class="value name"></div>
+          </div>
+          <div class="summary">
+            <div class="label">Date & Time</div>
+            <div class="value date-time"></div>
+          </div>
+          <div class="button-area">
+            <button class="confirm">Book Appointment</button>
+          </div>
+          <div class="close"><span class="mdi mdi-close"></span></div>
+        </div>
+      </div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script>
+      
       // Make URL parameters readable
       
       var getUrlParameter=function(r){var t,e,n=decodeURIComponent(window.location.search.substring(1)).split("&");for(e=0;e<n.length;e++)if((t=n[e].split("="))[0]===r)return void 0===t[1]||t[1]};
@@ -437,18 +473,31 @@ title: Calendar UI
       // Slot actions
 
       $(".slot").click(function() {
-        $(".slot").not(this).removeClass("selected");
-        $(this).toggleClass("selected");
+        $(".ac").addClass("show-modal");
         var date = $(this).parent(".day-column").attr("data-date");
         var time = $(this).text();
-        $(".message").removeClass("show");
-        $(".message").html("Appointment successfully created for <strong>" + date + "</strong> at <strong>" + time + "</strong>.");
-        $(".message").addClass("show");
-        setTimeout(function(){
+        $(".ac").attr("data-selected-date", date);
+        $(".ac").attr("data-selected-time", time);
+        $(".modal .summary .value.name").text("Christopher Stephenson");
+        $(".modal .summary .value.date-time").text(date + " at " + time);
+        var selectedSlot = $(this);
+        $(".modal button.confirm").click(function() {
+          $(".slot").removeClass("selected");
+          $(".ac").removeClass("show-modal");
+          selectedSlot.toggleClass("selected");
           $(".message").removeClass("show");
-        }, 5000);
+          $(".message").html("Appointment successfully created for <strong>" + date + "</strong> at <strong>" + time + "</strong>.");
+          $(".message").addClass("show");
+          setTimeout(function(){
+            $(".message").removeClass("show");
+          }, 5000);
+        });
       });
-      
+
+      $(".modal .close").click(function() {
+        $(".ac").removeClass("show-modal");
+      });  
+
     </script>
   </body>
 </html>
