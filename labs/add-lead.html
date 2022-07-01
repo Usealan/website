@@ -73,19 +73,19 @@ title: Add Lead Form
 
       // Variables
 
-      if (getUrlParameter("user_code")) {
-        var user_code = getUrlParameter("user_code");
+      if (getUrlParameter("user")) {
+        var user = getUrlParameter("user");
       } else {
-        var user_code = "36306012974cb15cc";
+        var user = "36306012974cb15cc";
       }
       
       // Replace URL parameters
      
-      window.history.replaceState(null, null, "?user_code=" + user_code );
+      window.history.replaceState(null, null, "?user=" + user );
       
       // Inject user ID and user code as data attributes
 
-      $(".af").attr("data-user-code",user_code);
+      $(".af").attr("data-user",user);
             
       // Create lead in ALAN on form submission
             
@@ -99,7 +99,7 @@ title: Add Lead Form
         var campaign  = $("#campaign").val();
                 
         var createLeadSettings = {
-          "url": "https://smsportal.gymlaunchsecrets.com/webhooks/create_lead/" + user_code,
+          "url": "https://smsportal.gymlaunchsecrets.com/webhooks/create_lead/" + user,
           "method": "POST",
           "data": JSON.stringify({
             "first_name": firstName,
