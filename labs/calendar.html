@@ -45,9 +45,6 @@ title: Calendar UI
       .ac .message.show { bottom: 15px; }
       .ac .message.error { color: var(--red); }
       .ac .message .strong { font-weight: 600; }
-      .ac.only-availables .slot.disabled,
-      .ac.only-availables .slot.booked { display: none; }
-      .ac.only-availables .day-column { border: 0 none; }
       .ac .modal { position: absolute; font-size: 15px; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
       .ac.show-modal .modal { opacity: 1; pointer-events: all; }
       .ac .modal .close { position: absolute; top: 12px; right: 8px; padding: 10px; font-size: 24px; line-height: 1; opacity: 0.5; transition: opacity 0.3s ease; cursor: pointer; }
@@ -58,6 +55,45 @@ title: Calendar UI
       .ac .inner-modal .summary .label { opacity: 1; }
       .ac .inner-modal .summary .value { font-weight: 600; }
       .ac .inner-modal button { -webkit-appearance: none; appearance: none; background: #227EF7; color: white; font-size: inherit; font-family: inherit; border: 0 none; padding: 12px 15px; line-height: 1; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; outline: 0 none; font-weight: 500; cursor: pointer; margin: 5px 0 0; }
+
+      .ac.only-availables .slot.disabled,
+      .ac.only-availables .slot.booked { display: none; }
+      .ac.only-availables .day-column { border: 0 none; }
+      
+      .ac.simplified { width: 100%; height: 100%; max-width: 860px; max-height: 370px; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); }
+      .ac.simplified .wrapper { box-shadow: 0 0 0 transparent; height: auto; max-height: none; top: auto; transform: none; border: 1px solid #E5E5E5; max-width: none; }
+      .ac.simplified .head { display: none; }
+      .ac.simplified .cal-grid-head { box-shadow: 0 1px 0 #E5E5E5; position: relative; top: auto; left: auto; }
+      .ac.simplified .cal-grid { position: relative; height: auto; top: auto; border: 0 none; }
+      .ac.simplified .cal-grid-body { background: transparent; overflow: hidden; position: relative; top: auto; left: auto; height: auto; }
+      .ac.simplified .days .item { border-color: #E5E5E5; }
+      .ac.simplified .days .item:first-child { border: 0 none; }
+      .ac.simplified .days .item.date-switcher { text-decoration: none; pointer-events: none; }
+      .ac.simplified .slot { display: none; }
+      .ac.simplified .slot[data-date*="Mon"][data-time="9:00 AM"],
+      .ac.simplified .slot[data-date*="Mon"][data-time="10:00 AM"],
+      .ac.simplified .slot[data-date*="Mon"][data-time="11:00 AM"],
+      .ac.simplified .slot[data-date*="Mon"][data-time="12:00 PM"],
+      .ac.simplified .slot[data-date*="Mon"][data-time="4:00 PM"],
+      .ac.simplified .slot[data-date*="Mon"][data-time="5:00 PM"],
+      .ac.simplified .slot[data-date*="Mon"][data-time="6:00 PM"],
+      .ac.simplified .slot[data-date*="Mon"][data-time="7:00 PM"],
+      .ac.simplified .slot[data-date*="Tue"][data-time="9:00 AM"],
+      .ac.simplified .slot[data-date*="Tue"][data-time="10:00 AM"],
+      .ac.simplified .slot[data-date*="Tue"][data-time="11:00 AM"],
+      .ac.simplified .slot[data-date*="Tue"][data-time="4:00 PM"],
+      .ac.simplified .slot[data-date*="Tue"][data-time="5:00 PM"],
+      .ac.simplified .slot[data-date*="Tue"][data-time="6:00 PM"]
+
+      { display: block; }
+      
+      .ac.simplified.only-availables .slot.disabled,
+      .ac.simplified.only-availables .slot.booked { display: none; }
+      .ac.simplified.only-availables .day-column { border: 0 none; }
+      
+      .ac.simplified.show-modal { box-shadow: 0 0 8px rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; }
+      .ac.simplified.show-modal .modal { background: rgba(0,0,0,0.2); }
+
       @media screen and (max-width: 767px) {
         .ac .head { padding: 15px 0 0; height: 70px; }
         .ac .cal-grid { top: 70px; height: calc(100% - 70px); }
@@ -130,7 +166,7 @@ title: Calendar UI
             <span class="value">Christopher Stephenson</span>
           </div>
           <div class="block status red">
-            <label><span class="mdi mdi-calendar"></span>Status</label>
+            <label><span class="mdi mdi-calendar"></span>Appointment</label>
             <span class="value">Not Scheduled</span>
           </div>
           <div class="block time">
@@ -438,14 +474,24 @@ title: Calendar UI
       } else {
         var onlyAvailables = "0";
       }
+
+      if (getUrlParameter("simplified") == "1") {
+        var simplified = "1";
+      } else {
+        var simplified = "0";
+      }
       
       if (onlyAvailables == "1") {
         $(".ac").addClass("only-availables");
       }
+
+      if (simplified == "1") {
+        $(".ac").addClass("simplified");
+      }
       
       // Replace URL parameter
       
-      window.history.replaceState(null, null, "?onlyAvailables=" + onlyAvailables );
+      window.history.replaceState(null, null, "?onlyAvailables=" + onlyAvailables + "&simplified=" + simplified);
       
       // Dates
       
@@ -476,7 +522,12 @@ title: Calendar UI
       $(".days .item:nth-child(5)").html("<span>" + dayFive.format('ddd') + "</span> <span>" + dayFive.format('MMM D') + "</span>");
       $(".days .item:nth-child(6)").html("<span>" + daySix.format('ddd') + "</span> <span>" + daySix.format('MMM D') + "</span>");
       $(".days .item:nth-child(7)").html("<span>" + daySeven.format('ddd') + "</span> <span>" + daySeven.format('MMM D') + "</span>");
-
+      
+      $(".slot").each(function() {
+        $(this).attr("data-date",$(this).parent().attr("data-date"));
+        $(this).attr("data-time",$(this).text());
+      });
+      
       // Slot actions
 
       $(".slot").click(function() {

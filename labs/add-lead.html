@@ -1,6 +1,6 @@
 ---
-permalink: /labs/form/
-title: Form UI
+permalink: /add-lead/
+title: Add Lead Form
 ---
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@ title: Form UI
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
-    <title>Lead Import Form</title>
+    <title>Add Lead Form</title>
     <link rel="apple-touch-icon" href="/assets/images/icon.png">
     <link rel="shortcut icon" href="/assets/images/icon.ico" />
     <style>
@@ -58,9 +58,8 @@ title: Form UI
             <input type="tel" id="phone" name="Phone" placeholder="Phone Number" pattern="^(\d{7}|\d{10})$" title="Ten digit number, no dashes or special characters." required=""  autocomplete="off">
             <input type="text" id="campaign" name="Campaign" placeholder="free-hair-health-consultation" value="free-hair-health-consultation" style="display: none;">
             <div>
-              <input type="submit" value="Sign Up">
+              <input type="submit" value="Add Lead">
             </div>
-            <p>By clicking "Sign Up" you agree to our <a href="https://usealan.com/terms" target="_blank">Terms & Conditions</a>.</p>
           </form>
         </div>
       </div>
@@ -74,26 +73,19 @@ title: Form UI
 
       // Variables
 
-      if (getUrlParameter("public_id")) {
-        var public_id = getUrlParameter("public_id");
+      if (getUrlParameter("long_id")) {
+        var long_id = getUrlParameter("long_id");
       } else {
-        var public_id = "36306012974cb15cc";
-      }
-
-      if (getUrlParameter("internal_id")) {
-        var internal_id = getUrlParameter("internal_id");
-      } else {
-        var internal_id = "3630";
+        var long_id = "36306012974cb15cc";
       }
       
       // Replace URL parameters
      
-      window.history.replaceState(null, null, "?internal_id=" + internal_id + "&public_id=" + public_id );
+      window.history.replaceState(null, null, "?long_id=" + long_id );
       
       // Inject user ID and user code as data attributes
 
-      $(".af").attr("data-internal-id", internal_id);      
-      $(".af").attr("data-public-id",public_id);
+      $(".af").attr("data-long-id",long_id);
             
       // Create lead in ALAN on form submission
             
@@ -107,7 +99,7 @@ title: Form UI
         var campaign  = $("#campaign").val();
                 
         var createLeadSettings = {
-          "url": "https://smsportal.gymlaunchsecrets.com/webhooks/create_lead/" + public_id,
+          "url": "https://smsportal.gymlaunchsecrets.com/webhooks/create_lead/" + long_id,
           "method": "POST",
           "data": JSON.stringify({
             "first_name": firstName,
@@ -119,13 +111,14 @@ title: Form UI
         
         // Inject calendar iframe for step 2
         
-        $.ajax(createLeadSettings).always(function (response) {
-            console.log(response.responseJSON.status);
-          if (response.responseJSON.status == "success") {
-            var lead_id = response.responseJSON.data.contact_id;
-            $(".af .wrapper").html("<iframe src='https://calendar-dev.usealan.com/calendar/" + internal_id + "/" + lead_id + "?onlyAvailables=1'></iframe>");
+        $.ajax(createLeadSettings).done(function (response) {
+          if (response.status == "success") {
+            var lead_id = response.data.contact_id;
+            console.log("Lead ID: " + lead_id);
+            alert(firstName + " " + lastName + " (" + phone + ") successfully added.");
+            location.reload();
           } else {
-            console.log(response.responseJSON.status);
+            console.log(response.status);
           }
         });
       
