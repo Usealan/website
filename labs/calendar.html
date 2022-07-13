@@ -54,7 +54,7 @@ title: Calendar UI
       .ac .inner-modal .summary { background: #F9F9F9; margin: 0 0 15px; padding: 10px; }
       .ac .inner-modal .summary .label { opacity: 1; }
       .ac .inner-modal .summary .value { font-weight: 600; }
-      .ac .inner-modal button { -webkit-appearance: none; appearance: none; background: #227EF7; color: white; font-size: inherit; font-family: inherit; border: 0 none; padding: 12px 15px; line-height: 1; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; outline: 0 none; font-weight: 500; cursor: pointer; margin: 5px 0 0; }
+      .ac .inner-modal button { -webkit-appearance: none; appearance: none; background: #227EF7; color: white; font-size: inherit; font-family: inherit; border: 0 none; padding: 12px 15px; line-height: 1; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; outline: 0 none; font-weight: 500; cursor: pointer; margin: 5px 0 0; outline: 2px solid transparent; border: 1px solid transparent; }
       .ac .inner-modal button:focus { outline: 2px solid #227EF7; border: 1px solid white; }
       .ac .confirmation { display: none; background: #F9FAFB; padding: 50px 30px; text-align: center; max-width: 500px; margin: 0 auto; top: 50%; transform: translateY(-50%); position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05); border-radius: 3px; overflow: hidden; }
       .ac .confirmation h3 { margin: 0 0 10px; }
@@ -463,7 +463,7 @@ title: Calendar UI
           <div class="button-area">
             <button class="confirm">Book Appointment</button>
           </div>
-          <div class="close"><span class="mdi mdi-close"></span></div>
+          <div class="close" tabindex="0"><span class="mdi mdi-close"></span></div>
         </div>
       </div>
       <div class="confirmation"></div>
@@ -554,6 +554,7 @@ title: Calendar UI
         $(".ac").attr("data-selected-time", time);
         $(".modal .summary .value.name").text("Christopher Stephenson");
         $(".modal .summary .value.date-time").text(date + " at " + time);
+        $(".modal button.confirm").focus();
         var selectedSlot = $(this);
         $(".modal button.confirm").click(function() {
           $(".ac").removeClass("show-modal");
