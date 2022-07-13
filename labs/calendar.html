@@ -55,6 +55,14 @@ title: Calendar UI
       .ac .inner-modal .summary .label { opacity: 1; }
       .ac .inner-modal .summary .value { font-weight: 600; }
       .ac .inner-modal button { -webkit-appearance: none; appearance: none; background: #227EF7; color: white; font-size: inherit; font-family: inherit; border: 0 none; padding: 12px 15px; line-height: 1; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; outline: 0 none; font-weight: 500; cursor: pointer; margin: 5px 0 0; }
+      .ac .inner-modal button:focus { outline: 2px solid #227EF7; border: 1px solid white; }
+      .ac .confirmation { display: none; background: #F9FAFB; padding: 50px 30px; text-align: center; max-width: 500px; margin: 0 auto; top: 50%; transform: translateY(-50%); position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05); border-radius: 3px; overflow: hidden; }
+      .ac .confirmation h3 { margin: 0 0 10px; }
+      .ac .confirmation p { font-size: 16px; }
+      .ac .confirmation p strong { font-weight: 600; }
+      .ac .confirmation .mdi { display: block; font-size: 40px; line-height: 1; margin: 0 0 20px; color: var(--green); }
+      .ac.show-confirmation .wrapper { display: none; }
+      .ac.show-confirmation .confirmation { display: block; }
 
       .ac.only-availables .slot.disabled,
       .ac.only-availables .slot.booked { display: none; }
@@ -458,6 +466,7 @@ title: Calendar UI
           <div class="close"><span class="mdi mdi-close"></span></div>
         </div>
       </div>
+      <div class="confirmation"></div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -475,6 +484,12 @@ title: Calendar UI
         var onlyAvailables = "0";
       }
 
+      if (getUrlParameter("confirmation") == "1") {
+        var confirmation = "1";
+      } else {
+        var confirmation = "0";
+      }
+
       if (getUrlParameter("simplified") == "1") {
         var simplified = "1";
       } else {
@@ -484,6 +499,7 @@ title: Calendar UI
       if (onlyAvailables == "1") {
         $(".ac").addClass("only-availables");
       }
+      
 
       if (simplified == "1") {
         $(".ac").addClass("simplified");
@@ -491,7 +507,7 @@ title: Calendar UI
       
       // Replace URL parameter
       
-      window.history.replaceState(null, null, "?onlyAvailables=" + onlyAvailables + "&simplified=" + simplified);
+      window.history.replaceState(null, null, "?onlyAvailables=" + onlyAvailables + "&confirmation=" + confirmation + "&simplified=" + simplified);
       
       // Dates
       
@@ -540,15 +556,24 @@ title: Calendar UI
         $(".modal .summary .value.date-time").text(date + " at " + time);
         var selectedSlot = $(this);
         $(".modal button.confirm").click(function() {
-          $(".slot").removeClass("selected");
           $(".ac").removeClass("show-modal");
-          selectedSlot.toggleClass("selected");
-          $(".message").removeClass("show");
-          $(".message").html("Appointment successfully created for <strong>" + date + "</strong> at <strong>" + time + "</strong>.");
-          $(".message").addClass("show");
-          setTimeout(function(){
+          if (confirmation == "1") {
+            $(".confirmation").html("\
+              <span class='mdi mdi-check-circle' style='display: block'></span>\
+              <h3>Appointment confirmed!</h3>\
+              <p>Thank you for confirming your appointment. We look forward to seeing you on <strong>" + date + "</strong> at <strong>" + time + "</strong>.</p>\
+            ");
+            $(".ac").addClass("show-confirmation");
+          } else {
+            $(".slot").removeClass("selected");
+            selectedSlot.toggleClass("selected");
             $(".message").removeClass("show");
-          }, 5000);
+            $(".message").html("Appointment successfully created for <strong>" + date + "</strong> at <strong>" + time + "</strong>.");
+            $(".message").addClass("show");
+            setTimeout(function(){
+              $(".message").removeClass("show");
+            }, 5000);
+          }
         });
       });
 
