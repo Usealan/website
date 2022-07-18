@@ -85,10 +85,24 @@ title: Form UI
       } else {
         var internal_id = "3494";
       }
+
+      if (getUrlParameter("env") == "production") {
+        var env = "production";
+      } else {
+        var env = "staging";
+      }
+      
+      if (env == "production") {
+        var webhookUrl = "https://smsportal.gymlaunchsecrets.com/webhooks/create_lead/";
+        var calendarUrl = "https://calendar.usealan.com/calendar/";
+      } else {
+        var webhookUrl = "https://prepro2-smsportal.protibimbo.com/webhooks/create_lead/";
+        var calendarUrl = "https://calendar-dev.usealan.com/calendar/";
+      }
       
       // Replace URL parameters
      
-      window.history.replaceState(null, null, "?internal_id=" + internal_id + "&public_id=" + public_id );
+      window.history.replaceState(null, null, "?env=" + env + "&internal_id=" + internal_id + "&public_id=" + public_id );
       
       // Inject user ID and user code as data attributes
 
@@ -107,14 +121,14 @@ title: Form UI
         var campaign  = $("#campaign").val();
                 
         var createLeadSettings = {
-          "url": "https://prepro2-smsportal.protibimbo.com/webhooks/create_lead/" + public_id,
+          "url": webhookUrl + public_id,
           "method": "POST",
           "data": JSON.stringify({
             "first_name": firstName,
             "last_name": lastName,
             "phone": phone,
             "email": email,
-            "utm_source": "Smart HTML Form"
+            "utm_source": "Smart HTML Form (" + env + ")"
           }),
         };
         
@@ -124,8 +138,8 @@ title: Form UI
           if (response.status == "success") {
             var lead_id = response.data.contact_id;
             console.log("Lead ID: " + lead_id);
-            alert(firstName + " " + lastName + " (" + phone + ") successfully added.");
-            $(".af .wrapper").html("<iframe src='https://calendar-dev.usealan.com/calendar/" + internal_id + "/" + lead_id + "?onlyAvailables=1'></iframe>");
+            console.log(firstName + " " + lastName + " (" + phone + ") successfully added.");
+            $(".af .wrapper").html("<iframe src='" + calendarUrl + internal_id + "/" + lead_id + "?onlyAvailables=1'></iframe>");
           } else {
             console.log(response.status);
           }
