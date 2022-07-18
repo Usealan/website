@@ -1,5 +1,5 @@
 ---
-permalink: /labs/form/
+permalink: /labs/form/hairclub/
 title: Form UI
 ---
 
@@ -8,7 +8,7 @@ title: Form UI
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
-    <title>Lead Import Form</title>
+    <title>HairClub Lead Import Form</title>
     <link rel="apple-touch-icon" href="/assets/images/icon.png">
     <link rel="shortcut icon" href="/assets/images/icon.ico" />
     <style>
@@ -65,7 +65,10 @@ title: Form UI
         </div>
       </div>
     </div>
+    <ul id="list" style="position: relative;"></ul>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
     <script>
 
       // Make URL parameters readable
@@ -77,13 +80,13 @@ title: Form UI
       if (getUrlParameter("public_id")) {
         var public_id = getUrlParameter("public_id");
       } else {
-        var public_id = "3494600b07ff12cdb";
+        var public_id = "36306012974cb15cc";
       }
 
       if (getUrlParameter("internal_id")) {
         var internal_id = getUrlParameter("internal_id");
       } else {
-        var internal_id = "3494";
+        var internal_id = "3630";
       }
       
       // Replace URL parameters
@@ -107,7 +110,7 @@ title: Form UI
         var campaign  = $("#campaign").val();
                 
         var createLeadSettings = {
-          "url": "https://prepro2-smsportal.protibimbo.com/webhooks/create_lead/" + public_id,
+          "url": "https://smsportal.gymlaunchsecrets.com/webhooks/create_lead/" + public_id,
           "method": "POST",
           "data": JSON.stringify({
             "first_name": firstName,
@@ -132,6 +135,61 @@ title: Form UI
         });
       
       });
+      
+      // Hairclub Test
+      
+      var today = moment();
+      var initialDate = today.format('YYYY-MM-DD');
+      
+      var settings = {
+        "url": "https://leads-api-prod.hairclub.com/api/Appointment?IdCenter=297&appointmentType=0&initialDate=" + initialDate,
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+          "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NvcmVzZXJ2aWNlcy1hcGktcHJvZC5henVyZXdlYnNpdGVzLm5ldC8iLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiaHR0cHM6Ly9jb3Jlc2VydmljZXMtYXBpLXByb2QuYXp1cmV3ZWJzaXRlcy5uZXQvIiwic3ViIjoiIn0.sFasu1GnH1rdp48mj-wjMuBlZCswQp-UBXXWvhxyUtA"
+        },
+      };
+      
+      $.ajax(settings).done(function (response) {
+        var data = response;
+          
+        $.each(data, function (index) {
+          var slot = data[index];
+          if (slot.isAvailable == true) {
+            $("ul").append("<li>" + slot.appointmentDay + " - " + slot.initialTime + "</li>");
+
+
+            setTimeout(function(){
+              
+              // Remove duplicates            
+              var uniqueLi = {};
+              
+              $("ul li").each(function () {
+                var thisVal = $(this).text();
+              
+                if ( !(thisVal in uniqueLi) ) {
+                  uniqueLi[thisVal] = "";
+                } else {
+                  $(this).remove();
+                }
+              })
+              
+              // Sort
+              
+              var ul = document.getElementById("list");
+            
+              Array.from(ul.getElementsByTagName("li"))
+                .sort((a, b) => a.textContent.localeCompare(b.textContent))
+                .forEach(li => ul.appendChild(li));
+              
+              
+            }, 1000);
+
+          }
+        });
+
+      });
+      
     </script>
   </body>
 </html>

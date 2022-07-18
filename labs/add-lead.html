@@ -112,9 +112,7 @@ title: Add Lead Form
             "utm_source": "Add Lead Form"
           }),
         };
-        
-        // Inject calendar iframe for step 2
-        
+              
         $.ajax(createLeadSettings).done(function (response) {
           if (response.status == "success") {
             var lead_id = response.data.contact_id;
