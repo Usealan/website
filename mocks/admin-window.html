@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+    <title>Admin</title>
+    <meta name="theme-color" content="#333333">
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Merriweather:300,400,700,900|Merriweather+Sans:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.1.19/css/materialdesignicons.min.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-text-size-adjust: none; }
+      body { background: lightblue; background: rgba(164,173,245,0.4); /* background: rgba(254, 207, 75, 0.4); background: rgba(144, 238, 144, 0.6); background: #CDD9E4; */ font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Roboto'; color: #55595F; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+      p { margin: 0 0 20px; }
+      a { color: #08c; text-decoration: underline; }
+      .clear { clear: both; }
+      .browser { box-shadow: 0 8px 24px 0 rgba(0,0,0,.1); background: #f2f2f2; border-radius: 6px; position: relative; top: 50%; left: 50%; width: 1180px; height: 700px; transform: translate(-50%, -50%); transform-origin: center center; overflow: hidden; }
+      .browser:before { content: ""; height: 30px; display: block; width: 100%; position: relative; background: #FAFAFA; border-radius: 6px 6px 0 0; }
+      .browser:after { content: ""; width: 12px; height: 12px; position: absolute; border-radius: 50%; top: 10px; left: 8px; background: #FC605C; box-shadow: 18px 0 0 #FDBC40, 36px 0 0 #34C749; }
+      iframe { position: absolute; top: 32px; left: 0; width: 100%; height: calc(100% - 32px); overflow: hidden; border: 0 none; }
+    </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="browser">
+      <iframe src="/mocks/admin.html">
+    </div>
+    <script>
+      function fitPreview() {
+        width = $(window).width();
+        height = $(window).height();
+        if ( width < 1280 || height < 800 ) {
+          scale = Math.min(
+            $(window).width() / 1280,    
+            $(window).height() / 800
+          );
+          $(".browser").css({
+            transform: "translate(-50%, -50%) " + "scale(" + scale + ")"
+          });
+        } else {
+          $(".browser").css({
+            transform: "translate(-50%, -50%) " + "scale(1)"
+          });
+        }
+      };
+      fitPreview();
+      $(window).on('resize', function(){
+        fitPreview();
+      });
+    </script>
+  </body>  
+</html>
