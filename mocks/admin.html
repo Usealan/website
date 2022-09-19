@@ -23,12 +23,15 @@
       .header .nav span:hover { opacity: 1; }
       .header img { height: 40px; margin: 15px 0; width: auto; float: left; }
       .subheader { background: white; background: rgba(255,255,255,0.975); box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; padding: 10px 0; }
-      .subheader .link { display: inline-block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; line-height: 14px; padding: 8px 10px; cursor: pointer; border-radius: 5px; }
+      .subheader .link { display: inline-block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; line-height: 14px; padding: 7px 10px; cursor: pointer; border-radius: 5px; }
       .subheader .link.selected { background: #5F6EEE; color: white; }
       .subheader .account-info { position: absolute; right: 20px; top: 0; font-size: 15px; line-height: 30px; }
       .subheader .account-info span.mdi { margin: 0 10px 0 25px; }
       h2 { padding: 30px 0; letter-spacing: 1px; font-size: 23px; position: relative; font-weight: 600; }
-      select { position: absolute; top: 40px; right: 20px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyOTcuMzEnIGhlaWdodD0nMTY4LjY1JyB2aWV3Qm94PScwIDAgMjk3LjMxIDE2OC42NSc+PGRlZnM+PHN0eWxlPi5he2ZpbGw6IzIyYmFhMDt9PC9zdHlsZT48L2RlZnM+PHBhdGggY2xhc3M9J2EnIGQ9J00zMS4zLDE5MkgyODguNmMxNy44LDAsMjYuNywyMS41LDE0LjEsMzQuMUwxNzQuMSwzNTQuOGEyMC4wMzgsMjAuMDM4LDAsMCwxLTI4LjMsMEwxNy4yLDIyNi4xQzQuNiwyMTMuNSwxMy41LDE5MiwzMS4zLDE5MlonIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC0xMS4yOTUgLTE5MiknLz48L3N2Zz4='); background-repeat: no-repeat,repeat; background-position: right .7em top 50%,0 0; background-size: .65em auto,100%; border-radius: 4px; -moz-appearance: none; -webkit-appearance: none; appearance: none; color: inherit; font-family: inherit; font-size: 16px; line-height: 35px; outline: 0 none; border: 0 none; background-color: white; font-weight: 500; padding: 0 35px 0 10px; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px }
+      .filters { font-size: 0; padding: 20px 0; }
+      .select { position: relative; display: inline-block; border-radius: 4px; overflow: hidden; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; margin: 0 15px 0 0; }
+      .select:after { content: "\F0140"; font-family: "Material Design Icons"; font-size: 17px; position: absolute; top: 50%; right: 0; transform: translateY(-50%); padding: 0 10px; }
+      .select select { position: relative; -moz-appearance: none; -webkit-appearance: none; appearance: none; color: inherit; font-family: inherit; font-size: 15px; line-height: 35px; outline: 0 none; border: 0 none; background-color: white; font-weight: 500; padding: 0 35px 0 10px; cursor: pointer; }
       select.first { right: 300px; }
       .cards-container { font-size: 0; margin: 0 -15px; text-align: center; }
       .card { background: white; position: relative; font-size: 15px; display: inline-block; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; border-radius: 6px; padding: 20px 15px; width: calc(25% - 30px); margin: 0 15px 30px; text-align: left; }
@@ -70,13 +73,18 @@
         </div>
       </div>
       <div class="container">
-        <h2>Dashboard</h2>
-        <select class="first">
-          <option selected>All Funnels</option>
-        </select>
-        <select>
-          <option selected>Jul 15, 2022 - Aug 14, 2022</option>
-        </select>
+        <div class="filters">
+          <div class="select">
+            <select>
+              <option selected>All Funnels</option>
+            </select>
+          </div>
+          <div class="select">          
+            <select>
+              <option selected>Jul 15, 2022 - Aug 14, 2022</option>
+            </select>            
+          </div>
+        </div>
         <div class="cards-container">
           <div class="card">
             <div class="mdi mdi-contacts"></div>
