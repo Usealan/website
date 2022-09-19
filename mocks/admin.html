@@ -12,31 +12,37 @@
     <style>
       @import url("https://rsms.me/inter/inter.css");
       * { margin: 0; padding: 0; box-sizing: border-box; -webkit-text-size-adjust: none; }
-      body { background: lightblue; background: rgba(164,173,245,0.4); /* background: rgba(254, 207, 75, 0.4); background: rgba(144, 238, 144, 0.6); background: #CDD9E4; */ font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Roboto'; color: #55595F; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+      body { background: #F6F9FC; font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Roboto'; color: #32325D; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
       p { margin: 0 0 20px; }
       a { color: #08c; text-decoration: underline; }
       .clear { clear: both; }
-      .wrapper { background: #F6F8FA; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: auto; font-size: 18px; line-height: 1.7; }
-      .container { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; }
-      .header { position: relative; height: 70px; text-align: right; line-height: 70px; font-size: 20px; font-weight: 500; background: white; box-shadow: 0 1px 0 rgba(0,0,0,0.05); padding: 0 10px; }
+      .wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: auto; font-size: 18px; line-height: 1.7; }
+      .container { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 20px; }
+      .header { position: relative; height: 70px; text-align: right; line-height: 70px; font-size: 20px; font-weight: 500; background: white; box-shadow: 0 1px 0 rgba(0,0,0,0.05); padding: 0; }
       .header .nav span { font-size: 24px; margin-left: 15px; opacity: 0.8; cursor: pointer; transition: opacity 0.3s ease; }
       .header .nav span:hover { opacity: 1; }
       .header img { height: 40px; margin: 15px 0; width: auto; float: left; }
-      .subheader { background: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1); padding: 10px 10px; }
+      .subheader { background: white; background: rgba(255,255,255,0.975); box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; padding: 10px 0; }
       .subheader .link { display: inline-block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; line-height: 14px; padding: 8px 10px; cursor: pointer; border-radius: 5px; }
       .subheader .link.selected { background: #5F6EEE; color: white; }
-      .subheader .account-info { position: absolute; right: 0; top: 0; font-size: 15px; line-height: 30px; }
+      .subheader .account-info { position: absolute; right: 20px; top: 0; font-size: 15px; line-height: 30px; }
       .subheader .account-info span.mdi { margin: 0 10px 0 25px; }
       h2 { padding: 30px 0; letter-spacing: 1px; font-size: 23px; position: relative; font-weight: 600; }
-      select { position: absolute; top: 40px; right: 0; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyOTcuMzEnIGhlaWdodD0nMTY4LjY1JyB2aWV3Qm94PScwIDAgMjk3LjMxIDE2OC42NSc+PGRlZnM+PHN0eWxlPi5he2ZpbGw6IzIyYmFhMDt9PC9zdHlsZT48L2RlZnM+PHBhdGggY2xhc3M9J2EnIGQ9J00zMS4zLDE5MkgyODguNmMxNy44LDAsMjYuNywyMS41LDE0LjEsMzQuMUwxNzQuMSwzNTQuOGEyMC4wMzgsMjAuMDM4LDAsMCwxLTI4LjMsMEwxNy4yLDIyNi4xQzQuNiwyMTMuNSwxMy41LDE5MiwzMS4zLDE5MlonIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC0xMS4yOTUgLTE5MiknLz48L3N2Zz4='); background-repeat: no-repeat,repeat; background-position: right .7em top 50%,0 0; background-size: .65em auto,100%; border-radius: 8px; -moz-appearance: none; -webkit-appearance: none; appearance: none; color: inherit; font-family: inherit; font-size: 16px; line-height: 35px; outline: 0 none; border: 1px solid #E2E2E2; background-color: white; font-weight: 600; padding: 0 35px 0 10px; }
-      select.first { right: 265px; }
-      .blocks-container { font-size: 0; width: calc(100% + 30px); }
-      .block { background: white; position: relative; font-size: 15px; display: inline-block; box-shadow: 0 1px 4px rgba(0,0,0,0.1); border-radius: 6px; padding: 20px 15px; width: calc(25% - 30px); margin: 0 30px 30px 0; }
-      .block .number { position: absolute; top: 23px; right: 20px; text-align: right; font-size: 28px; line-height: 1; font-weight: bold; }
-      .block .label { position: absolute; top: 60px; right: 20px; line-height: 1; padding: 5px 0 0; font-size: 18px; font-weight: 500; }
-      .block .mdi { line-height: 40px; font-size: 30px; padding: 0 0 40px; border-bottom: 1px solid rgba(0,0,0,0.1); margin: 0 0 12px; color: #5F6EEE; }
-      .block .comment { font-size: 14px; margin-bottom: -5px; }
-      .block .comment strong { color: #5F6EEE; font-weight: 600; }
+      select { position: absolute; top: 40px; right: 20px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyOTcuMzEnIGhlaWdodD0nMTY4LjY1JyB2aWV3Qm94PScwIDAgMjk3LjMxIDE2OC42NSc+PGRlZnM+PHN0eWxlPi5he2ZpbGw6IzIyYmFhMDt9PC9zdHlsZT48L2RlZnM+PHBhdGggY2xhc3M9J2EnIGQ9J00zMS4zLDE5MkgyODguNmMxNy44LDAsMjYuNywyMS41LDE0LjEsMzQuMUwxNzQuMSwzNTQuOGEyMC4wMzgsMjAuMDM4LDAsMCwxLTI4LjMsMEwxNy4yLDIyNi4xQzQuNiwyMTMuNSwxMy41LDE5MiwzMS4zLDE5MlonIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC0xMS4yOTUgLTE5MiknLz48L3N2Zz4='); background-repeat: no-repeat,repeat; background-position: right .7em top 50%,0 0; background-size: .65em auto,100%; border-radius: 4px; -moz-appearance: none; -webkit-appearance: none; appearance: none; color: inherit; font-family: inherit; font-size: 16px; line-height: 35px; outline: 0 none; border: 0 none; background-color: white; font-weight: 500; padding: 0 35px 0 10px; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px }
+      select.first { right: 300px; }
+      .cards-container { font-size: 0; margin: 0 -15px; text-align: center; }
+      .card { background: white; position: relative; font-size: 15px; display: inline-block; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; border-radius: 6px; padding: 20px 15px; width: calc(25% - 30px); margin: 0 15px 30px; text-align: left; }
+      .card .number { position: absolute; top: 23px; right: 20px; text-align: right; font-size: 28px; line-height: 1; font-weight: 600; }
+      .card .label { position: absolute; top: 55px; right: 20px; line-height: 1; padding: 5px 0 0; font-size: 18px; font-weight: 600; }
+      .card .mdi { line-height: 40px; font-size: 30px; padding: 0 0 35px; border-bottom: 1px solid rgba(0,0,0,0.1); margin: 0 0 12px; color: #5F6EEE; }
+      .card .comment { font-size: 14px; margin-bottom: -5px; color: rgb(50 50 93 / 80%); }
+      .card .comment strong { color: #5F6EEE; font-weight: 600; }
+      @media screen and (max-width: 1023px) {
+        .card { width: calc(50% - 30px); max-width: 360px; }
+      }
+      @media screen and (max-width: 600px) {
+        .card { width: calc(100% - 30px); margin: 0 0 20px; }
+      }
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   </head>
@@ -69,52 +75,52 @@
           <option selected>All Funnels</option>
         </select>
         <select>
-          <option selected>Jul 30, 2022 - Aug 29, 2022</option>
+          <option selected>Jul 15, 2022 - Aug 14, 2022</option>
         </select>
-        <div class="blocks-container">
-          <div class="block">
+        <div class="cards-container">
+          <div class="card">
             <div class="mdi mdi-contacts"></div>
             <div class="number">3,102</div>
             <div class="label">Leads</div>
             <div class="comment">Jul 15, 2022 - Aug 14, 2022</div>
           </div>
-          <div class="block">
+          <div class="card">
             <div class="mdi mdi-calendar-check"></div>
             <div class="number">2,171</div>
             <div class="label">Scheduled</div>
             <div class="comment"><strong>69%</strong> of Leads</div>
           </div>
-          <div class="block">
+          <div class="card">
             <div class="mdi mdi-calendar-arrow-left"></div>
             <div class="number">2,128</div>
             <div class="label">Past Appts</div>
             <div class="comment"><strong>98%</strong> before today</div>
           </div>
-          <div class="block">
+          <div class="card">
             <div class="mdi mdi-calendar-arrow-right"></div>
             <div class="number">43</div>
             <div class="label">Upcoming Appts</div>
             <div class="comment"><strong>2%</strong> after today</div>
           </div>
-          <div class="block">
+          <div class="card">
             <div class="mdi mdi-check-circle"></div>
             <div class="number">1,303</div>
             <div class="label">Confirmed</div>
             <div class="comment"><strong>61%</strong> of Past Appointments</div>
           </div>
-          <div class="block">
+          <div class="card">
             <div class="mdi mdi-eye"></div>
             <div class="number">1,280</div>
             <div class="label">Showed</div>
             <div class="comment"><strong>60%</strong> of Past Appointments</div>
           </div>
-          <div class="block">
+          <div class="card">
             <div class="mdi mdi-tag-multiple"></div>
             <div class="number">808</div>
             <div class="label">Sold</div>
             <div class="comment"><strong>63%</strong> of Showed</div>
           </div>
-          <div class="block">
+          <div class="card">
             <div class="mdi mdi-cash-multiple"></div>
             <div class="number">$201,132</div>
             <div class="label">Amount</div>
