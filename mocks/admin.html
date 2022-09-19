@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
     <title>Admin</title>
-    <meta name="theme-color" content="#333333">
+    <meta name="format-detection" content="telephone=no">
     <link href='https://fonts.googleapis.com/css?family=Inter:400,500,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/6.9.96/css/materialdesignicons.min.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -38,10 +38,10 @@
       select.first { right: 300px; }
       .cards-container { font-size: 0; margin: 0 -15px; text-align: center; }
       .card { background: white; position: relative; font-size: 15px; display: inline-block; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; border-radius: 6px; padding: 20px 15px; width: calc(25% - 30px); margin: 0 15px 30px; text-align: left; }
-      .card .number { position: absolute; top: 23px; right: 20px; text-align: right; font-size: 28px; line-height: 1; font-weight: 600; }
-      .card .label { position: absolute; top: 55px; right: 20px; line-height: 1; padding: 5px 0 0; font-size: 18px; font-weight: 600; }
-      .card .mdi { line-height: 40px; font-size: 30px; padding: 0 0 35px; border-bottom: 1px solid rgba(0,0,0,0.1); margin: 0 0 12px; color: var(--accent-color); }
-      .card .comment { font-size: 14px; margin-bottom: -5px; color: rgb(50 50 93 / 80%); }
+      .card .mdi { position: absolute; line-height: 1; font-size: 18px; padding: 0; color: var(--accent-color); }
+      .card .label { position: relative; line-height: 1; font-size: 18px; font-weight: 600; padding: 0 0 20px 28px; }
+      .card .number { position: relative; font-size: 28px; line-height: 1; font-weight: 600; padding: 0 0 20px; margin: 0 0 10px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+      .card .comment { font-size: 14px; margin-bottom: -10px; color: rgb(50 50 93 / 80%); }
       .card .comment strong { color: var(--accent-color); font-weight: 600; }
       @media screen and (max-width: 1023px) {
         .subheader { text-align: center; }
@@ -98,50 +98,50 @@
         <div class="cards-container">
           <div class="card">
             <div class="mdi mdi-contacts"></div>
-            <div class="number">3,102</div>
             <div class="label">Leads</div>
+            <div class="number">3,102</div>
             <div class="comment">Jul 15, 2022 - Aug 14, 2022</div>
           </div>
           <div class="card">
             <div class="mdi mdi-calendar-check"></div>
-            <div class="number">2,171</div>
             <div class="label">Scheduled</div>
+            <div class="number">2,171</div>
             <div class="comment"><strong>69%</strong> of Leads</div>
           </div>
           <div class="card">
             <div class="mdi mdi-calendar-arrow-left"></div>
-            <div class="number">2,128</div>
             <div class="label">Past Appts</div>
+            <div class="number">2,128</div>
             <div class="comment"><strong>98%</strong> before today</div>
           </div>
           <div class="card">
             <div class="mdi mdi-calendar-arrow-right"></div>
-            <div class="number">43</div>
             <div class="label">Upcoming Appts</div>
+            <div class="number">43</div>
             <div class="comment"><strong>2%</strong> after today</div>
           </div>
           <div class="card">
             <div class="mdi mdi-check-circle"></div>
-            <div class="number">1,303</div>
             <div class="label">Confirmed</div>
+            <div class="number">1,303</div>
             <div class="comment"><strong>61%</strong> of Past Appointments</div>
           </div>
           <div class="card">
             <div class="mdi mdi-eye"></div>
-            <div class="number">1,280</div>
             <div class="label">Showed</div>
+            <div class="number">1,280</div>
             <div class="comment"><strong>60%</strong> of Past Appointments</div>
           </div>
           <div class="card">
             <div class="mdi mdi-tag-multiple"></div>
-            <div class="number">808</div>
             <div class="label">Sold</div>
+            <div class="number">808</div>
             <div class="comment"><strong>63%</strong> of Showed</div>
           </div>
           <div class="card">
             <div class="mdi mdi-cash-multiple"></div>
-            <div class="number">$201,132</div>
             <div class="label">Amount</div>
+            <div class="number">$201,132</div>
             <div class="comment">Contract Value: <strong>$168,951</Strong></div>
           </div>
         </div>
