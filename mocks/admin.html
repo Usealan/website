@@ -22,10 +22,14 @@
       .clear { clear: both; }
       .wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: auto; font-size: 18px; line-height: 1.7; }
       .container { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 20px; }
-      .header { position: relative; height: 70px; text-align: right; line-height: 70px; font-size: 20px; font-weight: 500; background: white; padding: 0; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; user-select: none; }
-      .header .logo { position: relative; z-index: 10; }
+      .header { position: relative; height: 70px; text-align: left; line-height: 1; font-size: 20px; font-weight: 500; background: white; padding: 0; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; user-select: none; }
+      .header .logo { position: relative; display: inline-block; z-index: 10; }
       .header .logo img { width: 120px; height: 40px; margin: 15px 0; float: left; object-fit: contain; object-position: left center; }
-      .header .nav { margin-right: -10px; }
+      .menu { position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); z-index: 10; }
+      .menu a { display: inline-block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; line-height: 1; padding: 0 0 5px; margin: 0 10px; cursor: pointer; border-bottom: 2px solid transparent; text-decoration: none; color: inherit; }
+      .menu a:hover { border-bottom: 2px solid rgba(50,50,93,0.2); }
+      .menu a.selected { border-bottom: 2px solid var(--accent-color); color: var(--accent-color); font-weight: 600; }
+      .header .nav { position: absolute; top: 15px; right: 10px; }
       .header .nav .nav-item { position: relative; display: inline-block; }
       .header .nav .nav-item .nav-icon { position: relative; display: block; font-size: 24px; line-height: 1; padding: 8px; cursor: pointer; transition: opacity 0.3s ease; border-radius: 4px; transition: background 0.3s ease; z-index: 10; }
       .header .nav .nav-item .nav-icon-close { display: none; }
@@ -35,18 +39,17 @@
       .header .nav .nav-item.active .nav-icon { display: none; }
       .header .nav .nav-item.active .nav-icon-close { display: block; background: rgba(50,50,93,0.05); z-index: 1; }
       .header .nav .nav-item.active .nav-block { opacity: 1; pointer-events: all; }
+      .header .nav .nav-item .nav-block .nav-block-header { padding: 12px 15px; border-bottom: 1px solid rgba(0,0,0,0.1); margin: -10px -5px 10px -5px; font-size: 13px; text-align: center; }
       .header .nav .nav-item .nav-block p { margin: 0; padding: 20px 40px; text-align: center; font-weight: normal; opacity: 0.6; }
       .header .nav .nav-item .nav-block p span.mdi { display: block; font-size: 30px; margin: 0 0 15px; line-height: 1; }
       .header .nav .nav-item .nav-block li { display: block; }
       .header .nav .nav-item .nav-block li a { display: block; text-decoration: none; color: inherit; padding: 10px; border-radius: 4px; cursor: pointer; }
       .header .nav .nav-item .nav-block li a:hover { background: rgba(0,0,0,0.05); }
-      .header .account-info { border-bottom: 1px solid rgba(0,0,0,0.1); margin: -10px -5px 10px; padding: 10px 5px; background: rgba(0,0,0,0.01); font-weight: normal; user-select: text; }
-      .header .account-info-line { padding: 10px; }
-      .header .account-info-line span.mdi { margin-right: 10px; opacity: 0.7; }
-      .sub-nav {position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 10; }
-      .sub-nav a { display: inline-block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; line-height: 14px; padding: 7px 10px; cursor: pointer; border-radius: 5px; text-decoration: none; color: inherit; }
-      .sub-nav a:hover { background: rgba(0,0,0,0.05); }
-      .sub-nav a.selected { background: var(--accent-color); color: white; }
+      .header .account-info { border-bottom: 1px solid rgba(0,0,0,0.1); margin: -10px -5px 10px; padding: 12px 5px; background: rgba(0,0,0,0.01); font-weight: normal; user-select: text; }
+      .header .account-info-line { padding: 0 10px; line-height: 1.8; }
+      .header .account-info-line span.value { opacity: 0.8; }
+      .header .account-info-line:first-child span.value { opacity: 1; font-weight: 500; }
+      .header .account-info-line span.mdi { margin-right: 8px; opacity: 0.7; }
       .sub-header { position: relative; background: #FCFCFC; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; padding: 10px 0; }
       .sub-header .account-info { position: absolute; right: 20px; top: 0; font-size: 15px; line-height: 30px; }
       .sub-header .account-info span.mdi { margin: 0 10px 0 25px; }
@@ -71,9 +74,10 @@
         .card { width: calc(50% - 20px); max-width: 360px; }
       }
       @media screen and (max-width: 760px) {
-        .header { height: auto; line-height: 60px; position: sticky; top: 0; z-index: 100; }
+        .header { height: auto; position: sticky; top: 0; z-index: 100; }
+        .header .nav { top: 10px; }
         .header .logo img { margin: 10px 0; }
-        .sub-nav { position: relative; top: auto; left: auto; transform: none; text-align: center; line-height: 1; padding: 15px 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 0 -20px; }
+        .menu { position: relative; top: auto; left: auto; transform: none; text-align: center; line-height: 1; padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 0 -20px; }
       }
       @media screen and (max-width: 600px) {
         .card { width: calc(100% - 20px); margin: 0 0 20px; }
@@ -89,11 +93,17 @@
           <a class="logo" href="/mocks/admin.html">
             <img src="https://usealan.s3.us-east-2.amazonaws.com/assets/media/site-logo/site_logo1641940702.png">
           </a>
+          <div class="menu">
+            <a class="selected">Dashboard</a>
+            <a>Messages</a>
+            <a>Calendar</a>
+          </div>
           <div class="nav">
             <div class="nav-item">
               <span class="nav-icon nav-icon-open mdi mdi-bell-outline"></span>
               <span class="nav-icon nav-icon-close mdi mdi-bell"></span>
               <div class="nav-block">
+                <div class="nav-block-header">Notifications</div>
                 <p><span class="mdi mdi-emoticon-happy-outline" style="display: block;"></span>You're all caught up!</p>
               </div>
             </div>
@@ -111,8 +121,14 @@
               <span class="nav-icon nav-icon-close mdi mdi-account-box"></span>
               <ul class="nav-block">
                 <div class="account-info">
-                  <div class="account-info-line"><span class="mdi mdi-card-account-details-outline"></span>Sean McDermott</div>
-                  <div class="account-info-line"><span class="mdi mdi-pound-box"></span>+1 (435) 867-5309</div>
+                  <div class="account-info-line">
+                    <span class="mdi mdi-card-account-details-outline"></span>
+                    <span class="value">Sean McDermott</span>
+                  </div>
+                  <div class="account-info-line">
+                    <span class="mdi mdi-comment-text-outline"></span>
+                    <span class="value">+1 (435) 867-5309</span>
+                  </div>
                 </div>
                 <li><a>Account Settings</a></li>
                 <li><a>My Info</a></li>
@@ -122,18 +138,13 @@
               </ul>
             </div>
           </div>
-          <div class="sub-nav">
-            <a class="selected">Dashboard</a>
-            <a>Messages</a>
-            <a>Calendar</a>
-          </div>
         </div>
       </div>
       <div class="sub-header">
         <div class="container">
           <div class="account-info">
             <span class="mdi mdi-card-account-details-outline"></span>Sean McDermott
-            <span class="mdi mdi-pound-box"></span>+1 (435) 867-5309
+            <span class="mdi mdi-comment-text-outline"></span>+1 (435) 867-5309
           </div>
           <div class="filters">
             <div class="select">
