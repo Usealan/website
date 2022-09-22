@@ -25,10 +25,13 @@
       .header { position: relative; height: 70px; text-align: left; line-height: 1; font-size: 20px; font-weight: 500; background: white; padding: 0; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; user-select: none; }
       .header .logo { position: relative; display: inline-block; z-index: 10; }
       .header .logo img { width: 120px; height: 40px; margin: 15px 0; float: left; object-fit: contain; object-position: left center; }
-      .menu { position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); z-index: 10; }
-      .menu a { display: inline-block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; line-height: 1; padding: 0 0 5px; margin: 0 10px; cursor: pointer; border-bottom: 2px solid transparent; text-decoration: none; color: inherit; }
-      .menu a:hover { border-bottom: 2px solid rgba(50,50,93,0.2); }
-      .menu a.selected { border-bottom: 2px solid var(--accent-color); color: var(--accent-color); font-weight: 600; }
+      .header .menu { display: none; font-size: 24px; color: inherit; float: left; line-height: 44px; padding: 8px; margin: 0 5px 0 -8px; }
+      .header .menu span.mdi-menu { display: inline-block; }
+      .header .menu span.mdi-menu-open { display: none; }
+      .main-nav { position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); z-index: 10; }
+      .main-nav a { display: inline-block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; line-height: 1; padding: 0 0 5px; margin: 0 10px; cursor: pointer; border-bottom: 2px solid transparent; text-decoration: none; color: rgba(50,50,93,0.8); }
+      .main-nav a:hover { border-bottom: 2px solid rgba(50,50,93,0.8); color: rgba(50,50,93,1); }
+      .main-nav a.selected { border-bottom: 2px solid var(--accent-color); color: var(--accent-color); font-weight: 600; }
       .header .nav { position: absolute; top: 15px; right: 10px; }
       .header .nav .nav-item { position: relative; display: inline-block; }
       .header .nav .nav-item .nav-icon { position: relative; display: block; font-size: 24px; line-height: 1; padding: 8px; cursor: pointer; transition: opacity 0.3s ease; border-radius: 4px; transition: background 0.3s ease; z-index: 10; }
@@ -75,9 +78,15 @@
       }
       @media screen and (max-width: 760px) {
         .header { height: auto; position: sticky; top: 0; z-index: 100; }
+        .header .menu { display: inline-block; }
+        .header .main-nav { display: none; }
         .header .nav { top: 10px; }
         .header .logo img { margin: 10px 0; }
-        .menu { position: relative; top: auto; left: auto; transform: none; text-align: center; line-height: 1; padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 0 -20px; }
+        .main-nav { position: relative; top: auto; left: auto; transform: none; text-align: center; line-height: 1; padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 0 -20px; }
+        
+        body.menu-active .main-nav { display: block; }
+        body.menu-active .menu span.mdi-menu { display: none; }
+        body.menu-active .menu span.mdi-menu-open { display: inline-block; }
       }
       @media screen and (max-width: 600px) {
         .card { width: calc(100% - 20px); margin: 0 0 20px; }
@@ -90,10 +99,15 @@
     <div class="wrapper">
       <div class="header">
         <div class="container">
+          <div class="menu">
+            <span class="mdi mdi-menu"></span>
+            <span class="mdi mdi-menu-open"></span>
+
+          </div>
           <a class="logo" href="/mocks/admin.html">
             <img src="https://usealan.s3.us-east-2.amazonaws.com/assets/media/site-logo/site_logo1641940702.png">
           </a>
-          <div class="menu">
+          <div class="main-nav">
             <a class="selected">Dashboard</a>
             <a>Messages</a>
             <a>Calendar</a>
@@ -227,6 +241,9 @@
         e.stopPropagation();
       });
 
+      $(".menu").click(function() {
+        $("body").toggleClass("menu-active");
+      });
     </script>
   </body>  
 </html>
