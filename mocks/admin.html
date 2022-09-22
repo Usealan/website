@@ -21,7 +21,7 @@
       a { color: #08c; text-decoration: underline; }
       .clear { clear: both; }
       .wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: auto; font-size: 18px; line-height: 1.7; }
-      .container { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 20px; }
+      .container { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 15px; }
       .header { position: relative; height: 70px; text-align: left; line-height: 1; font-size: 20px; font-weight: 500; background: white; padding: 0; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; user-select: none; }
       .header .logo { position: relative; display: inline-block; z-index: 10; }
       .header .logo img { width: 120px; height: 40px; margin: 15px 0; float: left; object-fit: contain; object-position: left center; }
@@ -54,10 +54,10 @@
       .header .account-info-line:first-child span.value { opacity: 1; font-weight: 500; }
       .header .account-info-line span.mdi { margin-right: 8px; opacity: 0.7; }
       .sub-header { position: relative; background: #FCFCFC; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; padding: 10px 0; }
-      .sub-header .account-info { position: absolute; right: 20px; top: 0; font-size: 15px; line-height: 30px; }
-      .sub-header .account-info span.mdi { margin: 0 10px 0 25px; }
-      h2 { padding: 30px 0; letter-spacing: 1px; font-size: 23px; position: relative; font-weight: 600; }
-      .filters { font-size: 0; }
+      .sub-header .title { font-weight: 600; font-size: 18px; display: inline-block; }
+      .sub-header .account-info { font-size: 15px; display: inline-block; }
+      .sub-header .account-info span.mdi { margin: 0 10px 0 20px; }
+      .sub-header .filters { font-size: 0; position: absolute; right: 0; top: -2px; }
       .select { position: relative; display: inline-block; border-radius: 4px; overflow: hidden; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; margin: 0 15px 0 0; font-size: 15px; background: white; user-select: none; cursor: pointer; }
       .select:after { content: "\F0140"; font-family: "Material Design Icons"; font-size: 17px; position: absolute; top: 50%; right: 0; transform: translateY(-50%); padding: 0 10px; pointer-events: none; }
       .select select { position: relative; width: 100%; -moz-appearance: none; -webkit-appearance: none; appearance: none; color: inherit; font-family: inherit; font-size: inherit; line-height: 35px; outline: 0 none; border: 0 none; background-color: transparent; font-weight: 500; padding: 0 35px 0 10px; z-index: 1; cursor: pointer; }
@@ -70,9 +70,10 @@
       .card .comment { font-size: 14px; margin-bottom: -10px; color: rgb(50 50 93 / 80%); }
       .card .comment strong { color: var(--accent-color); font-weight: 600; }
       @media screen and (max-width: 1023px) {
-        .sub-header { text-align: center; }
+        .header .container { max-width: 780px; }
+        .sub-header .container { max-width: 770px; }
         .sub-header .account-info { display: none; }
-        .filters { text-align: center; }
+        .sub-header .filters { right: 5px; }
         .select { margin: 0 10px; }
         .card { width: calc(50% - 20px); max-width: 360px; }
       }
@@ -83,14 +84,17 @@
         .header .nav { top: 10px; }
         .header .logo img { margin: 10px 0; }
         .main-nav { position: relative; top: auto; left: auto; transform: none; text-align: center; line-height: 1; padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 0 -20px; }
-        
         body.menu-active .main-nav { display: block; }
         body.menu-active .menu span.mdi-menu { display: none; }
         body.menu-active .menu span.mdi-menu-open { display: inline-block; }
       }
       @media screen and (max-width: 600px) {
+        .header .container { max-width: 460px; }
+        .sub-header { padding: 15px 0; }
+        .sub-header .container { max-width: 450px; }
+        .sub-header .filters { right: auto; position: relative; top: auto; margin-top: 2px; }
         .card { width: calc(100% - 20px); margin: 0 0 20px; }
-        .select { font-size: 14px; margin: 5px 0; width: 100%; max-width: 360px; }
+        .select { font-size: 14px; margin: 5px 0; width: 100%; }
       }
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -156,16 +160,19 @@
       </div>
       <div class="sub-header">
         <div class="container">
+          <div class="title">Dashboard</div>
           <div class="account-info">
             <span class="mdi mdi-card-account-details-outline"></span>Sean McDermott
             <span class="mdi mdi-comment-text-outline"></span>+1 (435) 867-5309
           </div>
           <div class="filters">
+<!--
             <div class="select">
               <select>
                 <option selected>All Funnels</option>
               </select>
             </div>
+-->
             <div class="select">          
               <select>
                 <option selected>Jul 15, 2022 - Aug 14, 2022</option>
