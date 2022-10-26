@@ -28,13 +28,20 @@ body { color: #333333; font-family: "Inter", system-ui, -apple-system, BlinkMacS
 .container { position: relative; padding: 0 20px; width: 100%; max-width: 1024px; margin: 0 auto; }
 .header { position: relative; line-height: 1; font-weight: bold; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.075); margin: 0 0 40px; font-size: 0; }
 .header .nav { position: absolute; font-size: 15px; right: 20px; top: 50%; transform: translateY(-50%); font-size: 17px; }
-.header .nav a { color: white; text-decoration: none; font-weight: 600; }
+.header .nav a { color: white; text-decoration: none; font-weight: 600; margin-left: 30px; }
 .header .nav a.button {border: 1px solid rgba(255,255,255,0.4); padding: 7px 20px; border-radius: 6px; }
 .logo { font-size: 40px; display: inline-block; color: inherit; text-decoration: none; }
 .logo img { float: left; width: auto; height: 40px; }
-.hero { padding: 80px 20px 20px; min-height: 645px; }
+.header.header-alt {
+  color: var(--color-blue); box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  .nav { font-size: 16px; }
+  .nav a { color: inherit; }
+  .nav a.button {border: 1px solid var(--color-blue); }
+  .logo img { height: 30px; }
+}
+.hero { padding: 120px 20px 20px; min-height: 645px; }
 .hero ::selection { background: var(--color-black); }
-.hero h1 { font-size: 60px; line-height: 1.15; margin: 0 0 30px; width: 100%; max-width: 500px; }
+.hero h1 { font-size: 46px; line-height: 1.15; margin: 0 0 30px; width: 100%; max-width: 500px; }
 .hero p.intro { font-size: 19px; line-height: 1.7; width: 100%; max-width: 475px; margin: 0 0 40px ; }
 .ctas { font-size: 0; }
 .ctas .button { background: white; color: var(--color-blue); padding: 0 20px; border-radius: 6px; line-height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.2); font-weight: bold; margin: 0 25px 0 0; font-size: 19px; text-decoration: none; display: inline-block; min-width: 180px; text-align: center; letter-spacing: 0.5px; transition: all 0.3s ease; }
@@ -108,7 +115,7 @@ ul li { padding: 0 0 10px 5px; }
 .page .content.container { padding: 40px 20px 30px; max-width: 700px; }
 .page .content.container p { margin: 0 0 30px; }
 
-.colored { position: relative; background: var(--color-blue); color: white; }
+.colored { position: relative; background: var(--color-blue); background: linear-gradient(45deg, var(--color-blue) 25%,var(--color-purple)); color: white; }
 .bottom-cta.block { text-align: center; }
 .bottom-cta.block p { font-size: 19px; line-height: 1.7; margin: 0 auto 40px; max-width: 510px; }
 
@@ -116,12 +123,28 @@ ul li { padding: 0 0 10px 5px; }
 .footer.colored span.mdi { opacity: 0.6; }
 .footer.colored span.mdi:hover { opacity: 1; }
 
+.post {
+  color: #404040; padding: 0 0 40px; max-width: 700px; margin: 0 auto; letter-spacing: -0.6px; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+  h1 { font-size: 26px; line-height: 1.3; margin: 0 0 15px; letter-spacing: -1px; }
+  h2 { font-size: 19px; font-weight: 600; }
+  h3, h4, h5 { font-size: 18px; font-weight: 600; }
+  .date { color: #8C8C8C; margin: -5px 0 5px; border-bottom: 1px solid rgba(0,0,0,0.1); padding: 0 0 15px; font-size: 15px; letter-spacing: -0.4px; }
+  .date span.mdi { margin: 0 5px 0 0; opacity: 0.9; }
+  .post-body {
+    font-family: "Source Serif Pro"; font-size: 18px; padding-top: 20px;
+    h1, h2, h3, h4, h5, h6, p, ol, li { padding: 0 0 20px; margin: 0; }
+  }
+}
+
 @media screen and (max-width: 979px) {
   body { font-size: 16px; }
-  .header { margin: 0 0 30px; }
+  .header { margin: 0 0 30px; padding: 15px 0; }
+  .header .nav a { margin-left: 15px; font-size: 14px; }
+  .header .nav a.button { padding: 5px 10px; }
   .logo { font-size: 30px; }
+  .logo img { height: 30px; }
   .hero { padding: 0 20px 40px; }
-  .hero h1 { font-size: 34px; line-height: 1.15; text-align: center; margin: 0 auto 25px; max-width: 280px; }
+  .hero h1 { font-size: 34px; line-height: 1.15; text-align: center; margin: 0 auto 25px; max-width: 310px; }
   .hero p.intro { font-size: 17px; padding-top: 10px; text-align: center; margin: 0 auto 30px; max-width: 320px; padding: 0; }
   .hero .button { margin: 0 10px 20px; font-size: 16px; line-height: 46px; min-width: 156px; }
   .hero .button.primary { margin-bottom: 20px; }
