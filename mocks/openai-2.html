@@ -1,0 +1,198 @@
+---
+permalink: /ai-test/
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+  <title>ALAN + OpenAI</title>
+  <link href='https://fonts.googleapis.com/css?family=Inter:400,500,600,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//cdn.materialdesignicons.com/6.9.96/css/materialdesignicons.min.css">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="https://usealan.com/assets/images/icon.png">
+  <link rel="shortcut icon" href="https://usealan.com/assets/images/icon.ico" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-text-size-adjust: none; touch-action: pan-x pan-y; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
+    body { background: #F6F9FC;/*  background: #5F6EEE; */ font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Roboto'; color: #32325D; color: #1a2035; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    #chat-form { position: absolute; bottom: 0; left: 0; width: 100%; font-size: 16px; text-align: center; }
+    .chat-form-interior { position: relative; width: 100%; max-width: 500px; margin: 0 auto; background: white; border-radius: 0 0 20px 20px; padding: 15px 15px 10px; background: rgba(255,255,255,0.5); backdrop-filter: saturate(180%) blur(5px); box-shadow: 0 -1px 5px rgb(0 0 0 / 10%), 0 0 0 1px rgba(0,0,0,0.025); background: rgba(250,250,250,0.8); }
+    #chat-form textarea { appearance: none; -webkit-appearance: none; border: 1px solid rgba(0,0,0,0.1); background: transparent; color: inherit; box-shadow: 0 1px 1px rgba(0,0,0,0.1); outline: 1px solid transparent; border-radius: 10px; font-size: inherit; font-family: inherit; width: 100%; padding: 15px 50px 15px 15px; line-height: 1.5; background: white; resize: none; overflow: hidden; min-height: 50px; max-height: 100px; height: 54px; }
+    #chat-form button[type=submit] { appearance: none; -webkit-appearance: none; border: 0 none; outline: 0 none; background: transparent; color: inherit; font-size: 20px; position: absolute; line-height: 1; right: 15px; bottom: 19px; padding: 0 15px; cursor: pointer; z-index: 1; opacity: 0.4; transition: opacity 0.3s ease; line-height: 50px; }
+    #chat-form button[type=submit]:hover { opacity: 1; }
+    #chat-container { position: absolute; width: calc(100% - 20px); max-width: 500px; margin: 0 auto; line-height: 1.8; height: calc(100% - 30px); max-height: 500px; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background: white; box-shadow: 0px 2px 5px rgb(0 0 0 / 9%), 0px 5px 20px rgb(0 0 0 / 5%); border-radius: 20px; overflow: hidden; }
+    #conversation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: auto; padding: 15px 15px 80px; border-radius: 20px; }
+    .message { max-width: 80%; word-wrap: break-word; margin: 0 0 12px; line-height: 24px; position: relative; padding: 10px 20px; border-radius: 25px; float: left; clear: both; display: inline-block; }
+    .message:before, .message:after { content: ""; position: absolute; bottom: -2px; height: 20px; }
+    .message.message-received { background: #EAEAEA; color: black; }
+    .message.message-received:before { left: -7px; border-left: 20px solid #EAEAEA; border-bottom-right-radius: 16px 14px; transform: translate(0, -2px); }
+    .message.message-received:after { left: 15px; width: 15px; background: white; border-bottom-right-radius: 10px; transform: translate(-30px, -2px); }
+    .message.message-sent { color: white; background: #5f92ee; float: right; }
+    .message.message-sent:before { right: -7px; border-right: 20px solid #5f92ee; border-bottom-left-radius: 16px 14px; transform: translate(0, -2px); }
+    .message.message-sent:after { right: -45px; width: 15px; background: white; border-bottom-left-radius: 10px; transform: translate(-30px, -2px); }
+    .message span { display: inline; white-space: pre-wrap; }
+    
+    .actions { position: relative; text-align: center; margin: 0 -10px; height: 46px; overflow: hidden; transition: height 0.3s ease; }
+    .actions.collapsed { height: 0; }
+    .actions .action { margin: 0 5px; padding: 8px 12px; line-height: 1; border-radius: 4px; font-size: 13px; display: inline-block; cursor: pointer; box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 8%) 0px 1px 1px 0px, rgb(60 66 87 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px; background: white; min-width: 100px; }
+    .actions .action:hover { text-decoration: underline; }
+    .actions .action span.mdi { margin-right: 5px; }
+    .actions .action.disabled { opacity: 0.4; pointer-events: none; cursor: not-allowed; }
+    .clear { clear: both; }
+    @media screen and (max-width: 1023px) {
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="conversation">
+<!--
+      <div class="message message-sent"><span>Hey Kelly! Just wanted to give you a friendly reminder for our appointment today at 4pm. See you soon! 💪</span></div>
+      <div class="message message-received"><span>I'm sorry, but I won't be able to make it.</span></div>
+      <div class="message message-received"><span>My kid is under the weather and I need to take him to the doctor. Can we reschedule?</span></div>
+-->
+    </div>
+    <div class="clear"></div>
+    <form id="chat-form" autocomplete="off">
+      <div class="chat-form-interior">
+        <div class="actions collapsed">
+          <div class="action proper-button disabled" style="position: relative;"><span class="mdi mdi-account-tie-outline"></span>Proper</div> <!-- Serious face -->
+          <div class="action friendly-button disabled" style="position: relative;"><span class="mdi mdi-emoticon-outline"></span>Friendly</div> <!-- happy face -->
+          <div class="action rephrase-button disabled" style="position: relative;"><span class="mdi mdi-pen"></span>Rephrase</div> <!-- pen icon -->
+        </div>
+        <textarea id="chat-input" placeholder="Type your message here" autofocus="" rows="1"></textarea>
+        <button tabindex="0" type="submit"><span class="mdi mdi-send"></span></button>
+      </div>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    
+    function scrollDown() {
+      $("#conversation").animate({ scrollTop: $("#conversation")[0].scrollHeight}, "slow");
+    }
+    
+    var API_KEY = "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";
+    
+    $(".proper-button").click(function() {
+      // "sorry but no credit increase is available for you, please try again in 90 days"
+      var message = $("#chat-input").val();
+      if (message.length > 0) {
+        $.ajax({
+          type: "POST",
+          url: 'https://api.openai.com/v1/engines/text-davinci-003/completions',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
+          },
+          data: JSON.stringify({
+            "prompt": "Convert the following text into a serious and proper tone and make sure it is no longer than 160 characters: " + message,
+            "temperature": 0.7,
+            "max_tokens": 3200,
+            "top_p": 1,
+            "frequency_penalty": 0.75,
+            "presence_penalty": 0
+    
+          }),
+          success: function(response) {
+            console.log(response);
+            var change = response.choices[0].text.trim();
+            $("#chat-input").val(change);
+          }
+        });
+      } else {
+        alert("Please type a message first.")
+      }
+    });
+
+    $(".friendly-button").click(function() {
+      // "sorry but no credit increase is available for you, please try again in 90 days"
+      var message = $("#chat-input").val();
+      if (message.length > 0) {
+        $.ajax({
+          type: "POST",
+          url: 'https://api.openai.com/v1/engines/text-davinci-003/completions',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
+          },
+          data: JSON.stringify({
+            "prompt": "Convert the following text into a funny and friendly tone and make sure it is no longer than 160 characters: " + message,
+            "temperature": 0.7,
+            "max_tokens": 3200,
+            "top_p": 1,
+            "frequency_penalty": 0.75,
+            "presence_penalty": 0
+    
+          }),
+          success: function(response) {
+            console.log(response);
+            var change = response.choices[0].text.trim();
+            $("#chat-input").val(change);
+          }
+        });
+      } else {
+        alert("Please type a message first.")
+      }
+    });
+
+    $(".rephrase-button").click(function() {
+      // "i can't increase credit limit today, please reapply after 90"
+      var message = $("#chat-input").val();
+      if (message.length > 0) {
+        $.ajax({
+          type: "POST",
+          url: 'https://api.openai.com/v1/engines/text-davinci-003/completions',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
+          },
+          data: JSON.stringify({
+            "prompt": "Rephrase the following text and make sure it is no longer than 160 characters: " + message,
+            "temperature": 0.7,
+            "max_tokens": 3200,
+            "top_p": 1,
+            "frequency_penalty": 0.75,
+            "presence_penalty": 0
+    
+          }),
+          success: function(response) {
+            console.log(response);
+            var change = response.choices[0].text.trim();
+            $("#chat-input").val(change);
+          }
+        });
+      } else {
+        alert("Please type a message first.")
+      }
+    });
+
+/*
+    $("#chat-form").submit(function(event) {
+      event.preventDefault();
+      var message = $("#chat-input").val();
+      $("#chat-input").val("");
+      $("#conversation").append(`<div class="message message-sent"><span>${message}</span></div>`);
+      scrollDown();
+    });
+*/
+
+    $("textarea").on("input", function(){
+      this.style.height = "auto";
+      this.style.height = (this.scrollHeight) + "px";
+      if ($(this).val().length == 0) {
+        $(".actions").addClass("collapsed");
+        $(".actions .action").addClass("disabled");
+      } else {
+        $(".actions").removeClass("collapsed");
+        $(".actions .action").removeClass("disabled");
+      }
+      console.log($(this).length);
+    });
+
+      
+  </script>
+</body>
+</html>
