@@ -189,8 +189,10 @@ figcaption { text-align: center; font-size: 14px; opacity: 0.6; }
   .footer span.social { float: none; padding-top: 20px; }
   .footer span.social p { margin: 0 10px; }
   .footer p { display: block; }
+  figcaption { font-size: 12px; }
 }
 @media screen and (max-width: 440px) {
+  .colored { background: var(--color-blue); }
   .main-block .mock { width: 100%; height: 240px; padding: 0; }
   .features ul li { width: 100%; }
 }
