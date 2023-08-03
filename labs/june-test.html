@@ -1,0 +1,54 @@
+---
+permalink: /june/
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPT-4 Chat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>GPT-4 Chat</h1>
+    <div id="chat">
+    </div>
+    <form id="chat-form">
+        <input type="text" id="message-input" placeholder="Write a message" />
+        <button type="submit">Send</button>
+    </form>
+    
+    <script>
+      $(document).ready(function() {
+          const $chatForm = $('#chat-form');
+          const $messageInput = $('#message-input');
+          const $chat = $('#chat');
+      
+          $chatForm.on('submit', function(e) {
+              e.preventDefault();
+              const message = $messageInput.val().trim();
+              if (message !== '') {
+                  appendMessage('You', message);
+                  $.ajax({
+                      url: 'https://osj4lh48hc.execute-api.us-east-2.amazonaws.com/',
+                      method: 'POST',
+                      contentType: 'application/json',
+                      data: JSON.stringify({ prompt: message }),
+                      success: function(data) {
+                          const gptResponse = data.choices[0].text.trim();
+                          appendMessage('GPT-4', gptResponse);
+                      },
+                      error: function() {
+                          alert("Error interacting with GPT-4 API");
+                      }
+                  });
+                  $messageInput.val("");
+              }
+          });
+      
+          function appendMessage(user, text) {
+              $chat.append('<p><b>' + user + ':</b> ' + text + '</p>');
+          }
+      });      
+    </script>
+</body>
+</html>
