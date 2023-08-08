@@ -13,8 +13,8 @@ punchline: Automatically convert leads into meetings using text messages
     <h1 class="fade-in" style="animation-delay: 0.2s;">We convert leads into meetings using SMS.</h1>    
     <p class="intro fade-in" style="animation-delay: 0.4s;">Delivering leads has never been easier! With ALAN, you can automatically nurture leads via text message and turn them into potential customers.</p>
     <div class="ctas hero-cta fade-in" style="animation-delay: 0.6s;">
-      <a class="button primary" href="/sign-up/">Apply Now</a>
-      <a class="button" href="/schedule/">Schedule call</a>
+      <button class="button primary open-signup-modal">Apply Now</button>
+      <button class="button go-to-main-block" href=".">Learn more</button>
     </div>
     <div class="imessage fade-in" style="animation-delay: 0.8s;">
       <p class="from-them from-them-one typing-indicator fade-in" style="animation-delay: 1s;">
@@ -94,8 +94,27 @@ punchline: Automatically convert leads into meetings using text messages
     <h2>Ready to grow your business?</h2>
     <p>Implement a new revenue stream that will deliver value to your clients and competitive moat for you.</p>
     <div class="ctas">
-      <a class="button primary" href="/sign-up/">Apply Now</a>
-      <a class="button" href="/schedule/">Schedule call</a>
+      <button class="button primary open-signup-modal">Apply Now</button>
     </div>
   </div>
+</div>
+
+<div class="signup-modal modal">
+  <div class="modal-inner">
+    <h2>Schedule a demo</h2>
+    <h4>Enter your details below and we'll get in touch with you as soon.</h4>
+    <span class="mdi mdi-close close-signup-modal"></span>
+    <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbxrztl6k5GK3CfTMvC8aDgG4BHS69Qi49EfnnvnP-ZBIPn-e7fPCUQTm1pL-BrnGo4_mQ/exec">
+      <input type="text" id="first-name" name="First Name" placeholder="First Name" required style="width: calc(50% - 15px);" />
+      <input type="text" id="last-name" name="Last Name"  placeholder="Last Name" required style="width: calc(50% - 15px);" />
+      <input type="email" id="email" name="Email"  placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" required />
+      <input type="tel" id="phone" name="Phone"  placeholder="Phone Number" pattern="^(\d{7}|\d{10})$" title="Ten digit number, no dashes or special characters." required />
+      <input name="Campaign" value="Homepage hero" style="display: none;" />
+      <div>
+        <input class="button primary" type="submit" value="Schedule a call">
+      </div>
+    </form>
+    <p>Thank you! Expect to hear from us soon.</p>
+  </div>
+  <div class="modal-exit close-signup-modal"></div>
 </div>
