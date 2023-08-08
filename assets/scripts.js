@@ -15,7 +15,7 @@ $(".go-to-main-block").on("click", function(e) {
 $(".open-signup-modal").on("click", function(e) {
   e.preventDefault();
   $("body").addClass("signup-on");
-  
+  $("#first-name").focus();
 });
 
 $(".close-signup-modal").on("click", function(e) {
