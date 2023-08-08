@@ -48,11 +48,11 @@ hr { border: 0 none; border-bottom: 1px solid rgba(0,0,0,0.1); margin: 0 0 30px;
   .nav a.button {border: 1px solid var(--color-blue); }
   .logo img { height: 30px; }
 }
-.hero { padding: 120px 20px 30px; min-height: 645px; }
+.hero { padding: 50px 20px 30px; min-height: 645px; }
 .hero ::selection { background: var(--color-black); }
-.hero h1 { font-size: 46px; line-height: 1.15; margin: 0 0 30px; width: 100%; max-width: 500px; }
-.hero p.intro { font-size: 19px; line-height: 1.7; width: 100%; max-width: 475px; margin: 0 0 40px ; }
-.ctas { font-size: 0; }
+.hero h1 { font-size: 60px; line-height: 1.1; margin: 0 0 30px; width: 100%; max-width: 480px; }
+.hero p.intro { font-size: 19px; line-height: 1.7; width: 100%; max-width: 475px; margin: 0 0 20px ; }
+.ctas { font-size: 0; padding-top: 20px; }
 .ctas .button { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; cursor: pointer; background: white; color: var(--color-blue); padding: 0 20px; border-radius: 6px; line-height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.2); font-weight: bold; margin: 0 25px 0 0; font-size: 19px; text-decoration: none; display: inline-block; min-width: 180px; text-align: center; letter-spacing: 0.5px; transition: all 0.3s ease; }
 .ctas .button.primary { color: white; background: var(--color-green); }
 .ctas .button:hover { text-decoration: none; transform: translateY(-1px);  box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
@@ -175,11 +175,11 @@ span.mdi-close { position: absolute; top: 13px; right: 15px; font-size: 20px; cu
   .logo { font-size: 30px; }
   .logo img { height: 30px; }
   .hero { padding: 0 20px 40px; }
-  .hero h1 { font-size: 34px; line-height: 1.15; text-align: center; margin: 0 auto 25px; max-width: 310px; }
-  .hero p.intro { font-size: 17px; padding-top: 10px; text-align: center; margin: 0 auto 30px; max-width: 320px; padding: 0; }
+  .hero h1 { font-size: 34px; line-height: 1.15; text-align: center; margin: 0 auto 25px; max-width: 300px; }
+  .hero p.intro { font-size: 17px;text-align: center; margin: 0 auto 15px; max-width: 320px; padding: 0; }
   .hero .button { margin: 0 10px 20px; font-size: 16px; line-height: 46px; min-width: 156px; }
   .hero .button.primary { margin-bottom: 20px; }
-  .hero-cta { text-align: center; padding: 0; margin: 0 -10px 20px; }
+  .hero-cta { text-align: center; padding: 15px 0 0; margin: 0 -10px 20px; }
   .imessage { position: relative; top: auto; right: auto; transform: none; margin: 0 auto -10px; animation-name: fade-in-animation; max-width: 350px; }
   .imessage p { max-width: 86%; }
   .block { padding: 50px 0; }
