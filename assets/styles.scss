@@ -180,7 +180,7 @@ span.mdi-close { position: absolute; top: 13px; right: 15px; font-size: 20px; cu
   .logo img { height: 30px; }
   .hero { padding: 0 20px 40px; }
   .hero h1 { font-size: 34px; line-height: 1.15; text-align: center; margin: 0 auto 25px; max-width: 300px; }
-  .hero p.intro { font-size: 17px; text-align: center; margin: 0 auto 15px; max-width: 320px; padding: 0; }
+  .hero p.intro { font-size: 16px; text-align: center; margin: 0 auto 15px; max-width: 320px; padding: 0; }
   .hero .button { margin: 0 10px 20px; font-size: 16px; line-height: 46px; min-width: 156px; }
   .hero .button.primary { margin-bottom: 20px; }
   .hero-cta { text-align: center; padding: 15px 0 0; margin: 0 -10px 20px; }
@@ -204,7 +204,8 @@ span.mdi-close { position: absolute; top: 13px; right: 15px; font-size: 20px; cu
   .page .content.container { padding: 30px 20px 10px; }
   .bottom-cta.block h2 { max-width: none; }
   .bottom-cta.block p { font-size: 17px; max-width: 320px; margin: 0 auto 0; }
-  .footer { padding: 30px 0 50px; text-align: center; }
+  .footer { padding: 30px 0 50px; text-align: center; font-size: 15px; }
+  .footer p { margin: 0 10px; }
   .footer .container { width: calc(100% - 20px); padding: 0; }
   .footer span { display: block; }
   .footer .copyright { display: block; padding: 0 0 10px; margin: 0; }
