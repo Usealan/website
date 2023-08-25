@@ -1,0 +1,44 @@
+---
+---
+
+/* Basic styles to make the page work */
+body { font-family: "Inter", sans-serif; font-feature-settings: normal; font-variation-settings: normal; }
+body.active-modal { overflow: hidden; }
+button { -webkit-appearance: none; appearance: none; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 1px 1px rgba(0,0,0,.1); background: white; cursor: pointer; display: inline-block; font-family: inherit; font-size: 1rem; font-weight: 600; line-height: 1; outline: 1px solid transparent; padding: 12px 16px; position: relative; text-align: center; text-decoration: none; text-transform: capitalize; transition: all .25s ease; font-size: 14px; }
+main { padding-bottom: 100px; }  
+.css-8ndowl { position: fixed; z-index: 1300; inset: 0px; display: none; }
+body.active-modal .css-8ndowl { display: flex; }
+.css-919eu4 { position: fixed; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; inset: 0px; background-color: rgba(0, 0, 0, 0.5); -webkit-tap-highlight-color: transparent; z-index: -1; }
+
+/* New styles */
+
+.Header .Header__Wrapper { text-align: center; }
+.headerCTA .signInBtn { display: none; }
+.Header .Header__Wrapper .Header__FlexItem.Header__FlexItem--logo { display: block; }
+.footer-bar {
+  position: fixed; bottom: 0; left: 0; width: 100%; background: #F8FBFD; background: rgba(255,255,255,0.9); backdrop-filter: blur(6px); padding: 20px 10px; box-shadow: inset 0 1px 0 0 #dedee4; text-align: center; }
+.footer-bar-container { position: relative; width: 100%; max-width: 1220px; margin: 0 auto; }
+.footer-bar .back-button { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+.footer-bar .checkout-button { position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: #f5a64f; color: white; border: 1px solid rgba(0,0,0,0.05) }
+button span.mdi { margin-right: 6px; }
+.footer-summary { display: inline-block; position: relative; text-align: left; }
+.footer-summary-price { display: inline-block; font-weight: bold; font-size: 24px; line-height: 1; color: black; padding-bottom: 7px; letter-spacing: -0.5px }
+.footer-summary-description { font-size: 14px; color: black; opacity: 0.5; }
+.footer-summary .edit-button { font-size: 11px; line-height: 1; padding: 6px 10px; margin: 0 0 0 15px; position: absolute; }
+
+.start .step[data-step="confirm"] {
+  .carousel { width: 100%; }
+  .carousel-container { border-bottom: 1px solid rgba(0,0,0,0.1); padding: 0 0 15px; margin: 0 0 40px; }
+  .carousel .items { column-gap: 40px; }
+  h3 svg { transform: translateY(2px); margin-right: 3px; }
+  h4 { font-weight: 600; font-size: 20px; max-width: 550px; margin: 0 auto 30px; line-height: 1.5; }
+  h5 { margin-bottom: 20px; }
+  .filter-element-container img { margin-bottom: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); border-radius: 4px; }
+  .filter-element-container div h3 { font-weight: 600; }
+  .filter-description { width: 50%; display: inline-block; float: left; padding: 0 20px; }
+  .filter-description h3 {  }
+  .filter-description p { color: #3C4858; }
+  .frequencyShippingSchedule { float: left; width: 50%; max-width: none; padding: 0 20px; }
+  .frequencyShippingSchedule .scheduleRow span.alignLeft { font-style: normal; font-weight: 500; }
+  .coupon-container { clear: both; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px; }
+}
