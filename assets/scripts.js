@@ -41,6 +41,9 @@ $("#form").on("submit", function(e) {
   e.preventDefault();
   var data = new FormData(this);
   var action = $(this).attr("action");
+  $(".signup-modal form").attr("style","pointer-events: none");
+  $(".signup-modal .inputs").hide();
+  $(".signup-modal input[type=submit]").val("Please wait...");
   $.ajax({
     url: action,
     method: "POST",

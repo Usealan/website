@@ -107,11 +107,13 @@ punchline: Automatically convert leads into meetings using text messages
     <h4>Enter your details below and we'll get in touch with you as soon as possible.</h4>
     <span class="mdi mdi-close close-signup-modal"></span>
     <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbxrztl6k5GK3CfTMvC8aDgG4BHS69Qi49EfnnvnP-ZBIPn-e7fPCUQTm1pL-BrnGo4_mQ/exec" autocomplete="off">
-      <input type="text" id="first-name" name="First Name" autocomplete="none" placeholder="First Name" required style="width: calc(50% - 15px);" />
-      <input type="text" id="last-name" name="Last Name" autocomplete="none"  placeholder="Last Name" required style="width: calc(50% - 15px);" />
-      <input type="email" id="email" name="Email" autocomplete="none"  placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" required />
-      <input type="tel" id="phone" name="Phone" autocomplete="none" placeholder="Phone Number" pattern="^(\d{7}|\d{10})$" title="Ten digit number, no dashes or special characters." required />
-      <input name="Campaign" value="Homepage hero" style="display: none;" />
+      <div class="inputs">
+        <input type="text" id="first-name" name="First Name" autocomplete="none" placeholder="First Name" required style="width: calc(50% - 15px);" />
+        <input type="text" id="last-name" name="Last Name" autocomplete="none"  placeholder="Last Name" required style="width: calc(50% - 15px);" />
+        <input type="email" id="email" name="Email" autocomplete="none"  placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" required />
+        <input type="tel" id="phone" name="Phone" autocomplete="none" placeholder="Phone Number" pattern="^(\d{7}|\d{10})$" title="Ten digit number, no dashes or special characters." required />
+        <input name="Campaign" value="Homepage hero" style="display: none;" />
+      </div>
       <div>
         <input class="button primary" type="submit" value="Schedule a call">
       </div>
