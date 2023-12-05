@@ -911,17 +911,37 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
 
   <div class="lco-corner-box">
     <div class="lco-corner-tabs">
-      <button>Internal Notes</button>
-      <button class="active">Stats</button>
+      <button data-type="Stats" class="active">Stats</button>
+      <button data-type="Notes">Internal Notes</button>
     </div>
     <div class="frame-container">
-      <iframe src="/mocks/lco-stats/"></iframe></div>
+      <iframe src="/mocks/lco-stats/"></iframe>
+    </div>
     <div class="frame-container"></div>
   </div>
   
   
   
   
+  
+  
+  
+  
+  
+  
+  
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script>
+    $(".lco-corner-tabs button").click(function() {
+      $(".lco-corner-tabs button").removeClass("active");
+      $(this).addClass("active");    
+      if ($(this).attr("data-type") == "Notes") {
+        $(".lco-corner-box .frame-container iframe").attr("src","https://staging-app.usealan.com/internal-notes/5305");
+      } else {
+        $(".lco-corner-box .frame-container iframe").attr("src","/mocks/lco-stats/");
+      }
+    });
+  </script>
   
   
   
