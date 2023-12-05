@@ -1,0 +1,931 @@
+---
+permalink: /mocks/live-chat/
+---
+
+<html lang="en"><head><script>(function(){function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.geolocation.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  // https://developer.chrome.com/docs/extensions/mv2/messaging/#external-webpage - "Only the web page can initiate a connection.", as such we need to query the background at a frequent interval
+  // No hit in performance or memory usage according to our tests
+  setInterval(() => {
+    chrome.runtime.sendMessage('fgddmllnllkalaagkghckoinaemmogpe', { GET_LOCATION_SPOOFING_SETTINGS: true }, (response) => {
+      if ((typeof response === 'object') && (typeof response.coords === 'object')) {
+        hookedObj.genLat = response.coords.lat;
+        hookedObj.genLon = response.coords.lon;
+        hookedObj.fakeGeo = response.fakeIt;
+      }
+    });
+  }, 500);
+  //]]>
+}hookGeo();})()</script><meta charset="utf-8"><style type="text/css">:root, :host {
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 6 Solid";
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 6 Regular";
+  --fa-font-light: normal 300 1em/1 "Font Awesome 6 Light";
+  --fa-font-thin: normal 100 1em/1 "Font Awesome 6 Thin";
+  --fa-font-duotone: normal 900 1em/1 "Font Awesome 6 Duotone";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 6 Brands";
+}
+
+svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
+  overflow: visible;
+  box-sizing: content-box;
+}
+
+.svg-inline--fa {
+  display: var(--fa-display, inline-block);
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+}
+.svg-inline--fa.fa-2xs {
+  vertical-align: 0.1em;
+}
+.svg-inline--fa.fa-xs {
+  vertical-align: 0em;
+}
+.svg-inline--fa.fa-sm {
+  vertical-align: -0.0714285705em;
+}
+.svg-inline--fa.fa-lg {
+  vertical-align: -0.2em;
+}
+.svg-inline--fa.fa-xl {
+  vertical-align: -0.25em;
+}
+.svg-inline--fa.fa-2xl {
+  vertical-align: -0.3125em;
+}
+.svg-inline--fa.fa-pull-left {
+  margin-right: var(--fa-pull-margin, 0.3em);
+  width: auto;
+}
+.svg-inline--fa.fa-pull-right {
+  margin-left: var(--fa-pull-margin, 0.3em);
+  width: auto;
+}
+.svg-inline--fa.fa-li {
+  width: var(--fa-li-width, 2em);
+  top: 0.25em;
+}
+.svg-inline--fa.fa-fw {
+  width: var(--fa-fw-width, 1.25em);
+}
+
+.fa-layers svg.svg-inline--fa {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.fa-layers-counter, .fa-layers-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+}
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -0.125em;
+  width: 1em;
+}
+.fa-layers svg.svg-inline--fa {
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.fa-layers-counter {
+  background-color: var(--fa-counter-background-color, #ff253a);
+  border-radius: var(--fa-counter-border-radius, 1em);
+  box-sizing: border-box;
+  color: var(--fa-inverse, #fff);
+  line-height: var(--fa-counter-line-height, 1);
+  max-width: var(--fa-counter-max-width, 5em);
+  min-width: var(--fa-counter-min-width, 1.5em);
+  overflow: hidden;
+  padding: var(--fa-counter-padding, 0.25em 0.5em);
+  right: var(--fa-right, 0);
+  text-overflow: ellipsis;
+  top: var(--fa-top, 0);
+  -webkit-transform: scale(var(--fa-counter-scale, 0.25));
+          transform: scale(var(--fa-counter-scale, 0.25));
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+}
+
+.fa-layers-bottom-right {
+  bottom: var(--fa-bottom, 0);
+  right: var(--fa-right, 0);
+  top: auto;
+  -webkit-transform: scale(var(--fa-layers-scale, 0.25));
+          transform: scale(var(--fa-layers-scale, 0.25));
+  -webkit-transform-origin: bottom right;
+          transform-origin: bottom right;
+}
+
+.fa-layers-bottom-left {
+  bottom: var(--fa-bottom, 0);
+  left: var(--fa-left, 0);
+  right: auto;
+  top: auto;
+  -webkit-transform: scale(var(--fa-layers-scale, 0.25));
+          transform: scale(var(--fa-layers-scale, 0.25));
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left;
+}
+
+.fa-layers-top-right {
+  top: var(--fa-top, 0);
+  right: var(--fa-right, 0);
+  -webkit-transform: scale(var(--fa-layers-scale, 0.25));
+          transform: scale(var(--fa-layers-scale, 0.25));
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+}
+
+.fa-layers-top-left {
+  left: var(--fa-left, 0);
+  right: auto;
+  top: var(--fa-top, 0);
+  -webkit-transform: scale(var(--fa-layers-scale, 0.25));
+          transform: scale(var(--fa-layers-scale, 0.25));
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-2xs {
+  font-size: 0.625em;
+  line-height: 0.1em;
+  vertical-align: 0.225em;
+}
+
+.fa-xs {
+  font-size: 0.75em;
+  line-height: 0.0833333337em;
+  vertical-align: 0.125em;
+}
+
+.fa-sm {
+  font-size: 0.875em;
+  line-height: 0.0714285718em;
+  vertical-align: 0.0535714295em;
+}
+
+.fa-lg {
+  font-size: 1.25em;
+  line-height: 0.05em;
+  vertical-align: -0.075em;
+}
+
+.fa-xl {
+  font-size: 1.5em;
+  line-height: 0.0416666682em;
+  vertical-align: -0.125em;
+}
+
+.fa-2xl {
+  font-size: 2em;
+  line-height: 0.03125em;
+  vertical-align: -0.1875em;
+}
+
+.fa-fw {
+  text-align: center;
+  width: 1.25em;
+}
+
+.fa-ul {
+  list-style-type: none;
+  margin-left: var(--fa-li-margin, 2.5em);
+  padding-left: 0;
+}
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  left: calc(var(--fa-li-width, 2em) * -1);
+  position: absolute;
+  text-align: center;
+  width: var(--fa-li-width, 2em);
+  line-height: inherit;
+}
+
+.fa-border {
+  border-color: var(--fa-border-color, #eee);
+  border-radius: var(--fa-border-radius, 0.1em);
+  border-style: var(--fa-border-style, solid);
+  border-width: var(--fa-border-width, 0.08em);
+  padding: var(--fa-border-padding, 0.2em 0.25em 0.15em);
+}
+
+.fa-pull-left {
+  float: left;
+  margin-right: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-pull-right {
+  float: right;
+  margin-left: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-beat {
+  -webkit-animation-name: fa-beat;
+          animation-name: fa-beat;
+  -webkit-animation-delay: var(--fa-animation-delay, 0);
+          animation-delay: var(--fa-animation-delay, 0);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+          animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);
+          animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-bounce {
+  -webkit-animation-name: fa-bounce;
+          animation-name: fa-bounce;
+  -webkit-animation-delay: var(--fa-animation-delay, 0);
+          animation-delay: var(--fa-animation-delay, 0);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+          animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
+          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
+}
+
+.fa-fade {
+  -webkit-animation-name: fa-fade;
+          animation-name: fa-fade;
+  -webkit-animation-delay: var(--fa-animation-delay, 0);
+          animation-delay: var(--fa-animation-delay, 0);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+          animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-beat-fade {
+  -webkit-animation-name: fa-beat-fade;
+          animation-name: fa-beat-fade;
+  -webkit-animation-delay: var(--fa-animation-delay, 0);
+          animation-delay: var(--fa-animation-delay, 0);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+          animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+          animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-flip {
+  -webkit-animation-name: fa-flip;
+          animation-name: fa-flip;
+  -webkit-animation-delay: var(--fa-animation-delay, 0);
+          animation-delay: var(--fa-animation-delay, 0);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+          animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, ease-in-out);
+          animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-shake {
+  -webkit-animation-name: fa-shake;
+          animation-name: fa-shake;
+  -webkit-animation-delay: var(--fa-animation-delay, 0);
+          animation-delay: var(--fa-animation-delay, 0);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+          animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, linear);
+          animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin {
+  -webkit-animation-name: fa-spin;
+          animation-name: fa-spin;
+  -webkit-animation-delay: var(--fa-animation-delay, 0);
+          animation-delay: var(--fa-animation-delay, 0);
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 2s);
+          animation-duration: var(--fa-animation-duration, 2s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, linear);
+          animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin-reverse {
+  --fa-animation-direction: reverse;
+}
+
+.fa-pulse,
+.fa-spin-pulse {
+  -webkit-animation-name: fa-spin;
+          animation-name: fa-spin;
+  -webkit-animation-direction: var(--fa-animation-direction, normal);
+          animation-direction: var(--fa-animation-direction, normal);
+  -webkit-animation-duration: var(--fa-animation-duration, 1s);
+          animation-duration: var(--fa-animation-duration, 1s);
+  -webkit-animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+          animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  -webkit-animation-timing-function: var(--fa-animation-timing, steps(8));
+          animation-timing-function: var(--fa-animation-timing, steps(8));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-beat,
+.fa-bounce,
+.fa-fade,
+.fa-beat-fade,
+.fa-flip,
+.fa-pulse,
+.fa-shake,
+.fa-spin,
+.fa-spin-pulse {
+    -webkit-animation-delay: -1ms;
+            animation-delay: -1ms;
+    -webkit-animation-duration: 1ms;
+            animation-duration: 1ms;
+    -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+    transition-delay: 0s;
+    transition-duration: 0s;
+  }
+}
+@-webkit-keyframes fa-beat {
+  0%, 90% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  45% {
+    -webkit-transform: scale(var(--fa-beat-scale, 1.25));
+            transform: scale(var(--fa-beat-scale, 1.25));
+  }
+}
+@keyframes fa-beat {
+  0%, 90% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  45% {
+    -webkit-transform: scale(var(--fa-beat-scale, 1.25));
+            transform: scale(var(--fa-beat-scale, 1.25));
+  }
+}
+@-webkit-keyframes fa-bounce {
+  0% {
+    -webkit-transform: scale(1, 1) translateY(0);
+            transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    -webkit-transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+            transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+  }
+  30% {
+    -webkit-transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+            transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+  }
+  50% {
+    -webkit-transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+            transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+  }
+  57% {
+    -webkit-transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+            transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+  }
+  64% {
+    -webkit-transform: scale(1, 1) translateY(0);
+            transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    -webkit-transform: scale(1, 1) translateY(0);
+            transform: scale(1, 1) translateY(0);
+  }
+}
+@keyframes fa-bounce {
+  0% {
+    -webkit-transform: scale(1, 1) translateY(0);
+            transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    -webkit-transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+            transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+  }
+  30% {
+    -webkit-transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+            transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+  }
+  50% {
+    -webkit-transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+            transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+  }
+  57% {
+    -webkit-transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+            transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+  }
+  64% {
+    -webkit-transform: scale(1, 1) translateY(0);
+            transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    -webkit-transform: scale(1, 1) translateY(0);
+            transform: scale(1, 1) translateY(0);
+  }
+}
+@-webkit-keyframes fa-fade {
+  50% {
+    opacity: var(--fa-fade-opacity, 0.4);
+  }
+}
+@keyframes fa-fade {
+  50% {
+    opacity: var(--fa-fade-opacity, 0.4);
+  }
+}
+@-webkit-keyframes fa-beat-fade {
+  0%, 100% {
+    opacity: var(--fa-beat-fade-opacity, 0.4);
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(var(--fa-beat-fade-scale, 1.125));
+            transform: scale(var(--fa-beat-fade-scale, 1.125));
+  }
+}
+@keyframes fa-beat-fade {
+  0%, 100% {
+    opacity: var(--fa-beat-fade-opacity, 0.4);
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(var(--fa-beat-fade-scale, 1.125));
+            transform: scale(var(--fa-beat-fade-scale, 1.125));
+  }
+}
+@-webkit-keyframes fa-flip {
+  50% {
+    -webkit-transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+            transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+  }
+}
+@keyframes fa-flip {
+  50% {
+    -webkit-transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+            transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+  }
+}
+@-webkit-keyframes fa-shake {
+  0% {
+    -webkit-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+  }
+  4% {
+    -webkit-transform: rotate(15deg);
+            transform: rotate(15deg);
+  }
+  8%, 24% {
+    -webkit-transform: rotate(-18deg);
+            transform: rotate(-18deg);
+  }
+  12%, 28% {
+    -webkit-transform: rotate(18deg);
+            transform: rotate(18deg);
+  }
+  16% {
+    -webkit-transform: rotate(-22deg);
+            transform: rotate(-22deg);
+  }
+  20% {
+    -webkit-transform: rotate(22deg);
+            transform: rotate(22deg);
+  }
+  32% {
+    -webkit-transform: rotate(-12deg);
+            transform: rotate(-12deg);
+  }
+  36% {
+    -webkit-transform: rotate(12deg);
+            transform: rotate(12deg);
+  }
+  40%, 100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+@keyframes fa-shake {
+  0% {
+    -webkit-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+  }
+  4% {
+    -webkit-transform: rotate(15deg);
+            transform: rotate(15deg);
+  }
+  8%, 24% {
+    -webkit-transform: rotate(-18deg);
+            transform: rotate(-18deg);
+  }
+  12%, 28% {
+    -webkit-transform: rotate(18deg);
+            transform: rotate(18deg);
+  }
+  16% {
+    -webkit-transform: rotate(-22deg);
+            transform: rotate(-22deg);
+  }
+  20% {
+    -webkit-transform: rotate(22deg);
+            transform: rotate(22deg);
+  }
+  32% {
+    -webkit-transform: rotate(-12deg);
+            transform: rotate(-12deg);
+  }
+  36% {
+    -webkit-transform: rotate(12deg);
+            transform: rotate(12deg);
+  }
+  40%, 100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.fa-rotate-90 {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+  -webkit-transform: scale(-1, 1);
+          transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+  -webkit-transform: scale(1, -1);
+          transform: scale(1, -1);
+}
+
+.fa-flip-both,
+.fa-flip-horizontal.fa-flip-vertical {
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1);
+}
+
+.fa-rotate-by {
+  -webkit-transform: rotate(var(--fa-rotate-angle, none));
+          transform: rotate(var(--fa-rotate-angle, none));
+}
+
+.fa-stack {
+  display: inline-block;
+  vertical-align: middle;
+  height: 2em;
+  position: relative;
+  width: 2.5em;
+}
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: var(--fa-stack-z-index, auto);
+}
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em;
+}
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em;
+}
+
+.fa-inverse {
+  color: var(--fa-inverse, #fff);
+}
+
+.sr-only,
+.fa-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only-focusable:not(:focus),
+.fa-sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.svg-inline--fa .fa-primary {
+  fill: var(--fa-primary-color, currentColor);
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa .fa-secondary {
+  fill: var(--fa-secondary-color, currentColor);
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-primary {
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-secondary {
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa mask .fa-primary,
+.svg-inline--fa mask .fa-secondary {
+  fill: black;
+}
+
+.fad.fa-inverse,
+.fa-duotone.fa-inverse {
+  color: var(--fa-inverse, #fff);
+}</style><link rel="icon" href="/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000000"><meta name="description" content="Live Chat Operator - ALAN"><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="expires" content="0"><meta http-equiv="pragma" content="no-cache"><link rel="manifest" href="/manifest.json?v=2.0.3"><title>Lead Manage - ALAN Live Chat Operator</title><link href="https://staging-lco.usealan.com/static/css/15.f811a10a.chunk.css" rel="stylesheet"><link href="https://staging-lco.usealan.com/static/css/main.0b302289.chunk.css" rel="stylesheet"><style data-emotion="css"></style></head><body class="live-chat"><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><header class="montserrat site-header"><div class="mob_menu_wrapper d-sm-block d-md-none"><div class="site_menu_wrapper_inner"><div class="mob_site_menu"><ul class="mob_site_content"><li><a aria-current="page" class="menu_item active" href="/">Livechat</a></li><li><button id="logoutUser" class="menu_item nav-link" style="margin-right: 0px;"> Logout</button></li></ul></div><div class="mob_main_user"></div></div><div class="clearfix"></div><p class="mob_text_order topemailphonecolor">Reach us at <a href="mailto:"></a> or <a href="tel:"></a></p><div class="mob_header_logo"><a href="/my-account"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVIAAAAoCAYAAACsG3L8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjc4QzQ2QjI3N0E1MjExRUFBQUE5Q0EwNzRFRjlBRTc0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjc4QzQ2QjI4N0E1MjExRUFBQUE5Q0EwNzRFRjlBRTc0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NzhDNDZCMjU3QTUyMTFFQUFBQTlDQTA3NEVGOUFFNzQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NzhDNDZCMjY3QTUyMTFFQUFBQTlDQTA3NEVGOUFFNzQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4PyBxVAAAPDUlEQVR42uxdD5QVVRn/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" alt="ALAN"></a></div><div class="clearfix"></div></div><div class="hide_small_screen header-container "><div class="container"><div class="header-show-hide d-none"></div><div class="row"><div class="col-md-12"><div class="logo-wrapper"><div class="row"><div class="col-md-6 d-flex"><div class="site-logo header-logo-container"><a title="ALAN - Live Chat" href="/" aria-current="page" class="active"><img src="https://staging-lco.usealan.com/static/media/logotype-blue.82a53959.svg" class="attachment-full size-full" alt="ALAN - Live Chat" title="ALAN"></a><small class="appVersion">v2.1.0</small></div><div class="header-top-menu"><ul><li class="pr-4"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" class="svg-inline--fa fa-user " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg> Live Lead: <strong><span id="liveLead">0</span></strong></li><li class="border-0"><label><span>Auto Assign </span><div class="react-switch" style="position: relative; display: inline-block; text-align: left; opacity: 1; direction: ltr; border-radius: 7.5px; transition: opacity 0.25s ease 0s; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none;"><div class="react-switch-bg" style="height: 15px; width: 30px; margin: 0px; position: relative; background: rgb(0, 136, 0); border-radius: 7.5px; cursor: pointer; transition: background 0.25s ease 0s;"><div style="height: 15px; width: 17px; position: relative; opacity: 1; pointer-events: none; transition: opacity 0.25s ease 0s;"><svg height="100%" width="100%" viewBox="-2 -5 17 21" style="position: absolute; top: 0px;"><path d="M11.264 0L5.26 6.004 2.103 2.847 0 4.95l5.26 5.26 8.108-8.107L11.264 0" fill="#fff" fill-rule="evenodd"></path></svg></div><div style="height: 15px; width: 17px; position: absolute; opacity: 0; right: 0px; top: 0px; pointer-events: none; transition: opacity 0.25s ease 0s;"><svg viewBox="-2 -5 14 20" height="100%" width="100%" style="position: absolute; top: 0px;"><path d="M9.9 2.12L7.78 0 4.95 2.828 2.12 0 0 2.12l2.83 2.83L0 7.776 2.123 9.9 4.95 7.07 7.78 9.9 9.9 7.776 7.072 4.95 9.9 2.12" fill="#fff" fill-rule="evenodd"></path></svg></div></div><div class="react-switch-handle" style="height: 13px; width: 13px; background: rgb(255, 255, 255); display: inline-block; cursor: pointer; border-radius: 50%; position: absolute; transform: translateX(16px); top: 1px; outline: 0px; border: 0px; transition: background-color 0.25s ease 0s, transform 0.25s ease 0s, box-shadow 0.15s ease 0s;"></div><input type="checkbox" role="switch" checked="" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"></div></label></li><li class="mutesound">Mute Sound <i class="fas fa-volume-up text-success"></i> : <strong>No</strong></li></ul></div></div><div class="col-md-6"><div class="header-top-menu" style="width: 100%;"><ul class="text-left" style="width: 45%;"><li class="border-0 text-left"><label class="full_story"><span>Full Story </span><div class="react-switch" style="position: relative; display: inline-block; text-align: left; opacity: 1; direction: ltr; border-radius: 7.5px; transition: opacity 0.25s ease 0s; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none;"><div class="react-switch-bg" style="height: 15px; width: 30px; margin: 0px; position: relative; background: rgb(136, 136, 136); border-radius: 7.5px; cursor: pointer; transition: background 0.25s ease 0s;"><div style="height: 15px; width: 17px; position: relative; opacity: 0; pointer-events: none; transition: opacity 0.25s ease 0s;"><svg height="100%" width="100%" viewBox="-2 -5 17 21" style="position: absolute; top: 0px;"><path d="M11.264 0L5.26 6.004 2.103 2.847 0 4.95l5.26 5.26 8.108-8.107L11.264 0" fill="#fff" fill-rule="evenodd"></path></svg></div><div style="height: 15px; width: 17px; position: absolute; opacity: 1; right: 0px; top: 0px; pointer-events: none; transition: opacity 0.25s ease 0s;"><svg viewBox="-2 -5 14 20" height="100%" width="100%" style="position: absolute; top: 0px;"><path d="M9.9 2.12L7.78 0 4.95 2.828 2.12 0 0 2.12l2.83 2.83L0 7.776 2.123 9.9 4.95 7.07 7.78 9.9 9.9 7.776 7.072 4.95 9.9 2.12" fill="#fff" fill-rule="evenodd"></path></svg></div></div><div class="react-switch-handle" style="height: 13px; width: 13px; background: rgb(255, 255, 255); display: inline-block; cursor: pointer; border-radius: 50%; position: absolute; transform: translateX(1px); top: 1px; outline: 0px; border: 0px; transition: background-color 0.25s ease 0s, transform 0.25s ease 0s, box-shadow 0.15s ease 0s;"></div><input type="checkbox" role="switch" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"></div></label></li></ul><ul class="text-right" style="width: 55%;"><li class="user-details-modal"> <button class="nav-link">Welcome <span>Henry Molokwu - Live</span></button></li><li class="change-password-modal"> <button class="nav-link">Change Password</button></li><li class=""><button class="nav-link" href="#">Logout</button></li><small id="timenow" class=""><strong>System Time: </strong>2023-12-04 15:23:42 (Los Angeles)</small></ul></div></div></div></div></div></div></div><section id="scrollTop"><div class="site_menu"><div class="header-logo-fix"><a href="/" aria-current="page" class="active"><img src="https://staging-lco.usealan.com/static/media/logotype-blue.82a53959.svg" alt="Alan" title=""></a></div><div class="container"><div class="row"><div class="col-md-12"><nav class="primary-nav"><div class="menu-main-menu-container"><ul id="menu-main-menu" class="menu"><li><a aria-current="page" class="menu_item active" href="/">My Account</a></li><li><a aria-current="page" class="menu_item active" href="/">Livechat</a></li></ul></div></nav></div></div></div></div></section></div></header><div class="site-wrapper"><div class="Toastify"></div><audio><source src="https://usealan.s3.us-east-2.amazonaws.com/assets/media/audio/alan-lco-sound.mp3" type="audio/mpeg"></audio><button id="disconnectSocket" class="d-none"></button><div class="main-container container"><div class="row"><div class="col-md-12"><div class="live-chat-body"><div class="customer-lis-wrapper"><div class="customer-list"><div class="customer-sms-list"><div class="latest-replies-wrapper"><div class="latest-replies-header"><div class="latest-replies-header-title">Replies</div><div class="follow-up-latest-replies"><button id="follow-up-button">Snooze</button></div><div class="latest-replies-header-pagination"><span> 1 to 10 of 17 </span><div class="schedule-message"><ul class="pagination"><li class="disabled"><a class="" href="#" aria-label="Go to previous page"><button type="button" class="btn btn-primary"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left" class="svg-inline--fa fa-angle-left fa-w-8 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg></button></a></li><li class="active"><a class="undefined" href="#" aria-label="Go to page number 1">1</a></li><li class=""><a class="" href="#" aria-label="Go to next page"><button type="button" class="btn btn-primary"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" class="svg-inline--fa fa-angle-right fa-w-8 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg></button></a></li></ul></div></div></div><div class="latest-replies-list latest-replies-list-search-wrapper"><div class="searhFieldWrapper"><div class="selectSearch css-2b097c-container"><div class="Select__control css-yk16xz-control"><div class="Select__value-container Select__value-container--has-value css-1hwfws3"><div class="Select__single-value css-1uccc91-singleValue">Ryan Chamberland (United Fitness Augusta, Maine)</div><div class="css-1g6gooi"><div class="Select__input" style="display: inline-block;"><input autocapitalize="none" autocomplete="off" autocorrect="off" id="react-select-2-input" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" value="" style="box-sizing: content-box; width: 2px; background: 0px center; border: 0px; font-size: inherit; opacity: 0; outline: 0px; padding: 0px; color: inherit;"><div style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 16px; font-family: Montserrat, sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;"></div></div></div></div><div class="Select__indicators css-1wy0on6"><div aria-hidden="true" class="Select__indicator Select__clear-indicator css-tlfecz-indicatorContainer"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"></path></svg></div><span class="Select__indicator-separator css-1okebmr-indicatorSeparator"></span><div aria-hidden="true" class="Select__indicator Select__dropdown-indicator css-tlfecz-indicatorContainer"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg></div></div></div><input name="query" type="hidden" value="Ryan Chamberland (United Fitness Augusta, Maine)"></div></div><div class="DateRangePickerContainer"><div class="react-daterange-picker react-daterange-picker--closed react-daterange-picker--enabled form-control0"><div class="react-daterange-picker__wrapper"><div class="react-daterange-picker__inputGroup"><input max="275760-09-12" min="0001-01-01" name="daterange_from" type="date" value="2023-11-04" style="visibility: hidden; position: absolute; z-index: -999;"><input autocomplete="off" class="react-daterange-picker__inputGroup__input react-daterange-picker__inputGroup__month" data-input="true" inputmode="numeric" max="12" min="1" name="month" placeholder="--" type="number" value="11" style="width: 12px;"><span class="react-date-picker__inputGroup__divider">/</span><input autocomplete="off" class="react-daterange-picker__inputGroup__input react-daterange-picker__inputGroup__day" data-input="true" inputmode="numeric" max="30" min="1" name="day" placeholder="--" type="number" value="4" style="width: 11px;"><span class="react-date-picker__inputGroup__divider">/</span><input autocomplete="off" class="react-daterange-picker__inputGroup__input react-daterange-picker__inputGroup__year" data-input="true" inputmode="numeric" max="275760" min="1" name="year" placeholder="----" step="1" type="number" value="2023" style="width: 36px;"></div><span class="react-daterange-picker__range-divider">-</span><div class="react-daterange-picker__inputGroup"><input max="275760-09-12" min="0001-01-01" name="daterange_to" type="date" value="2023-12-04" style="visibility: hidden; position: absolute; z-index: -999;"><input autocomplete="off" class="react-daterange-picker__inputGroup__input react-daterange-picker__inputGroup__month" data-input="true" inputmode="numeric" max="12" min="1" name="month" placeholder="--" type="number" value="12" style="width: 15px;"><span class="react-date-picker__inputGroup__divider">/</span><input autocomplete="off" class="react-daterange-picker__inputGroup__input react-daterange-picker__inputGroup__day" data-input="true" inputmode="numeric" max="31" min="1" name="day" placeholder="--" type="number" value="4" style="width: 11px;"><span class="react-date-picker__inputGroup__divider">/</span><input autocomplete="off" class="react-daterange-picker__inputGroup__input react-daterange-picker__inputGroup__year" data-input="true" inputmode="numeric" max="275760" min="1" name="year" placeholder="----" step="1" type="number" value="2023" style="width: 36px;"></div><button class="react-daterange-picker__clear-button react-daterange-picker__button" type="button"></button><button class="react-daterange-picker__calendar-button react-daterange-picker__button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" stroke="black" stroke-width="2" class="react-daterange-picker__calendar-button__icon react-daterange-picker__button__icon"><rect fill="none" height="15" width="15" x="2" y="2"></rect><line x1="6" x2="6" y1="0" y2="4"></line><line x1="13" x2="13" y1="0" y2="4"></line></svg></button></div></div></div><div class="fullLatestList" id="fullLatestList_scrollbar" style="position: relative; overflow: hidden; width: 100%; height: 100%;"><div style="position: absolute; inset: 0px; overflow: scroll; margin-right: 0px; margin-bottom: 0px;"><div class="list-group"><div id="triggerid_1511722_5305" class="active list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Lisa Henley" href="#" data-rb-event-key="#" class="nav-link active" role="button">Lisa Henley</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>12</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>27 Nov, 02:12 pm</span></div></div></div><div id="triggerid_1434328_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Angela Krehbiel" href="#" data-rb-event-key="#" class="nav-link active" role="button">Angela Krehbiel</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>26</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>27 Nov, 01:03 pm</span></div></div></div><div id="triggerid_1420286_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Sarah Kilton" href="#" data-rb-event-key="#" class="nav-link active" role="button">Sarah Kilton</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>16</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>27 Nov, 11:17 am</span></div></div></div><div id="triggerid_1397485_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Sharon Metayer" href="#" data-rb-event-key="#" class="nav-link active" role="button">Sharon Metayer</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>22</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>27 Nov, 10:09 am</span></div></div></div><div id="triggerid_1507022_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Brendasue Gaboury" href="#" data-rb-event-key="#" class="nav-link active" role="button">Brendasue Gaboury</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>14</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>19 Nov, 07:48 pm</span></div></div></div><div id="triggerid_1499543_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Judi  Freeman " href="#" data-rb-event-key="#" class="nav-link active" role="button">Judi  Freeman </a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>16</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>17 Nov, 03:46 pm</span></div></div></div><div id="triggerid_1490561_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Heidi Alley" href="#" data-rb-event-key="#" class="nav-link active" role="button">Heidi Alley</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>31</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>16 Nov, 03:10 pm</span></div></div></div><div id="triggerid_1513159_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Caron Foren" href="#" data-rb-event-key="#" class="nav-link active" role="button">Caron Foren</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>5</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>15 Nov, 08:03 pm</span></div></div></div><div id="triggerid_1491733_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Lena Hinrichs" href="#" data-rb-event-key="#" class="nav-link active" role="button">Lena Hinrichs</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>33</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>12 Nov, 04:04 pm</span></div></div></div><div id="triggerid_1508959_5305" class="list-group-item"><div class="latest-replies-name"><a title="Ryan Chamberland (United Fitness Augusta, Maine)" href="#" data-rb-event-key="#" class="nav-link active" role="button"> Ryan Chamberland (United Fitness Augusta, Maine)</a></div><div class="latest-replies-left"><h3><a title="Mitch Berube" href="#" data-rb-event-key="#" class="nav-link active" role="button">Mitch Berube</a></h3><div class="chat-count-time"><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" class="svg-inline--fa fa-comments " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>10</span><span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clock" class="svg-inline--fa fa-clock " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>9 Nov, 02:07 pm</span></div></div></div></div></div><div style="position: absolute; height: 6px; display: none; right: 2px; bottom: 2px; left: 2px; border-radius: 3px;"><div style="position: relative; display: block; height: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2);"></div></div><div class="track-vertical" style="position: absolute; width: 6px; display: none;"><div class="thumb-vertical" style="position: relative; display: block; width: 100%;"></div></div></div></div></div></div></div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <style>
+    .lco-corner-box { position: absolute; top: 0; left: 0; width: 100%; height: 220px; box-shadow: 0 0 8px rgba(0,0,0,0.1); z-index: 1000; overflow: hidden; }
+    .lco-corner-tabs { position: absolute; top: 0; left: 0; width: 100%; z-index: 2; text-align: center; line-height: 36px; height: 36px; font-size: 0; overflow: hidden; }
+    .lco-corner-tabs button { appearance: none; -webkit-appearance: none; border: 0 none; outline: 0 none; font-family: inherit; color: inherit; width: 50%; background: white; font-size: 12px; text-transform: uppercase; font-weight: 500; cursor: pointer; box-shadow: 0 -4px 0 #EEE inset; }
+    .lco-corner-tabs button.active { font-weight: bold; box-shadow: 0 -4px 0 blue inset; }
+    .lco-corner-box .frame-container { z-index: 1; }
+    .lco-corner-box .frame-container iframe { width: 100% !important; border: 0 none; height: calc(100% - 36px) !important; top: auto; bottom: 0; z-index: 1; }
+  </style>
+
+  <div class="lco-corner-box">
+    <div class="lco-corner-tabs">
+      <button>Internal Notes</button>
+      <button class="active">Stats</button>
+    </div>
+    <div class="frame-container">
+      <iframe src="http://jorge.usealan.com:2000/mocks/lco-stats/"></iframe></div>
+    <div class="frame-container"></div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div><div class="middle-container"><div class="main-chat-wrapper"><div class="main-chat-container"><div class="main-chat-top-header manuallyAssigned"><div class="live-chat-custome-owner"><div class="customer-name"><div class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" class="svg-inline--fa fa-user " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg> &nbsp;</div><div class=""><h3><span class="contact_name_message" title="Lisa Henley">Lisa Henley</span></h3><span class="promo-name" title="6-Week Challenge"> 6-Week Challenge</span><div class="gym-martial-arts" title="Gym - US - In-Person - In-Person"> Gym - US - In-Person - In-Person</div></div></div><div class="gym-owner-name"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="briefcase" class="svg-inline--fa fa-briefcase " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M320 336c0 8.84-7.16 16-16 16h-96c-8.84 0-16-7.16-16-16v-48H0v144c0 25.6 22.4 48 48 48h416c25.6 0 48-22.4 48-48V288H320v48zm144-208h-80V80c0-25.6-22.4-48-48-48H176c-25.6 0-48 22.4-48 48v48H48c-25.6 0-48 22.4-48 48v80h512v-80c0-25.6-22.4-48-48-48zm-144 0H192V96h128v32z"></path></svg> &nbsp;Ryan Chamberland (United Fitness Augusta, Maine)</div></div></div><div class="main-chat-header"><h3 class="date-time"></h3><div class="header-btn-group"><ul><li class="addschedule"><a href="#" class="nav-link" role="button"> <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calendar-plus" class="svg-inline--fa fa-calendar-plus " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm316 140c0-6.6-5.4-12-12-12h-60v-60c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v60h-60c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h60v60c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-60h60c6.6 0 12-5.4 12-12v-40z"></path></svg> Add Schedule </a></li><li class="assign-to-owner"><a href="#" class="nav-link" role="button"> Assign to Owner </a></li><li class="archive"><a href="#" class="nav-link" role="button">Archive</a></li><li class="opt-out"><a href="#" class="nav-link" role="button">Opt Out</a></li><li class="black-list"><a href="#" class="nav-link" role="button">Black List</a></li><li class="follow_up"><a id="follow_up_btn" href="#" class="nav-link" role="button"> <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bed" class="svg-inline--fa fa-bed " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path></svg> Snooze </a></li></ul></div></div><div class="CusScrollbars mainchat-box-wrapper" id="message_area_scrollbar" style="position: relative; overflow: hidden; width: 100%; height: auto; min-height: 50%; max-height: 90%;"><div style="position: relative; overflow: scroll; margin-right: 0px; margin-bottom: 0px; min-height: calc(50% + 0px); max-height: calc(90% + 0px);"><ul><li class="sender" id="mid-18885327"><div class="text-container"><span class="messageSingle">Cancelling appt. Thanks, Lisa</span><div class="mediaContainer sender"></div><div class="time"><span class=""></span>13 Nov 2023, 08:07 AM (New York)</div></div></li><li class="sender me" id="mid-18885333"><div class="text-container"><span class="messageSingle">Sorry, would you like to reschedule your appointment?</span><div class="mediaContainer sender me"></div><div class="time"><span class="sendBy">Henry Molokwu - Live</span>13 Nov 2023, 08:07 AM (New York)</div></div></li><li class="sender me" id="mid-18885341"><div class="text-container"><span class="messageSingle">Hey Lisa saw you had to cancel. No worries! I hope everything's okay. What time in the next few days is best for you?</span><div class="mediaContainer sender me"></div><div class="time"><span class=""></span>13 Nov 2023, 08:13 AM (New York)<strong> (Auto)</strong></div></div></li><li class="sender" id="mid-18885348"><div class="text-container"><span class="messageSingle">Hi there, dont think it will fit into my schedule. That is the reason for cancelling. Thanks anyways! -Lisa</span><div class="mediaContainer sender"></div><div class="time"><span class=""></span>13 Nov 2023, 08:15 AM (New York)</div></div></li><li class="sender me" id="mid-18885353"><div class="text-container"><span class="messageSingle">Totally understand. Just reach back out to us when you are ready. Looking forward to being able to help you crush your goals!</span><div class="mediaContainer sender me"></div><div class="time"><span class="sendBy">Eden Isaga - Live</span>13 Nov 2023, 08:15 AM (New York)</div></div></li><li class="sender me" id="mid-19011798"><div class="text-container"><span class="messageSingle">In case you missed my message above, I have more times available if you want to grab a spot. What time in the next few days is best for you?</span><div class="mediaContainer sender me"></div><div class="time"><span class=""></span>27 Nov 2023, 05:09 PM (New York)<strong> (Auto)</strong></div></div></li><li class="sender" id="mid-19011909"><div class="text-container"><span class="messageSingle">Who is this?</span><div class="mediaContainer sender"></div><div class="time"><span class=""></span>27 Nov 2023, 05:12 PM (New York)</div></div></li><li class="sender me" id="mid-19011925"><div class="text-container"><span class="messageSingle">My name is The United Fitness Team with United Fitness Augusta, Maine. You had previously shown interest in the 6-Week Challenge. Could I get you scheduled in the next few days for a quick orientation to go over your goals and see how we can help you reach them using fitness, nutrition, and accountability?</span><div class="mediaContainer sender me"></div><div class="time"><span class=""></span>27 Nov 2023, 05:13 PM (New York)<strong> (Auto)</strong></div></div></li><li class="sender me" id="mid-19028288"><div class="text-container"><span class="messageSingle">Just in case you don't want to do the 6-Week Challenge - no problem! I opened up a bunch of times this week if you want to come in and just check out the facility (no pressure). Are you free to come in the next few days?<br></span><div class="mediaContainer sender me"></div><div class="time"><span class=""></span>28 Nov 2023, 06:14 PM (New York)<strong> (Auto)</strong></div></div></li><li class="sender me" id="mid-19050530"><div class="text-container"><span class="messageSingle">Thinking about starting a workout routine can be overwhelming. We get it. But you've already taken a step in the right direction and that's something to be proud of. Are you free to come in in the next few days?</span><div class="mediaContainer sender me"></div><div class="time"><span class=""></span>30 Nov 2023, 03:29 PM (New York)<strong> (Auto)</strong></div></div></li></ul></div><div style="position: absolute; height: 6px; display: none; right: 2px; bottom: 2px; left: 2px; border-radius: 3px;"><div style="position: relative; display: block; height: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2);"></div></div><div class="track-vertical" style="position: absolute; width: 6px; display: none;"><div class="thumb-vertical" style="position: relative; display: block; width: 100%;"></div></div></div><form class="chat-send-opt"><div class="col-12 suggestedTimes" style="height: auto; top: -40px;"><strong>Suggested Times for : </strong><div class="rdt setScheduleMessagePauseDate"><input type="text" class="form-control" value="2023-12-04"><div class="rdtPicker"><div class="rdtDays"><table><thead><tr><th class="rdtPrev"><span>‹</span></th><th class="rdtSwitch" colspan="5" data-value="11">December 2023</th><th class="rdtNext"><span>›</span></th></tr><tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr></thead><tbody><tr><td data-value="26" class="rdtDay rdtOld rdtDisabled">26</td><td data-value="27" class="rdtDay rdtOld rdtDisabled">27</td><td data-value="28" class="rdtDay rdtOld rdtDisabled">28</td><td data-value="29" class="rdtDay rdtOld rdtDisabled">29</td><td data-value="30" class="rdtDay rdtOld rdtDisabled">30</td><td data-value="1" class="rdtDay rdtDisabled">1</td><td data-value="2" class="rdtDay rdtDisabled">2</td></tr><tr><td data-value="3" class="rdtDay rdtDisabled">3</td><td data-value="4" class="rdtDay rdtActive rdtToday">4</td><td data-value="5" class="rdtDay">5</td><td data-value="6" class="rdtDay">6</td><td data-value="7" class="rdtDay">7</td><td data-value="8" class="rdtDay">8</td><td data-value="9" class="rdtDay">9</td></tr><tr><td data-value="10" class="rdtDay">10</td><td data-value="11" class="rdtDay">11</td><td data-value="12" class="rdtDay">12</td><td data-value="13" class="rdtDay">13</td><td data-value="14" class="rdtDay">14</td><td data-value="15" class="rdtDay">15</td><td data-value="16" class="rdtDay">16</td></tr><tr><td data-value="17" class="rdtDay">17</td><td data-value="18" class="rdtDay">18</td><td data-value="19" class="rdtDay">19</td><td data-value="20" class="rdtDay">20</td><td data-value="21" class="rdtDay">21</td><td data-value="22" class="rdtDay">22</td><td data-value="23" class="rdtDay">23</td></tr><tr><td data-value="24" class="rdtDay">24</td><td data-value="25" class="rdtDay">25</td><td data-value="26" class="rdtDay">26</td><td data-value="27" class="rdtDay">27</td><td data-value="28" class="rdtDay">28</td><td data-value="29" class="rdtDay">29</td><td data-value="30" class="rdtDay">30</td></tr><tr><td data-value="31" class="rdtDay">31</td><td data-value="1" class="rdtDay rdtNew">1</td><td data-value="2" class="rdtDay rdtNew">2</td><td data-value="3" class="rdtDay rdtNew">3</td><td data-value="4" class="rdtDay rdtNew">4</td><td data-value="5" class="rdtDay rdtNew">5</td><td data-value="6" class="rdtDay rdtNew">6</td></tr></tbody></table></div></div></div><span>No Suggested Time Found!</span></div><textarea placeholder="Type your message..." id="message_chat_type_area" autocomplete="off" data-enable-grammarly="true"></textarea><button type="submit" class="btn btn-primary"> </button><button type="submit" class="pauseSend btn btn-primary"> </button></form></div><div class="main-chat-container main-chat-container-right"><div class="main-chat-top-header"><div class="header-btn-group"><ul><li class="alan-schedulemessages"><a href="#" class="nav-link" role="button">Schedule Messages</a></li><li class="alan-calender"><a href="#" class="nav-link" role="button">Alan Calendar <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calendar-alt" class="svg-inline--fa fa-calendar-alt " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg></a></li><li class="acuity-calende"><a href="#" class="active nav-link" role="button">Acuity Calendar <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg> </a></li></ul></div></div><div class="shedule-messages-container"><div><iframe src="https://staging-calendar.usealan.com/calendar/5305/1511722?onlyAvailables=1&amp;ucode=38756086c3ee0ba48&amp;firstName=Lisa&amp;lastName=Henley&amp;email=testhenley2002@live.com&amp;phone=2075575450#dates-and-times" class="iframeacuity" allowfullscreen="" id="acuityIframe" width="100%" height="100%" style="display: initial;"></iframe></div></div><div class="live-chat-short-code"><div class="live-chat-short-code-header"><div class="title">Shortcodes<span class="active">Most Used</span><span class="tab-style">All </span></div><form class="live-chat-short-code-search"><input placeholder="Search" name="code_search" type="text" class="form-control" value=""></form></div><div class="live-chat-short-code-tag"><div class="customer-sms-list-scrollbars" style="position: relative; overflow: hidden; width: 100%; height: 200px;"><div style="position: absolute; inset: 0px; overflow: scroll; margin-right: 0px; margin-bottom: 0px;"><span class="shortcode-section"><span class="shortcode-section-data shortcode-flex-wrap"><button id="command+shift+b" class="nav-link ctrl+shift+b command+shift+b">[busy]</button><button id="command+shift+r" class="nav-link ctrl+shift+r command+shift+r">[reengage]</button><button id="" class="nav-link  ">[my_first_name]</button><button id="command+shift+p" class="nav-link ctrl+shift+p command+shift+p">[price_information]</button><button id="" class="nav-link  ">[cannot_answer]</button><button id="command+shift+u" class="nav-link ctrl+shift+u command+shift+u">[am_or_pm]</button><button id="command+shift+m" class="nav-link ctrl+shift+m command+shift+m">[motivation]</button><button id="command+shift+e" class="nav-link ctrl+shift+e command+shift+e">[reschedule]</button><button id="" class="nav-link  ">[office_number]</button><button id="" class="nav-link  ">[gym_name]</button><button id="command+shift+i" class="nav-link ctrl+shift+i command+shift+i">[injury]</button><button id="" class="nav-link  ">[female_testimonial_finished]</button><button id="" class="nav-link  ">[customer_first_name]</button><button id="" class="nav-link  ">[female_testimonial_finished_challenge]</button><button id="" class="nav-link  ">[female_testimonial_13_pounds]</button><button id="" class="nav-link  ">[corona_requirements]</button><button id="" class="nav-link  ">[female_testimonial_13_pounds_picture]</button><button id="" class="nav-link  ">[2_hour_appointment_reminder_photo]</button><button id="" class="nav-link  ">[male_testimonial_finished]</button><button id="" class="nav-link  ">[male_testimonial_finished_challenge]</button><button id="" class="nav-link  ">[free_item]</button><button id="" class="nav-link  ">[lost]</button><button id="" class="nav-link  ">[gym_pet_name]</button><button id="" class="nav-link  ">[1_day_appointment_reminder_photo]</button><button id="" class="nav-link  ">[schedule_pic]</button><button id="" class="nav-link  ">[what_to_wear]</button><button id="command+shift+x" class="nav-link ctrl+shift+x command+shift+x">[gym_address]</button><button id="" class="nav-link  ">[schedule_pic_message]</button><button id="" class="nav-link  ">[children_at_orientation]</button><button id="" class="nav-link  ">[orientation_over_text]</button><button id="" class="nav-link  ">[parking_information]</button><button id="command+shift+c" class="nav-link ctrl+shift+c command+shift+c">[challenge_information]</button><button id="" class="nav-link  ">[appointment_time]</button><button id="" class="nav-link  ">[promo_name]</button><button id="command+shift+h" class="nav-link ctrl+shift+h command+shift+h">[hours]</button><button id="" class="nav-link  ">[type_of_workouts]</button><button id="" class="nav-link  ">[start_information]</button><button id="" class="nav-link  ">[age_requirements]</button><button id="command+shift+o" class="nav-link ctrl+shift+o command+shift+o">[orientation_information]</button><button id="" class="nav-link  ">[on_the_fence]</button><button id="" class="nav-link  ">[child_care]</button><button id="" class="nav-link  ">[call_me]</button><button id="command+shift+s" class="nav-link ctrl+shift+s command+shift+s">[sick]</button><button id="" class="nav-link  ">[bring_a_friend]</button><button id="" class="nav-link  ">[modified_nutrition]</button><button id="" class="nav-link  ">[not_sure]</button><button id="" class="nav-link  ">[appointment_date]</button><button id="" class="nav-link  ">[spanish]</button><button id="" class="nav-link  ">[limited_availability]</button><button id="" class="nav-link  ">[location_too_far]</button></span></span></div><div style="position: absolute; height: 6px; display: none; right: 2px; bottom: 2px; left: 2px; border-radius: 3px;"><div style="position: relative; display: block; height: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2);"></div></div><div class="track-vertical" style="position: absolute; width: 6px; display: none;"><div class="thumb-vertical" style="position: relative; display: block; width: 100%;"></div></div></div></div></div></div></div></div></div></div></div></div></div><footer class="site-footer"><aside class="footer-widgets col-xs-12"><div class="prestigelabs-footer"><ul class=""><li class="">© 2023 ALAN</li><li class=""><a target="_blank" rel="noopener noreferrer" title="ALAN Privacy Policy Notice" href="https://usealan.com/privacy-policy/" class="nav-link">ALAN Privacy Policy Notice</a></li><li class=""><a target="_blank" rel="noopener noreferrer" title="ALAN Terms of Use" href="https://usealan.com/terms-of-use/" class="nav-link">ALAN Terms of Use</a></li></ul></div></aside></footer></div><script>!function(e){function r(r){for(var a,c,i=r[0],l=r[1],u=r[2],p=0,s=[];p<i.length;p++)c=i[p],Object.prototype.hasOwnProperty.call(n,c)&&n[c]&&s.push(n[c][0]),n[c]=0;for(a in l)Object.prototype.hasOwnProperty.call(l,a)&&(e[a]=l[a]);for(f&&f(r);s.length;)s.shift()();return o.push.apply(o,u||[]),t()}function t(){for(var e,r=0;r<o.length;r++){for(var t=o[r],a=!0,i=1;i<t.length;i++){var l=t[i];0!==n[l]&&(a=!1)}a&&(o.splice(r--,1),e=c(c.s=t[0]))}return e}var a={},n={14:0},o=[];function c(r){if(a[r])return a[r].exports;var t=a[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,c),t.l=!0,t.exports}c.e=function(e){var r=[],t=n[e];if(0!==t)if(t)r.push(t[2]);else{var a=new Promise((function(r,a){t=n[e]=[r,a]}));r.push(t[2]=a);var o,i=document.createElement("script");i.charset="utf-8",i.timeout=120,c.nc&&i.setAttribute("nonce",c.nc),i.src=function(e){return c.p+"static/js/"+({1:"reactPlayerDailyMotion",2:"reactPlayerFacebook",3:"reactPlayerFilePlayer",4:"reactPlayerKaltura",5:"reactPlayerMixcloud",6:"reactPlayerPreview",7:"reactPlayerSoundCloud",8:"reactPlayerStreamable",9:"reactPlayerTwitch",10:"reactPlayerVidyard",11:"reactPlayerVimeo",12:"reactPlayerWistia",13:"reactPlayerYouTube"}[e]||e)+"."+{1:"600b55bb",2:"0af824e8",3:"c3cb2cbb",4:"96756cc5",5:"151b9ae5",6:"5a704a27",7:"5bc1d82f",8:"3dc70cd1",9:"f1182f65",10:"852416b9",11:"7b97ea55",12:"ab72931b",13:"68dd9bcb"}[e]+".chunk.js"}(e);var l=new Error;o=function(r){i.onerror=i.onload=null,clearTimeout(u);var t=n[e];if(0!==t){if(t){var a=r&&("load"===r.type?"missing":r.type),o=r&&r.target&&r.target.src;l.message="Loading chunk "+e+" failed.\n("+a+": "+o+")",l.name="ChunkLoadError",l.type=a,l.request=o,t[1](l)}n[e]=void 0}};var u=setTimeout((function(){o({type:"timeout",target:i})}),12e4);i.onerror=i.onload=o,document.head.appendChild(i)}return Promise.all(r)},c.m=e,c.c=a,c.d=function(e,r,t){c.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},c.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},c.t=function(e,r){if(1&r&&(e=c(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(c.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var a in e)c.d(t,a,function(r){return e[r]}.bind(null,a));return t},c.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return c.d(r,"a",r),r},c.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},c.p="/",c.oe=function(e){throw console.error(e),e};var i=this["webpackJsonplive-chat-operator"]=this["webpackJsonplive-chat-operator"]||[],l=i.push.bind(i);i.push=r,i=i.slice();for(var u=0;u<i.length;u++)r(i[u]);var f=l;t()}([])</script><script src="/static/js/15.69e6d492.chunk.js"></script><script src="/static/js/main.06c4f1ad.chunk.js"></script></body></html>
