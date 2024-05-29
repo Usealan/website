@@ -46,17 +46,17 @@ permalink: /howdy/
       .step p { margin: 0 auto; line-height: 1.7; font-size: 20px; opacity: 0.9; }
       .step-01, .step-sorry { position: relative; top: 50%; transform: translateY(-50%); }
       .step-02 { padding-top: 140px; }
-      .step-02 p { margin: -20px auto 20px; padding: 0 20px; }
+      .step-02 p { margin: -20px auto 20px; padding: 0 20px; max-width: 640px; }
       .step-sorry h1 { max-width: none; }
       .step-sorry p { max-width: 460px; }
       
       .table { list-style: none; text-align: left; font-size: 0; padding: 20px; max-width: 1024px; margin: 0 auto; }
       .table li { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px; }
       .table li span { width: 25%; display: inline-block; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
-      .table li span:nth-child(1) { width: 90px; }
-      .table li span:nth-child(2) { width: calc(100% - 90px - 90px - 120px); }
-      .table li span:nth-child(3) { width: 90px; text-align: center; }
-      .table li span:nth-child(4) { width: 120px; text-align: right; }
+      .table li span:nth-child(1) { width: 220px; }
+      .table li span:nth-child(2) { width: calc(100% - 220px - 200px - 160px); }
+      .table li span:nth-child(3) { width: 200px; text-align: center; }
+      .table li span:nth-child(4) { width: 160px; text-align: right; }
       .table li.table-header span { font-weight: bold; }
       .table button { padding: 10px 20px; font-size: 13px; font-weight: bold; text-transform: uppercase; }
       
@@ -67,7 +67,7 @@ permalink: /howdy/
         .step h1 { font-size: 25px; max-width: 340px; margin: 0 auto 30px; }
         .step p { font-size: 15px; }
         .step-02 { padding-top: 110px; }
-        .step-02 p { max-width: 300px; margin: -10px auto 10px; }
+        .step-02 p { max-width: 380px; margin: -10px auto 10px; }
         .step-sorry h1 { max-width: 240px; }
         .step-sorry p { max-width: 360px; }
         .table li { padding: 15px 10px; }
@@ -75,7 +75,6 @@ permalink: /howdy/
         .table li:nth-child(2) { border-top: 1px solid rgba(255,255,255,0.1); }
         .table li span { width: 100% !important; display: block; text-align: center !important; padding: 8px 0; }
         .table li span:nth-child(2) { font-weight: bold; font-size: 24px; line-height: 1.4; white-space: normal; }
-        .table li span:nth-child(3):after { content: " tickets available"; }
       }
       
       @keyframes animStar {
@@ -121,49 +120,13 @@ permalink: /howdy/
     </div>
     <div class="step step-02 center">
       <h1>Welcome, <span>Jorge</span>!</h1>
-      <p>Here's a list of upcoming events at Moody Center.</p>
+      <p>Below is the most updated list of exclusive events that you have Howdy VIP access too. Tickets available upon request.</p>
       <ul class="table">
         <li class="table-header">
           <span>Date</span>
           <span>Artist / Event</span>
-          <span>Tickets</span>
+          <span>Category</span>
           <span></span>
-        </li>
-        <li>
-          <span>6/1/24</span>
-          <span>Justin Timberlake</span>
-          <span>4</span>
-          <span><button class="request">Request</button></span>
-        </li>
-        <li>
-          <span>6/2/24</span>
-          <span>NF</span>
-          <span>6</span>
-          <span><button class="request">Request</button></span>
-        </li>
-        <li>
-          <span>6/6/24</span>
-          <span>Fuerza Regida</span>
-          <span>12</span>
-          <span><button class="request">Request</button></span>
-        </li>
-        <li>
-          <span>6/8/24</span>
-          <span>Monster Jam Monster Trucks</span>
-          <span>8</span>
-          <span><button class="request">Request</button></span>
-        </li>
-        <li>
-          <span>6/9/24</span>
-          <span>Monster Jam Monster Trucks</span>
-          <span>10</span>
-          <span><button class="request">Request</button></span>
-        </li>
-        <li>
-          <span>6/12/24</span>
-          <span>Alanis Morissette</span>
-          <span>2</span>
-          <span><button class="request">Request</button></span>
         </li>
       </ul>
     </div>
@@ -176,6 +139,7 @@ permalink: /howdy/
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script>
+      
       // Check if Chrome
       $(document).ready(function(){if(/chrome/.test(navigator.userAgent.toLowerCase())&&!/edge|opr/.test(navigator.userAgent.toLowerCase())){$("body").addClass("chrome");}});
       
@@ -186,6 +150,7 @@ permalink: /howdy/
         $(".step-01").hide()
         $(".step-02").show();
         $(".header").addClass("with-bg");
+        loadEvents();
       }
       
       // Check phone
@@ -228,6 +193,46 @@ permalink: /howdy/
           }
         }
       });
+      
+      // VIP List
+      
+      var vipListFeed = "https://sheets.googleapis.com/v4/spreadsheets/19-pn8gOJZn6xnr7C5vD2Zj_GuN80wVILAC7qFOvLbDs/values/VIP%20List!A2:ZZ1000?key=AIzaSyCU_kflM1pAAaLfjn-8jKXMAQqMpJVXnks";
+      
+      // Load Events
+      
+      var eventsFeed = "https://sheets.googleapis.com/v4/spreadsheets/19-pn8gOJZn6xnr7C5vD2Zj_GuN80wVILAC7qFOvLbDs/values/Events!A2:ZZ1000?key=AIzaSyCU_kflM1pAAaLfjn-8jKXMAQqMpJVXnks";
+      
+      function loadEvents() {
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: eventsFeed,
+          success: function(result) {
+            entry = result.values;
+            $.each(entry, function (index) {
+              var event          = entry[index];
+              var status         = event[0];
+              var date           = event[1];
+              var formattedDate  = event[2];
+              var artist         = event[3];
+              var category       = event[4];
+              
+              if (status == "TRUE") {
+                $(".table").append("\
+                  <li>\
+                    <span>" + formattedDate + "</span>\
+                    <span>" + artist + "</span>\
+                    <span>" + category + "</span>\
+                    <span><button class='request'>Request Tickets</button></span>\
+                  </li>\
+                ");
+              }
+              
+            });
+          }
+        });
+      }
+      
     </script>
   </body>
 </html>
