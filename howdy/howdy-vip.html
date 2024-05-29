@@ -24,11 +24,10 @@ permalink: /howdy/
       .header .logo:after { content: "VIP"; position: absolute; left: 100%; color: white; font-weight: 900; padding: 10px 15px; font-size: 30px; transform: translateY(-10px); top: 0; letter-spacing: 2px; border-left: 2px solid rgba(255, 255, 255, 0.2); margin-left: 15px; text-shadow: 0 1px rgba(0, 0, 0, .07); background: -webkit-linear-gradient(white, #F3DDC4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
       .header .logo img { height: 40px; display: block; position: relative; }
 
-      .header.with-bg { padding: 12px 25px; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); background-color: rgba(255, 255, 255, .08); border: 1px solid rgba(255,255,255,.08); margin: 15px 0; border-radius: 32px; width: calc(100% - 30px); max-width: 1000px; left: 50%; transform: translateX(-50%); }
+      .header.with-bg { padding: 12px 25px; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); background-color: rgba(255, 255, 255, .08); border: 1px solid rgba(255,255,255,.08); margin: 15px 0; border-radius: 32px; width: calc(100% - 30px); max-width: 1000px; left: 50%; transform: translateX(-50%); z-index: 100; }
       .header.with-bg .header-cta { right: 12px; }
       .header.with-bg .logo:after { font-size: 20px; }
       .header.with-bg .logo img { height: 30px; }
-
 
       .center { text-align: center; }
       input { -webkit-appearance: none; appearance: none; outline: 0 none; font-size: inherit; font-family: inherit; line-height: inherit; border-radius: 4px; color: white; font-weight: inherit; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); position: relative; }
@@ -97,6 +96,20 @@ permalink: /howdy/
         <a href="https://howdy.com" target="_blank" class="header-cta">howdy.com</a>
       </div>
     </div>
+    
+<!--
+    <form id="google-sheet-form" method="POST" action="https://script.google.com/macros/s/AKfycbydQw2Om6WjR6besQoBWSj672dCaNHGz2Yde9t9zO2_AWKU13s_1G417Gl1MVi7pTjj/exec" style="position: absolute; left: 50%; transform: translateX(-50%);">
+      <label>First Name:</label>
+      <input type="text" id="first-name" name="First Name"><br>
+      <label>Last Name:</label>
+      <input type="text" id="last-name" name="Last Name"><br>
+      <label>Email:</label>
+      <input type="email" id="email" name="Email"><br>
+      <label>Phone:</label>
+      <input type="tel" id="phone" name="Phone"><br>
+      <input type="submit" value="Submit">
+    </form>
+-->
         
     <div class="step step-01 center" style="display: block;">
       <h1>Enter your phone number to see if you're on the list.</h1>
@@ -108,7 +121,7 @@ permalink: /howdy/
     </div>
     <div class="step step-02 center">
       <h1>Welcome, <span>Jorge</span>!</h1>
-      <p>Here's a list of the upcoming events at Moody Center.</p>
+      <p>Here's a list of upcoming events at Moody Center.</p>
       <ul class="table">
         <li class="table-header">
           <span>Date</span>
@@ -190,7 +203,7 @@ permalink: /howdy/
         e.preventDefault();
         var phoneNumber = $("#phoneNumber").val().trim();
         if(/^\d{10}$/.test(phoneNumber)){
-          if (phoneNumber == 5129150870){
+          if (phoneNumber == 5129150870 || phoneNumber == 1111111111){
             stepTwo();
             $(".step-02 h1 span").text("Jorge");
           } else if (phoneNumber == 5128000694){
