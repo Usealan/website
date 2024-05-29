@@ -31,7 +31,8 @@ title: Howdy VIP
       input.big-input:hover, input.big-input:focus { border-color: rgba(255,255,255,0.25); }
       input.big-input::placeholder { color: #BDBDC0; letter-spacing: normal; font-size: 18px; line-height: 1; font-weight: normal; display: block; }
       body.chrome input.big-input::placeholder { transform: translateY(-5px); }
-      button[type=submit] { -webkit-appearance: none; appearance: none; outline: 0 none; font-size: inherit; font-family: inherit; line-height: inherit; border-radius: 32px; color: black; font-weight: inherit; position: absolute; border: 0 none; cursor: pointer; background: #ECD0B5; padding: 15px; margin-top: 30px; min-width: 140px; font-weight: bold; left: 50%; transform: translateX(-50%); display: none; }
+      button[type=submit] { -webkit-appearance: none; appearance: none; outline: 0 none; font-size: inherit; font-family: inherit; line-height: inherit; border-radius: 32px; color: black; font-weight: inherit; position: absolute; border: 0 none; cursor: pointer; background: #ECD0B5; padding: 15px; margin-top: 30px; min-width: 140px; font-weight: bold; left: 50%; transform: translateX(-50%); opacity: 0; pointer-events: none; transition: 0.3s opacity ease; }
+      button[type=submit].visible { opacity: 1; pointer-events: all; }
       button[type=submit] span.mdi { margin-right: 10px; }
       .step { display: none; }
       .step-01 { padding-top: 20px; display: block; }
@@ -92,9 +93,9 @@ title: Howdy VIP
       $("#phoneNumber").on("input", function() {
         var phoneNumber = $(this).val().trim();
         if (/^\d{10}$/.test(phoneNumber)) {
-          $("#phoneInput button").show();
+          $("#phoneInput button").addClass("visible");
         } else {
-          $("#phoneInput button").hide();
+          $("#phoneInput button").removeClass("visible");
         }
       });
 
