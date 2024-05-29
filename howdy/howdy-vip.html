@@ -17,33 +17,54 @@ permalink: /howdy/
       * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
       body { font-family: "Inter"; background: black; background: #1E1E21; color: white; position: absolute; top: 0; left: 0; width: 100%; height: 100%; font-size: 17px; touch-action: pan-x pan-y; }
       .bg { position: fixed; top: 0; left: 0; width: 100%; height: 200vh; z-index: -1; background-image: url("/howdy/bg.png"); background-position: 50%; background-size: auto 2000px; animation: animStar 50s linear infinite; }
-      .header { position: fixed; top: 0; left: 50%; transform: translateX(-50%); max-width: 1200px; width: calc(100% - 40px); padding: 20px 0; }
-      .header .header-cta { position: absolute; top: 50%; right: 0; transform: translateY(-50%); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,.08); border-radius: 32px; color: white; line-height: 24px; padding: 8px 16px; font-size: 14px; letter-spacing: -0.2px; text-decoration: none; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); font-weight: normal; transition: border-color 0.3s ease; }
+      .header { position: fixed; top: 0; left: 0; width: 100%; padding: 30px; }
+      .header .header-cta { position: absolute; top: 50%; right: 30px; transform: translateY(-50%); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,.08); border-radius: 32px; color: white; line-height: 24px; padding: 8px 16px; font-size: 14px; letter-spacing: -0.2px; text-decoration: none; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); font-weight: normal; transition: border-color 0.3s ease; }
       .header .header-cta:hover { border-color: rgba(255,255,255,0.25); }
-      .logo { position: relative; display: inline-block; transform: translateY(5px); }
-      .logo:after { content: "VIP"; position: absolute; left: 100%; color: white; font-weight: 900; padding: 10px 15px; font-size: 30px; transform: translateY(-10px); top: 0; letter-spacing: 2px; border-left: 2px solid rgba(255, 255, 255, 0.2); margin-left: 15px; text-shadow: 0 1px rgba(0, 0, 0, .07); background: -webkit-linear-gradient(white, #F3DDC4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-      .logo img { height: 40px; display: block; position: relative; }
+      .header .logo { position: relative; display: inline-block; transform: translateY(5px); }
+      .header .logo:after { content: "VIP"; position: absolute; left: 100%; color: white; font-weight: 900; padding: 10px 15px; font-size: 30px; transform: translateY(-10px); top: 0; letter-spacing: 2px; border-left: 2px solid rgba(255, 255, 255, 0.2); margin-left: 15px; text-shadow: 0 1px rgba(0, 0, 0, .07); background: -webkit-linear-gradient(white, #F3DDC4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .header .logo img { height: 40px; display: block; position: relative; }
 
-      .stage { position: relative; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); padding: 20px; }
+      .header.with-bg { padding: 12px 25px; backdrop-filter: blur(16px); background-color: rgba(255, 255, 255, .08); border: 1px solid rgba(255,255,255,.08); margin: 15px 0; border-radius: 32px; width: calc(100% - 30px); max-width: 1000px; left: 50%; transform: translateX(-50%); }
+      .header.with-bg .header-cta { right: 12px; }
+      .header.with-bg .logo:after { font-size: 20px; }
+      .header.with-bg .logo img { height: 30px; }
+
+
       .center { text-align: center; }
       input { -webkit-appearance: none; appearance: none; outline: 0 none; font-size: inherit; font-family: inherit; line-height: inherit; border-radius: 4px; color: white; font-weight: inherit; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); position: relative; }
+      button { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-size: inherit; font-family: inherit; line-height: inherit; border-radius: 32px; color: black; background: #ECD0B5; cursor: pointer; }
       input.big-input { width: calc(100% - 40px); max-width: 480px; font-size: 30px; line-height: 60px; text-align: center; letter-spacing: 5px; border-radius: 32px; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 2px 2px rgba(0,0,0,.2),0 10px 15px rgba(0,0,0,0.3); transition: border-color 0.3s ease; }
       input.big-input:hover, input.big-input:focus { border-color: rgba(255,255,255,0.25); }
       input.big-input::placeholder { color: #BDBDC0; letter-spacing: normal; font-size: 18px; line-height: 1; font-weight: normal; display: block; }
       body.chrome input.big-input::placeholder { transform: translateY(-5px); }
-      button[type=submit] { -webkit-appearance: none; appearance: none; outline: 0 none; font-size: inherit; font-family: inherit; line-height: inherit; border-radius: 32px; color: black; font-weight: inherit; position: absolute; border: 0 none; cursor: pointer; background: #ECD0B5; padding: 15px; margin-top: 30px; min-width: 140px; font-weight: bold; left: 50%; transform: translateX(-50%); opacity: 0; pointer-events: none; transition: 0.3s opacity ease; }
+      button[type=submit] { font-weight: inherit; position: absolute; padding: 15px; margin-top: 30px; min-width: 140px; font-weight: bold; left: 50%; transform: translateX(-50%); opacity: 0; pointer-events: none; transition: 0.3s opacity ease; }
       button[type=submit].visible { opacity: 1; pointer-events: all; }
       button[type=submit] span.mdi { margin-right: 10px; }
       .step { display: none; }
-      .step-01 { padding-top: 20px; display: block; }
+      .step-01, .step-sorry { position: relative; top: 50%; transform: translateY(-50%); }
+      .step-02 { padding-top: 140px; }
       h1 { margin: 0 auto 40px; font-weight: 800; font-size: 40px; line-height: 1.3; max-width: 550px; background: -webkit-linear-gradient(white, #AAAAAA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
       h2 { margin: 0 0 40px; font-weight: 600; font-size: 24px; }
       h4 { margin: 30px 0 0; font-weight: 400; opacity: 0.7; font-size: 14px; }
       .step-sorry h1 { max-width: none; }
       .step-sorry p { max-width: 460px; margin: 0 auto; line-height: 1.7; font-size: 20px; opacity: 0.9; }
       
+      .table { list-style: none; text-align: left; font-size: 0; padding: 20px 10px; max-width: 1024px; margin: 0 auto; }
+      .table li { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px; }
+      .table li span { width: 25%; display: inline-block; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
+      .table li span:nth-child(1) { width: 90px; }
+      .table li span:nth-child(2) { width: calc(100% - 90px - 90px - 120px); }
+      .table li span:nth-child(3) { width: 90px; text-align: center; }
+      .table li span:nth-child(4) { width: 120px; text-align: right; }
+      .table li.table-header span { font-weight: bold; }
+      .table button { padding: 10px 20px; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+      
       @media screen and (max-width: 600px) {
+        .header { padding: 20px; }
+        .header .header-cta { right: 20px; }
+        .header.with-bg { width: calc(100% - 20px); }
         h1 { font-size: 25px; max-width: 340px; margin: 0 auto 30px; }
+        .step-02 { padding-top: 110px; }
         .step-sorry h1 { max-width: 240px; }
         .step-sorry p { max-width: 360px; font-size: 15px; }
       }
@@ -66,24 +87,65 @@ permalink: /howdy/
         <a href="https://howdy.com" target="_blank" class="header-cta">howdy.com</a>
       </div>
     </div>
-    
-    
-    <div class="stage">      
-      <div class="step step-01 center">
-        <h1>Enter your phone number to see if you're on the list.</h1>
-        <form id="phoneInput">
-          <input id="phoneNumber" class="big-input" type="tel" placeholder="Enter your phone here..." autocomplete="off" inputmode="numeric" pattern="\d{10}" maxlength="10" required="" />
-          <h4>Ten digits and numbers only, please.</h4>
-          <button type="submit"><span class="mdi mdi-magnify"></span>Search</button>
-        </form>
-      </div>
-      <div class="step step-02 center">
-        <h1 style="margin-bottom: 0px;">Welcome, <span></span>!</h1>
-      </div>
-      <div class="step step-sorry center">
-        <h1>Thanks for showing interest!</h1>
-        <p>We're constantly adding contacts to our waitlist. We'll contact you as soon as you're in.</p>
-      </div>
+        
+    <div class="step step-01 center" style="display: block;">
+      <h1>Enter your phone number to see if you're on the list.</h1>
+      <form id="phoneInput">
+        <input id="phoneNumber" class="big-input" type="tel" placeholder="Enter your phone here..." autocomplete="off" inputmode="numeric" pattern="\d{10}" maxlength="10" required="" />
+        <h4>Ten digits and numbers only, please.</h4>
+        <button type="submit"><span class="mdi mdi-magnify"></span>Search</button>
+      </form>
+    </div>
+    <div class="step step-02 center">
+      <h1 style="margin-bottom: 0px;">Welcome, <span>Jorge</span>!</h1>
+      <ul class="table">
+        <li class="table-header">
+          <span>Date</span>
+          <span>Artist / Event</span>
+          <span>Tickets</span>
+          <span></span>
+        </li>
+        <li>
+          <span>6/1/24</span>
+          <span>Justin Timberlake</span>
+          <span>4</span>
+          <span><button class="request">Request</button></span>
+        </li>
+        <li>
+          <span>6/2/24</span>
+          <span>NF</span>
+          <span>6</span>
+          <span><button class="request">Request</button></span>
+        </li>
+        <li>
+          <span>6/6/24</span>
+          <span>Fuerza Regida</span>
+          <span>12</span>
+          <span><button class="request">Request</button></span>
+        </li>
+        <li>
+          <span>6/8/24</span>
+          <span>Monster Jam Monster Trucks</span>
+          <span>8</span>
+          <span><button class="request">Request</button></span>
+        </li>
+        <li>
+          <span>6/9/24</span>
+          <span>Monster Jam Monster Trucks</span>
+          <span>10</span>
+          <span><button class="request">Request</button></span>
+        </li>
+        <li>
+          <span>6/12/24</span>
+          <span>Alanis Morissette</span>
+          <span>2</span>
+          <span><button class="request">Request</button></span>
+        </li>
+      </ul>
+    </div>
+    <div class="step step-sorry center">
+      <h1>Thanks for showing interest!</h1>
+      <p>We're constantly adding contacts to our waitlist. We'll contact you as soon as you're in.</p>
     </div>
     
     <div class="bg"></div>
@@ -92,6 +154,15 @@ permalink: /howdy/
     <script>
       // Check if Chrome
       $(document).ready(function(){if(/chrome/.test(navigator.userAgent.toLowerCase())&&!/edge|opr/.test(navigator.userAgent.toLowerCase())){$("body").addClass("chrome");}});
+      
+      // Load step 2
+      
+      function stepTwo() {
+        $(".step-sorry").hide();
+        $(".step-01").hide()
+        $(".step-02").show();
+        $(".header").addClass("with-bg");
+      }
       
       // Check phone
 
@@ -109,34 +180,22 @@ permalink: /howdy/
         var phoneNumber = $("#phoneNumber").val().trim();
         if(/^\d{10}$/.test(phoneNumber)){
           if (phoneNumber == 5129150870){
-            $(".step-sorry").hide();
-            $(".step-01").hide()
-            $(".step-02").show();
+            stepTwo();
             $(".step-02 h1 span").text("Jorge");
           } else if (phoneNumber == 5128000694){
-            $(".step-sorry").hide();
-            $(".step-01").hide()
-            $(".step-02").show();
+            stepTwo();
             $(".step-02 h1 span").text("Lloyd");
           } else if (phoneNumber == 5613061030){
-            $(".step-sorry").hide();
-            $(".step-01").hide()
-            $(".step-02").show();
+            stepTwo();
             $(".step-02 h1 span").text("Jacqueline");
           } else if (phoneNumber == 5125904338){
-            $(".step-sorry").hide();
-            $(".step-01").hide()
-            $(".step-02").show();
+            stepTwo();
             $(".step-02 h1 span").text("Frank");
           } else if (phoneNumber == 2024225674){
-            $(".step-sorry").hide();
-            $(".step-01").hide()
-            $(".step-02").show();
+            stepTwo();
             $(".step-02 h1 span").text("Josh");
           } else if (phoneNumber == 9032387925){
-            $(".step-sorry").hide();
-            $(".step-01").hide()
-            $(".step-02").show();
+            stepTwo();
             $(".step-02 h1 span").text("Edgar");
           } else {
             $(".step-sorry").show();
