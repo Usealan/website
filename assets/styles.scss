@@ -160,7 +160,10 @@ body.signup-on .signup-modal { display: block; }
 .signup-modal h4 { font-size: 15px; font-weight: normal; line-height: 1.5; padding: 0 0 25px; margin: 0; width: 100%; max-width: 300px; opacity: 0.8; }
 .signup-modal p { display: none; font-size: 15px; line-height: 1.5; width: 100%; max-width: 300px; border-top: 1px solid rgba(0,0,0,0.1); font-weight: 600; margin: -10px 0 0; padding: 15px 0 0; color: var(--color-green); }
 .signup-modal form { font-size: 0; margin-right: -15px; }
-.signup-modal input { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; font-size: 16px; color: #333333; line-height: 1; padding: 12px; margin: 0 15px 15px 0; width: calc(100% - 15px); border-radius: 5px; border: 1px solid #DDDDDD; }
+.signup-modal input[type=text], .signup-modal input[type=tel], .signup-modal input[type=email] { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; font-size: 16px; color: #333333; line-height: 1; padding: 12px; margin: 0 15px 15px 0; width: calc(100% - 15px); border-radius: 5px; border: 1px solid #DDDDDD; }
+.signup-modal .checkbox { font-size: 15px; margin: 0 0 20px; padding: 0 0 0 25px; position: relative; }
+.signup-modal .checkbox label { opacity: 0.8; }
+.signup-modal .checkbox input[type=checkbox] { position: absolute; top: 50%; left: 0; transform: translateY(-50%); }
 .signup-modal input[type=submit] { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; cursor: pointer; background: white; color: var(--color-blue); padding: 0 20px; border-radius: 6px; line-height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.2); font-weight: bold; margin: 0 25px 0 0; font-size: 17px; text-decoration: none; display: inline-block; min-width: 180px; text-align: center; letter-spacing: 0.5px; transition: all 0.3s ease; color: white; background: var(--color-blue);}
 span.mdi-close { position: absolute; top: 13px; right: 15px; font-size: 20px; cursor: pointer; opacity: 0.6; }
 
