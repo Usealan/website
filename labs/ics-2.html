@@ -1,0 +1,109 @@
+---
+permalink: /ics-2/
+title: ICS Preview
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICS File Parser</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.4.0/ical.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>ICS File Events</h1>
+
+    <!-- Input to provide the ICS URL -->
+    <input type="text" id="icsUrlInput" placeholder="Enter ICS file URL" style="width: 300px;">
+    <button id="loadIcs">Load ICS File</button>
+    
+    <h2>Event List</h2>
+    <ul id="eventList"></ul>
+
+    <script>
+        $('#loadIcs').on('click', function() {
+            const icsUrl = $('#icsUrlInput').val();
+
+            if (!icsUrl) {
+                alert('Please enter a valid ICS URL.');
+                return;
+            }
+
+            // Use jQuery to fetch the ICS file from the provided URL
+            $.ajax({
+                url: icsUrl,
+                method: 'GET',
+                success: function(data) {
+                    // Parse ICS data using ical.js
+                    const jcalData = ICAL.parse(data);
+                    const comp = new ICAL.Component(jcalData);
+                    const events = comp.getAllSubcomponents('vevent');
+
+                    const eventList = $('#eventList');
+                    eventList.empty(); // Clear previous events
+
+                    // Loop through each event and display its summary, start, and end date
+                    events.forEach(event => {
+                        const summary = event.getFirstPropertyValue('summary');
+                        const startDate = event.getFirstPropertyValue('dtstart');
+                        const endDate = event.getFirstPropertyValue('dtend');
+
+                        // Append each event to the event list
+                        eventList.append(`<li>Event: ${summary}, Start: ${startDate}, End: ${endDate}</li>`);
+                    });
+                },
+                error: function() {
+                    alert('Failed to load the ICS file. Please check the URL and try again.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+    <title>ALAN ICS Preview</title>
+    <link rel="apple-touch-icon" href="/assets/images/icon.png">
+    <link rel="shortcut icon" href="/assets/images/icon.ico" />
+    <style>
+      * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
+      :root { --blue: #5F6EEE; --yellow: #EEDF5F; --green: #33B679; --orange: #EE935F; --red: #F4511E; }
+      iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0 none; }
+    </style>
+  </head>
+  <body>
+    <iframe src=""></iframe>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script>
+
+      // Make URL parameters readable
+
+      var getUrlParameter=function(r){var t,e,n=decodeURIComponent(window.location.search.substring(1)).split("&");for(e=0;e<n.length;e++)if((t=n[e].split("="))[0]===r)return void 0===t[1]||t[1]};
+
+      // Variables
+
+      if (getUrlParameter("url")) {
+        var url = getUrlParameter("url");
+      } else {
+        window.location.replace("/");
+      }
+      
+      // Replace URL parameters
+     
+      window.history.replaceState(null, null, "?url=" + url );
+      
+      // Inject Calendar
+      
+      $("iframe").attr("src","https://open-web-calendar.hosted.quelltext.eu/calendar.html?skin=terrace&tab=agenda&timezone=America/Los_Angeles&url=" + url);
+
+    </script>
+  </body>
+</html>
+-->

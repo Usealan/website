@@ -1,0 +1,103 @@
+---
+permalink: /embed/
+title: embed
+---
+
+<!--
+
+user_id     : Short (4 digit) ALAN user ID
+public_id   : Long ALAN user ID
+campaign_id : Campaign ID
+
+https://calendar.usealan.com/calendar/6443/1729741?onlyAvailables=1&simplified=1
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
+    <title>Embed</title>
+    <link rel="apple-touch-icon" href="/assets/images/icon.png">
+    <link rel="shortcut icon" href="/assets/images/icon.ico" />
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+      * { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased; outline: 0 none; shape-renderer: crispEdges;	-moz-osx-font-smoothing: grayscale; }
+      body { position: relative; font-family: "Inter", sans-serif; color: #323648; max-width: 500px; margin: 0 auto; padding: 20px; }
+      a { color: #5F6EEE; font-weight: 500; }
+      .form { position: relative; width: 100%; font-size: 0; }
+      input, button { -webkit-appearance: none; appearance: none; border: 0 none; outline: 0 none; font-family: inherit; font-weight: inherit; background: white; color: inherit; border-radius: 5px; font-size: 16px; padding: 12px; width: 100%; margin: 0 0 14px; background: white; }
+      input[type=text] { display: inline-block; width: calc(50% - 7px); }
+      input[type=text]:first-child { margin-right: 14px; }
+      input[type=text],
+      input[type=email],
+      input[type=tel] { border: 1px solid #DDDDDD; transition: border 0.3s ease; }
+      input[type=text]:hover,
+      input[type=email]:hover,
+      input[type=tel]:hover { border: 1px solid #CCCCCC; }
+      input[type=text]:focus,
+      input[type=email]:focus,
+      input[type=tel]:focus { border: 1px solid #227EF7; }
+      button[type=submit] { font-size: 17px; background: #5F6EEE; color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 -1px 0 rgba(0,0,0,0.2) inset; font-weight: 600; padding: 12px 20px; margin-top: 5px; border: 2px solid #227EF7; margin-bottom: 0; transition: transform 0.3s ease; cursor: pointer; }
+      button[type=submit]:hover { transform: translateY(-2px); }
+      button[type=submit]:focus { border: 2px solid white; outline: 1px solid #227EF7; box-shadow: 0 0 0 transparent; }
+      .form p { font-size: 12px; text-align: center; margin: 0 auto 10px; letter-spacing: 0.1px; color: #666666; }
+      iframe { position: relative; width: 100%; border: 0 none; height: 100%; }
+
+      @media screen and (max-width: 767px) {}
+    </style>
+  </head>
+  <body>
+
+    <div class="form">
+      <form id="form" method="POST">
+        <input type="text" id="first-name" name="First Name" placeholder="First Name" required="" autocomplete="off">
+        <input type="text" id="last-name" name="Last Name" placeholder="Last Name" required=""  autocomplete="off">
+        <input type="email" id="email" name="Email" placeholder="Email" pattern="^\S+@\S+$" required=""  autocomplete="off">
+        <input type="tel" id="phone" name="Phone" placeholder="Phone Number" pattern="^(\d{7}|\d{10})$" title="Ten digit number, no dashes or special characters." required=""  autocomplete="off">
+        <input type="text" id="campaign" name="Campaign" placeholder="free-hair-health-consultation" value="free-hair-health-consultation" style="display: none;">
+        <p>By clicking "Sign Up" you agree to our <a href="https://usealan.com/terms" target="_blank">Terms & Conditions</a>.</p>
+        <div>
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script>
+      
+      // Make URL parameters readable
+      
+      var getUrlParameter=function(r){var t,e,n=decodeURIComponent(window.location.search.substring(1)).split("&");for(e=0;e<n.length;e++)if((t=n[e].split("="))[0]===r)return void 0===t[1]||t[1]};
+
+      // Variables
+
+      if (getUrlParameter("public_id")) {
+        var public_id = getUrlParameter("public_id");
+      } else {
+        var public_id = "";
+        console.log("⚠️ public_id missing");
+      }
+      
+      if (getUrlParameter("user_id")) {
+        var user_id = getUrlParameter("user_id");
+      } else {
+        var user_id = "";
+        console.log("⚠️ user_id missing");
+      }
+
+      if (getUrlParameter("campaign_id")) {
+        var campaign_id = getUrlParameter("campaign_id");
+      } else {
+        var campaign_id = "";
+        console.log("⚠️ campaign_id missing");
+      }
+      
+      // Replace URL parameter
+      
+      window.history.replaceState(null, null, "?public_id=" + public_id + "&user_id=" + user_id  + "&campaign_id=" + campaign_id);
+      
+    </script>
+  </body>
+</html>
